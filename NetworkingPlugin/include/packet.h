@@ -16,9 +16,15 @@
 #ifndef _PACKET_H_
 #define _PACKET_H_
 
+// Needs to be included for packet id's
+#include <RakNet/MessageIdentifiers.h>
+
+// This is the same definition that RakNet uses for time
+typedef uint64_t Time;
+
 enum PacketTypes
 {
-	PACKET_BASE_ID = 134,
+	PACKET_BASE_ID = ID_USER_PACKET_ENUM,
 	PACKET_END
 };
 
@@ -31,10 +37,16 @@ enum PacketTypes
 #pragma BIT_START
 struct Packet
 {
+	// Time stamp things
+	const unsigned char useTimeStamp = ID_TIMESTAMP;
+	Time timeStamp;
+
 	// TO-DO ADD TIME CODE STUFF
 	unsigned char packetID;
 };
 #pragma BIT_END
+
+
 
 // This definition is to get the toal number of packets
 #define PACKET_COUNT (PACKET_END - PACKET_BASE_ID)

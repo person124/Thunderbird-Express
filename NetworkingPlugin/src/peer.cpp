@@ -15,6 +15,7 @@
 
 #include "peer.hpp"
 
+#include <RakNet/GetTime.h>
 #include <RakNet/RakPeerInterface.h>
 
 #include "connection.hpp"
@@ -53,7 +54,7 @@ void Peer::sendPacket(Packet* packet, Connection* dest, bool sendToAll)
 	else
 		d.g = dest->getID();
 
-	// TO-DO Set the packet timestamp here
+	packet->timeStamp = RakNet::GetTime();
 
 	mPeer->Send
 	(
