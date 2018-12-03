@@ -38,3 +38,6 @@ sysinfo.txt
 NetworkingPlugin/Win32/*
 NetworkingPlugin/x64/*
 NetworkingPlugin/Debug/*
+
+# Networking Project Build Files
+Assets/Plugins*
