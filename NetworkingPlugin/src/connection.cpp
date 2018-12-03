@@ -13,7 +13,7 @@
 *
 */
 
-#include "connection.h"
+#include "connection.hpp"
 
 #include <assert.h>
 

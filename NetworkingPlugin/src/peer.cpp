@@ -13,9 +13,12 @@
 *
 */
 
-#include "peer.h"
+#include "peer.hpp"
 
 #include <RakNet/RakPeerInterface.h>
+
+#include "connection.hpp"
+#include "packet.h"
 
 Peer::Peer()
 {

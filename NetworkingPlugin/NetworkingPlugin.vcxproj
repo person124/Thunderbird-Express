@@ -19,11 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\connection.h" />
-    <ClInclude Include="include\peer.h" />
+    <ClInclude Include="include\connection.hpp" />
+    <ClInclude Include="include\packet.h" />
+    <ClInclude Include="include\peer.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\connection.cpp" />
+    <ClCompile Include="src\packet.cpp" />
     <ClCompile Include="src\peer.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

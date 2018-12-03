@@ -15,10 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\peer.h">
+    <ClInclude Include="include\packet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\connection.h">
+    <ClInclude Include="include\connection.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\peer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -27,6 +30,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\peer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\packet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
