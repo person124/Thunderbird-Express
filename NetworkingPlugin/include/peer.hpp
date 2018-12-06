@@ -16,6 +16,8 @@
 #ifndef _PEER_H_
 #define _PEER_H_
 
+#include "thread.h"
+
 // This is so we don't have to include raknet in every file
 namespace RakNet
 {
@@ -40,10 +42,32 @@ public:
 	// Sends a packet to all clients but the specified one
 	void sendPacketBut(Packet* packet, Connection* dest);
 	// Sends a packet to the destination, with the option to send to all
-	void sendPacket(Packet* packet, Connection* ddest, bool sendToAll = false);
+	void sendPacket(Packet* packet, Connection* dest, bool sendToAll = false);
+
+	// Starts the threaded networking loop
+	void startNetworkingLoop();
+
+protected:
+	// Pure virtual method that incoming packets are sent to, conn is the
+	// where the packet came from
+	virtual void handlePacket(Packet* packet, Connection* conn) = 0;
+
+	bool mRunning = false;
 
 private:
+	// friend function that calls the internal networking loop
+	// This function is out of order in the cpp to satisfy the
+	// compilier
+	friend void loopHandler(Peer* peer);
+
+	// This function handles packet recieving and event processing.
+	// NOTE: this function does not contain a loop,
+	// it must be called by one.
+	void internalNetworkingLoop();
+
 	RakPeer* mPeer;
+
+	Thread* mThread;
 };
 
 #endif
