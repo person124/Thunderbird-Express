@@ -13,14 +13,22 @@
 
 struct Client
 {
-	char Name[32];
-	RakNet::RakNetGUID clientsGuid;
+	char mName[32];
+	RakNet::RakNetGUID mClientsGuid;
 };
 
 struct Server
 {
-
+	char mName[32];
+	char mIpAddress[14];
+	int mMaxClients, mCurrentClientNumber;
 };
+
+struct ChatMessage
+{
+	char mMessage[256];
+};
+
 
 
 #endif // !STRUCTURES_H
