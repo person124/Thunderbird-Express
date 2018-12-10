@@ -16,6 +16,8 @@
 #ifndef _PEER_H_
 #define _PEER_H_
 
+#include <string>
+
 #include "thread.h"
 
 // This is so we don't have to include raknet in every file
@@ -44,6 +46,16 @@ public:
 	// Sends a packet to the destination, with the option to send to all
 	void sendPacket(Packet* packet, Connection* dest, bool sendToAll = false);
 
+	// Starts the peer as a server, opening it on the specified
+	// port, with the specified number of max connections
+	// Returns false if the startup failed
+	bool startServer(unsigned int port, unsigned int maxClients);
+
+	// Starts the peer as a client, connecting it to the specified
+	// ip and port
+	// Returns false if the startup failed
+	bool startClient(const std::string& ip, unsigned int port);
+
 	// Starts the threaded networking loop
 	void startNetworkingLoop();
 
@@ -53,6 +65,10 @@ protected:
 	virtual void handlePacket(Packet* packet, Connection* conn) = 0;
 
 	bool mRunning = false;
+
+	std::string mIP;
+	unsigned int mPort;
+	unsigned int mMaxClients;
 
 private:
 	// friend function that calls the internal networking loop

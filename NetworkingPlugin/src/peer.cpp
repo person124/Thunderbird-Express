@@ -68,12 +68,60 @@ void Peer::sendPacket(Packet* packet, Connection* dest, bool sendToAll)
 	);
 }
 
+// Starts the peer as a server, opening it on the specified
+// port, with the specified number of max connections
+// Returns false if the startup failed
+bool Peer::startServer(unsigned int port, unsigned int maxClients)
+{
+	mIP = "";
+	mPort = port;
+	mMaxClients = maxClients;
+
+	RakNet::SocketDescriptor sd(mPort, 0);
+	RakNet::StartupResult result = mPeer->Startup(mMaxClients, &sd, 1);
+
+	if (result != RakNet::StartupResult::RAKNET_STARTED)
+		return false;
+
+	mPeer->SetMaximumIncomingConnections(mMaxClients);
+
+	return true;
+}
+
+// Starts the peer as a client, connecting it to the specified
+// ip and port
+// Returns false if the startup failed
+bool Peer::startClient(const std::string& ip, unsigned int port)
+{
+	mIP = ip;
+	mPort = port;
+	mMaxClients = 1;
+
+	RakNet::SocketDescriptor sd;
+
+	mPeer->Startup(1, &sd, 1);
+
+	RakNet::ConnectionAttemptResult result =
+		mPeer->Connect(mIP.c_str(), mPort, 0, 0);
+
+	if (result != RakNet::ConnectionAttemptResult::CONNECTION_ATTEMPT_STARTED)
+		return false;
+
+	RakNet::Packet* packet = NULL;
+	while (packet == NULL)
+		packet = mPeer->Receive();
+	if (packet->data[0] != ID_CONNECTION_REQUEST_ACCEPTED)
+		return false;
+
+	return true;
+}
+
 // friend function that calls the internal networking loop
 // This function is out of order in the cpp to satisfy the
 // compilier
 void loopHandler(Peer* peer)
 {
-	while (1)
+	while (peer->mRunning)
 	{
 		peer->internalNetworkingLoop();
 	}
