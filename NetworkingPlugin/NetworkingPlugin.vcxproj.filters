@@ -33,6 +33,12 @@
     <ClInclude Include="include\plugin\config.h">
       <Filter>Header Files\plugin</Filter>
     </ClInclude>
+    <ClInclude Include="include\plugin\dllmain.h">
+      <Filter>Header Files\plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="include\plugin\plugin.h">
+      <Filter>Header Files\plugin</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\connection.cpp">

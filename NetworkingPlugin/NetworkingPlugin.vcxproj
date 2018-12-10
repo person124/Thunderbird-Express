@@ -23,6 +23,8 @@
     <ClInclude Include="include\packet.h" />
     <ClInclude Include="include\peer.hpp" />
     <ClInclude Include="include\plugin\config.h" />
+    <ClInclude Include="include\plugin\dllmain.h" />
+    <ClInclude Include="include\plugin\plugin.h" />
     <ClInclude Include="include\thread.h" />
   </ItemGroup>
   <ItemGroup>
