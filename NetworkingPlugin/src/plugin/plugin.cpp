@@ -45,6 +45,12 @@ bool NetworkingPlugin_StartClient(char ip[128], int port)
 	return peerInstance->startClient(IP, port);
 }
 
+void NetworkingPlugin_StartLoop()
+{
+	if (peerInstance)
+		peerInstance->startNetworkingLoop();
+}
+
 #pragma region FUNCTION_SETTERS
 
 void NetworkingPlugin_FuncTransform(FuncTransform func)

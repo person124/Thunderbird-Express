@@ -28,6 +28,9 @@ extern "C"
 	PLUGIN_SYMBOL
 		bool NetworkingPlugin_StartClient(char ip[128], int port);
 
+	PLUGIN_SYMBOL
+		void NetworkingPlugin_StartLoop();
+
 #pragma region FUNCTION_SETTERS
 
 	PLUGIN_SYMBOL

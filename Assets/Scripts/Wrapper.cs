@@ -24,6 +24,9 @@ public class Wrapper
 	[DllImport(DLL)]
 	public static extern bool NetworkingPlugin_StartClient(char[] ip, int port);
 
+	[DllImport(DLL)]
+	public static extern void NetworkingPlugin_StartLoop();
+
 	// ==========================================================
 	// FUNCTION SETTERS
 	// ==========================================================
