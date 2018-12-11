@@ -19,7 +19,7 @@ void AddServer(RakNet::Packet *packet, RakNet::RakPeerInterface *peer, std::vect
 {
 	const Server *NewServer = (Server *)packet->data;
 	bool exist = false;
-	Server *temp;
+	Server *temp = new Server;
 
 	for (unsigned int i = 0; i < serverList->size() && !exist; ++i)
 	{

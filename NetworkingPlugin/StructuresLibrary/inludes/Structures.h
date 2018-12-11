@@ -13,7 +13,7 @@
 #include <Vector>
 
 #include <connection.hpp>
-#include <packet.h>
+#include <packet.hpp>
 
 //MessageTypes for the master server
 enum GameMessages
