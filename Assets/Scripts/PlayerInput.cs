@@ -33,11 +33,11 @@ public class PlayerInput : MonoBehaviour
     void Inputs()
     {
         mForward = Input.GetAxis("Vertical");
-        if (mForward >= -.02f && mForward <= .02f)
+        if (mForward >= -.1f && mForward <= .1f)
             mForward = 0;
 
         mHorizontal = Input.GetAxis("Horizontal");
-        if (mHorizontal >= -.02f && mHorizontal <= .02f)
+        if (mHorizontal >= -.1f && mHorizontal <= .1f)
             mHorizontal = 0;
 
         mYaw += Input.GetAxis("Mouse X");
