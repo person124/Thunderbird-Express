@@ -18,10 +18,10 @@
 
 // Needs to be included for packet id's
 #include <RakNet/MessageIdentifiers.h>
-#include <stdio.h>
+#include <string.h>
 
 // This is the same definition that RakNet uses for time
-typedef uint64_t Time;
+typedef unsigned long long Time;
 
 enum PacketTypes
 {
@@ -151,15 +151,6 @@ struct PacketGameState : public Packet
 
 // This array contains the size of the packets, just pass the packet's id
 // As the index parameter
-unsigned int PACKET_SIZES[PACKET_COUNT] =
-{
-	sizeof(Packet),
-	sizeof(PacketTransform),
-	sizeof(PacketColor),
-	sizeof(PacketShout),
-	sizeof(PacketBossHP),
-	sizeof(PacketPlayerData),
-	sizeof(PacketGameState)
-};
+extern unsigned int PACKET_SIZES[PACKET_COUNT];
 
 #endif

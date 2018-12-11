@@ -24,7 +24,26 @@ extern "C"
 #endif
 
 	PLUGIN_SYMBOL
+		void NetworkingPlugin_SendTransform(int objectID,
+			float x, float y, float z,
+			float rX, float rY, float rZ);
+
+	PLUGIN_SYMBOL
+		void NetworkingPlugin_SendColor(int objectID,
+			char red, char green, char blue, char alpha);
+
+	PLUGIN_SYMBOL
 		void NetworkingPlugin_SendShout(int shout);
+
+	PLUGIN_SYMBOL
+		void NetworkingPlugin_SendBossHP(int bossHP);
+
+	PLUGIN_SYMBOL
+		void NetworkingPlugin_SendPlayerData(int objectID,
+			char name[30], int score, int health);
+
+	PLUGIN_SYMBOL
+		void NetworkingPlugin_SendGameState(bool state);
 
 #ifdef __cplusplus
 }

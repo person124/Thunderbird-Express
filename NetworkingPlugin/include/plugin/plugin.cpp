@@ -13,15 +13,21 @@
 *
 */
 
-#include "packet.hpp"
+#include "plugin/plugin.h"
 
-unsigned int PACKET_SIZES[PACKET_COUNT] =
+#include "packet.hpp"
+#include "peer.hpp"
+
+Peer* peerInstance = NULL;
+
+void NetworkingPlugin_SendTransform(int objectID,
+	float x, float y, float z,
+	float rX, float rY, float rZ)
 {
-	sizeof(Packet),
-	sizeof(PacketTransform),
-	sizeof(PacketColor),
-	sizeof(PacketShout),
-	sizeof(PacketBossHP),
-	sizeof(PacketPlayerData),
-	sizeof(PacketGameState)
-};
+	if (peerInstance == NULL)
+		return;
+
+	PacketTransform packet = PacketTransform(objectID, x, y, z, rX, rY, rZ);
+
+	peerInstance->sendPacketToAll(&packet);
+}
