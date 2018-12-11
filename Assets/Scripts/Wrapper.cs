@@ -21,6 +21,56 @@ public class Wrapper
 {
 	public const string DLL = "NetworkingPlugin_x64";
 
+	// ==========================================================
+	// FUNCTION SETTERS
+	// ==========================================================
+
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public delegate void FuncTransform(int objectID,
+		float x, float y, float z,
+		float rX, float rY, float rZ);
+
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public delegate void FuncColor(int objectID, int color);
+
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public delegate void FuncInt(int num);
+
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public delegate void FuncPlayerData(int objectID,
+		char[] name, int score, int health);
+
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public delegate void FuncPlayerUpdate(int objectID, int score, int health);
+
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public delegate void FuncGameState(bool state);
+
+	[DllImport(DLL)]
+	public static extern void NetworkingPlugin_FuncTransform(FuncTransform func);
+
+	[DllImport(DLL)]
+	public static extern void NetworkingPlugin_FuncColor(FuncColor func);
+
+	[DllImport(DLL)]
+	public static extern void NetworkingPlugin_FuncShout(FuncInt func);
+
+	[DllImport(DLL)]
+	public static extern void NetworkingPlugin_FuncBossHP(FuncInt func);
+
+	[DllImport(DLL)]
+	public static extern void NetworkingPlugin_FuncPlayerData(FuncPlayerData func);
+
+	[DllImport(DLL)]
+	public static extern void NetworkingPlugin_FuncPlayerUpdate(FuncPlayerUpdate func);
+
+	[DllImport(DLL)]
+	public static extern void NetworkingPlugin_FuncGameState(FuncGameState func);
+
+	// ==========================================================
+	// SEND PACKET FUNCTIONS
+	// ==========================================================
+
 	[DllImport(DLL)]
 	public static extern void NetworkingPlugin_SendTransform(int objectID,
 		float x, float y, float z,
