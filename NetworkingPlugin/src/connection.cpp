@@ -19,6 +19,11 @@
 
 #include <RakNet/RakNetTypes.h>
 
+Connection::Connection()
+{
+	mGUID = NULL;
+}
+
 Connection::Connection(const RawGUID& id)
 {
 	mGUID = new RakGUID();
