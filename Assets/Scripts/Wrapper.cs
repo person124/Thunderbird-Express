@@ -15,8 +15,6 @@
 
 using System.Runtime.InteropServices;
 
-using UnityEngine;
-
 public class Wrapper
 {
 	public const string DLL = "NetworkingPlugin_x64";
@@ -25,7 +23,13 @@ public class Wrapper
 	public static extern bool NetworkingPlugin_StartClient(string ip, int port);
 
 	[DllImport(DLL)]
+	public static extern void NetworkingPlugin_DeletePeer();
+
+	[DllImport(DLL)]
 	public static extern void NetworkingPlugin_StartLoop();
+
+	[DllImport(DLL)]
+	public static extern bool NetworkingPlugin_IsServer();
 
 	// ==========================================================
 	// FUNCTION SETTERS
@@ -39,6 +43,7 @@ public class Wrapper
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public delegate void FuncColor(ulong time, int objectID, int color);
 
+	// Shout and Boss HP
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public delegate void FuncInt(ulong time, int num);
 

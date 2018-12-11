@@ -18,8 +18,6 @@
 
 #include <string>
 
-#include "thread.h"
-
 // This is so we don't have to include raknet in every file
 namespace RakNet
 {
@@ -31,6 +29,7 @@ typedef RakNet::RakPeerInterface RakPeer;
 
 struct Packet;
 struct Connection;
+struct Thread;
 
 // This class acts as a base class that encapsulates RakPeerInterface
 class Peer
@@ -59,6 +58,11 @@ public:
 	// Starts the threaded networking loop
 	void startNetworkingLoop();
 
+	// Returns true if the peer is an instance of a sever
+	// False if it is a client
+	// Or false if it is uninitalized
+	bool isServer();
+
 protected:
 	// Pure virtual method that incoming packets are sent to, conn is the
 	// where the packet came from
@@ -84,6 +88,8 @@ private:
 	RakPeer* mPeer;
 
 	Thread* mThread;
+
+	bool mIsServer;
 };
 
 #endif

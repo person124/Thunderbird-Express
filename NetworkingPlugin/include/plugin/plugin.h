@@ -29,7 +29,13 @@ extern "C"
 		bool NetworkingPlugin_StartClient(const char* ip, int port);
 
 	PLUGIN_SYMBOL
+		void NetworkingPlugin_DeletePeer();
+
+	PLUGIN_SYMBOL
 		void NetworkingPlugin_StartLoop();
+
+	PLUGIN_SYMBOL
+		bool NetworkingPlugin_IsServer();
 
 #pragma region FUNCTION_SETTERS
 

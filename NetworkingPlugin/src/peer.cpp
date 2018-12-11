@@ -20,6 +20,7 @@
 
 #include "connection.hpp"
 #include "packet.hpp"
+#include "thread.h"
 
 Peer::Peer()
 {
@@ -28,6 +29,8 @@ Peer::Peer()
 
 Peer::~Peer()
 {
+	mRunning = false;
+	Thread_Terminate(mThread);
 	RakPeer::DestroyInstance(mPeer);
 }
 
@@ -137,6 +140,14 @@ void Peer::startNetworkingLoop()
 	mThread = new Thread();
 	mThread->handle = NULL;
 	Thread_Create(mThread, (ThreadFunc)loopHandler, this);
+}
+
+// Returns true if the peer is an instance of a sever
+// False if it is a client
+// Or false if it is uninitalized
+bool Peer::isServer()
+{
+	return mIsServer;
 }
 
 // This function handles packet recieving and event processing.
