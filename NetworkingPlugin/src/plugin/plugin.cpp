@@ -20,6 +20,55 @@
 
 Peer* peerInstance = NULL;
 
+FuncTransform fTransform;
+FuncColor fColor;
+FuncInt fShout;
+FuncInt fBossHP;
+FuncPlayerData fPlayerData;
+FuncPlayerUpdate fPlayerUpdate;
+FuncGameState fGameState;
+
+#pragma region FUNCTION_SETTERS
+
+void NetworkingPlugin_FuncTransform(FuncTransform func)
+{
+	fTransform = func;
+}
+
+void NetworkingPlugin_FuncColor(FuncColor func)
+{
+	fColor = func;
+}
+
+void NetworkingPlugin_FuncShout(FuncInt func)
+{
+	fShout = func;
+}
+
+void NetworkingPlugin_FuncBossHP(FuncInt func)
+{
+	fBossHP = func;
+}
+
+void NetworkingPlugin_FuncPlayerData(FuncPlayerData func)
+{
+	fPlayerData = func;
+}
+
+void NetworkingPlugin_FuncPlayerUpdate(FuncPlayerUpdate func)
+{
+	fPlayerUpdate = func;
+}
+
+void NetworkingPlugin_FuncGameState(FuncGameState func)
+{
+	fGameState = func;
+}
+
+#pragma endregion
+
+#pragma region SEND_PACKETS
+
 void NetworkingPlugin_SendTransform(int objectID,
 	float x, float y, float z,
 	float rX, float rY, float rZ)
@@ -92,3 +141,5 @@ void NetworkingPlugin_SendGameState(bool state)
 
 	peerInstance->sendPacketToAll(&packet);
 }
+
+#pragma endregion

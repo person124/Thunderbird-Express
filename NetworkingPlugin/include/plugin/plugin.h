@@ -25,6 +25,33 @@ extern "C"
 
 #include "plugin/functionTypes.h"
 
+#pragma region FUNCTION_SETTERS
+
+	PLUGIN_SYMBOL
+		void NetworkingPlugin_FuncTransform(FuncTransform func);
+
+	PLUGIN_SYMBOL
+		void NetworkingPlugin_FuncColor(FuncColor func);
+
+	PLUGIN_SYMBOL
+		void NetworkingPlugin_FuncShout(FuncInt func);
+
+	PLUGIN_SYMBOL
+		void NetworkingPlugin_FuncBossHP(FuncInt func);
+
+	PLUGIN_SYMBOL
+		void NetworkingPlugin_FuncPlayerData(FuncPlayerData func);
+
+	PLUGIN_SYMBOL
+		void NetworkingPlugin_FuncPlayerUpdate(FuncPlayerUpdate func);
+
+	PLUGIN_SYMBOL
+		void NetworkingPlugin_FuncGameState(FuncGameState func);
+
+#pragma endregion
+
+#pragma region SEND_PACKETS
+
 	PLUGIN_SYMBOL
 		void NetworkingPlugin_SendTransform(int objectID,
 			float x, float y, float z,
@@ -49,6 +76,8 @@ extern "C"
 
 	PLUGIN_SYMBOL
 		void NetworkingPlugin_SendGameState(bool state);
+
+#pragma endregion
 
 #ifdef __cplusplus
 }

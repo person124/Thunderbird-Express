@@ -17,22 +17,22 @@
 #define _FUNCTION_TYPES_H_
 
 // objectID, x, y, z, rX, rY, rZ
-typedef void(*PacketTransformFunc)
+typedef void(*FuncTransform)
 (int, float, float, float, float, float, float);
 
 // objectID, color
-typedef void(*PacketColorFunc)(int, int);
+typedef void(*FuncColor)(int, int);
 
 // Used for shout, bossHP
-typedef void(*PacketInt)(int);
+typedef void(*FuncInt)(int);
 
 // objectID, name, score, health
-typedef void(*PacketPlayerDataFunc)(int, char[33], int, int);
+typedef void(*FuncPlayerData)(int, char[33], int, int);
 
 // objectID, score, health
-typedef void(*PacketPlayerUpdateFunc)(int, int, int);
+typedef void(*FuncPlayerUpdate)(int, int, int);
 
 // state
-typedef void(*PacketGameStateFunc)(bool);
+typedef void(*FuncGameState)(bool);
 
 #endif
