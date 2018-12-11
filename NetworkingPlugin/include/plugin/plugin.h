@@ -26,7 +26,7 @@ extern "C"
 #include "plugin/functionTypes.h"
 
 	PLUGIN_SYMBOL
-		bool NetworkingPlugin_StartClient(char ip[128], int port);
+		bool NetworkingPlugin_StartClient(const char* ip, int port);
 
 	PLUGIN_SYMBOL
 		void NetworkingPlugin_StartLoop();

@@ -34,7 +34,7 @@ FuncPlayerData Plugin::fPlayerData;
 FuncPlayerUpdate Plugin::fPlayerUpdate;
 FuncGameState Plugin::fGameState;
 
-bool NetworkingPlugin_StartClient(char ip[128], int port)
+bool NetworkingPlugin_StartClient(const char* ip, int port)
 {
 	assert(!peerInstance);
 
@@ -47,8 +47,9 @@ bool NetworkingPlugin_StartClient(char ip[128], int port)
 
 void NetworkingPlugin_StartLoop()
 {
-	if (peerInstance)
-		peerInstance->startNetworkingLoop();
+	assert(peerInstance);
+
+	peerInstance->startNetworkingLoop();
 }
 
 #pragma region FUNCTION_SETTERS
