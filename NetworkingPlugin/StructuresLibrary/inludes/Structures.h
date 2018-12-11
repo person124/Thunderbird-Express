@@ -54,7 +54,7 @@ struct Server
 struct ChatMessage
 {
 	char typeID = ID_GAME_MESSAGE_MessageSending;
-	char mMessage[256];
+	char mMessage[257];
 };
 
 struct ServerLocation

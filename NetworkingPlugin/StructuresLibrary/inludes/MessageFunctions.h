@@ -18,7 +18,8 @@ void ClientDC(RakNet::Packet *packet, std::vector<Client> *clientList);
 // remove Server from list of server
 void ServerDC(RakNet::Packet *packet, std::vector<Server> *serverList);
 
-
+// send messages over the master server
+void SendChatMessage(RakNet::Packet *packet, RakNet::RakPeerInterface *peer, std::vector<Client> *clientList);
 
 #endif // !MESSAGE_FUNCTIONS
 

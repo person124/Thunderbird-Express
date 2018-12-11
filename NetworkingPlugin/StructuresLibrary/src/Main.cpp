@@ -32,9 +32,9 @@ int main(void)
 
 	peer->SetMaximumIncomingConnections(MAX_CLIENTS);
 
-
-	std::vector<Client> *myClientList;
-	std::vector<Server> *myServerList;
+	//Master server's list of clients and servers
+	std::vector<Client> myClientList[1];
+	std::vector<Server> myServerList[1];
 
 	while (1)
 	{
@@ -50,6 +50,7 @@ int main(void)
 				break;
 				//ToDo
 			case ID_GAME_MESSAGE_MessageSending:
+				SendChatMessage(packet, peer, myClientList);
 				break;
 			case ID_GAME_MESSAGE_ClientDisconnect:
 				ClientDC(packet, myClientList);
@@ -60,7 +61,13 @@ int main(void)
 			case ID_GAME_MESSAGE_ClientServerConn:
 				RequestConnection(packet, peer, myServerList);
 				break;
+			default:
+				//junk
+				break;
 			}
 		}
 	}
+ 
+	delete myClientList;
+	delete myServerList;
 }
