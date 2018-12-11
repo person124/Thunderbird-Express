@@ -32,6 +32,7 @@ typedef unsigned long long RawGUID;
 struct Connection
 {
 public:
+	Connection();
 	Connection(const RawGUID& id);
 	Connection(const RakGUID& id);
 	~Connection();

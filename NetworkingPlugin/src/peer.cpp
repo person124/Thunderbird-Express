@@ -19,7 +19,7 @@
 #include <RakNet/RakPeerInterface.h>
 
 #include "connection.hpp"
-#include "packet.h"
+#include "packet.hpp"
 
 Peer::Peer()
 {

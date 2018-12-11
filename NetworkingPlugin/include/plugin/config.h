@@ -13,16 +13,15 @@
 *
 */
 
-#include "packet.hpp"
+#ifndef _CONFIG_H_
+#define _CONFIG_H_
 
-unsigned int PACKET_SIZES[PACKET_COUNT] =
-{
-	sizeof(Packet),
-	sizeof(PacketTransform),
-	sizeof(PacketColor),
-	sizeof(PacketShout),
-	sizeof(PacketBossHP),
-	sizeof(PacketPlayerData),
-	sizeof(PacketPlayerUpdate),
-	sizeof(PacketGameState)
-};
+#ifdef NETWORKING_PLUGIN_EXPORT
+#define PLUGIN_SYMBOL __declspec(dllexport)
+#elif NETWORKING_PLUGIN_IMPORT
+#define PLUGIN_SYMBOL __declspec(dllimport)
+#else
+#define PLUGIN_SYMBOL
+#endif
+
+#endif

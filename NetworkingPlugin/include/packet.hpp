@@ -18,10 +18,10 @@
 
 // Needs to be included for packet id's
 #include <RakNet/MessageIdentifiers.h>
-#include <stdio.h>
+#include <string.h>
 
 // This is the same definition that RakNet uses for time
-typedef uint64_t Time;
+typedef unsigned long long Time;
 
 enum PacketTypes
 {
@@ -31,6 +31,7 @@ enum PacketTypes
 	PACKET_SHOUT,
 	PACKET_BOSS_HP,
 	PACKET_PLAYER_DATA,
+	PACKET_PLAYER_UPDATE,
 	PACKET_GAME_STATE,
 	PACKET_END
 };
@@ -41,7 +42,7 @@ enum PacketTypes
 // Use this as #pragma BIT_END after the section you want to be aligned
 #define BIT_END pack(pop)
 
-#define NAME_SIZE 30
+#define NAME_SIZE 33 // 32 + Null Terminator
 
 #pragma BIT_START
 struct Packet
@@ -78,22 +79,14 @@ struct PacketTransform : public Packet
 
 struct PacketColor : public Packet
 {
-	PacketColor(unsigned int id,
-		unsigned char r, unsigned char g, unsigned char b,
-		unsigned char a) :Packet(PACKET_COLOR)
+	PacketColor(unsigned int id, unsigned int color) :Packet(PACKET_COLOR)
 	{
 		objectID = id;
-		red = r;
-		green = g;
-		blue = b;
-		alpha = a;
+		colorID = color;
 	}
 
 	unsigned int objectID;
-	unsigned char red;
-	unsigned char green;
-	unsigned char blue;
-	unsigned char alpha;
+	unsigned int colorID;
 };
 
 struct PacketShout : public Packet
@@ -133,6 +126,21 @@ struct PacketPlayerData : public Packet
 	unsigned int health;
 };
 
+struct PacketPlayerUpdate : public Packet
+{
+	PacketPlayerUpdate(unsigned int id,
+		unsigned int playerScore, unsigned int playerHealth) :Packet(PACKET_PLAYER_UPDATE)
+	{
+		objectID = id;
+		playerScore = score;
+		playerHealth = health;
+	}
+
+	unsigned int objectID;
+	unsigned int score;
+	unsigned int health;
+};
+
 struct PacketGameState : public Packet
 {
 	PacketGameState(bool gameStarted):Packet(PACKET_GAME_STATE)
@@ -151,15 +159,6 @@ struct PacketGameState : public Packet
 
 // This array contains the size of the packets, just pass the packet's id
 // As the index parameter
-unsigned int PACKET_SIZES[PACKET_COUNT] =
-{
-	sizeof(Packet),
-	sizeof(PacketTransform),
-	sizeof(PacketColor),
-	sizeof(PacketShout),
-	sizeof(PacketBossHP),
-	sizeof(PacketPlayerData),
-	sizeof(PacketGameState)
-};
+extern unsigned int PACKET_SIZES[PACKET_COUNT];
 
 #endif
