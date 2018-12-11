@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="functionTypes.h" />
     <ClInclude Include="include\connection.hpp" />
     <ClInclude Include="include\packet.hpp" />
     <ClInclude Include="include\peer.hpp" />

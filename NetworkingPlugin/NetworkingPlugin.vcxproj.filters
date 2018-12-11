@@ -42,6 +42,9 @@
     <ClInclude Include="include\packet.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="functionTypes.h">
+      <Filter>Header Files\plugin</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\connection.cpp">
