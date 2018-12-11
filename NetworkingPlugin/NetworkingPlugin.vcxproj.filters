@@ -42,7 +42,7 @@
     <ClInclude Include="include\packet.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="functionTypes.h">
+    <ClInclude Include="include\plugin\functionTypes.h">
       <Filter>Header Files\plugin</Filter>
     </ClInclude>
   </ItemGroup>
@@ -59,7 +59,7 @@
     <ClCompile Include="src\thread.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="include\plugin\plugin.cpp">
+    <ClCompile Include="src\plugin\plugin.cpp">
       <Filter>Source Files\plugin</Filter>
     </ClCompile>
   </ItemGroup>

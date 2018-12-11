@@ -23,6 +23,8 @@ extern "C"
 {
 #endif
 
+#include "plugin/functionTypes.h"
+
 	PLUGIN_SYMBOL
 		void NetworkingPlugin_SendTransform(int objectID,
 			float x, float y, float z,
