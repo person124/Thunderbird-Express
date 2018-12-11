@@ -37,7 +37,7 @@ class Peer
 {
 public:
 	Peer();
-	~Peer();
+	virtual ~Peer();
 
 	// Sends a packet to all connected clients
 	void sendPacketToAll(Packet* packet);

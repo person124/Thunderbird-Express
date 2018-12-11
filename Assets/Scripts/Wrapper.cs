@@ -26,25 +26,25 @@ public class Wrapper
 	// ==========================================================
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public delegate void FuncTransform(int objectID,
+	public delegate void FuncTransform(ulong time, int objectID,
 		float x, float y, float z,
 		float rX, float rY, float rZ);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public delegate void FuncColor(int objectID, int color);
+	public delegate void FuncColor(ulong time, int objectID, int color);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public delegate void FuncInt(int num);
+	public delegate void FuncInt(ulong time, int num);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public delegate void FuncPlayerData(int objectID,
+	public delegate void FuncPlayerData(ulong time, int objectID,
 		char[] name, int score, int health);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public delegate void FuncPlayerUpdate(int objectID, int score, int health);
+	public delegate void FuncPlayerUpdate(ulong time, int objectID, int score, int health);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public delegate void FuncGameState(bool state);
+	public delegate void FuncGameState(ulong time, bool state);
 
 	[DllImport(DLL)]
 	public static extern void NetworkingPlugin_FuncTransform(FuncTransform func);

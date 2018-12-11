@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\client.hpp" />
     <ClInclude Include="include\connection.hpp" />
     <ClInclude Include="include\packet.hpp" />
     <ClInclude Include="include\peer.hpp" />
@@ -26,9 +27,11 @@
     <ClInclude Include="include\plugin\dllmain.h" />
     <ClInclude Include="include\plugin\functionTypes.h" />
     <ClInclude Include="include\plugin\plugin.h" />
+    <ClInclude Include="include\plugin\plugin_functions.hpp" />
     <ClInclude Include="include\thread.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\client.cpp" />
     <ClCompile Include="src\connection.cpp" />
     <ClCompile Include="src\packet.cpp" />
     <ClCompile Include="src\peer.cpp" />
