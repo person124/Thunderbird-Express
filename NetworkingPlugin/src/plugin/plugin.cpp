@@ -18,51 +18,53 @@
 #include "packet.hpp"
 #include "peer.hpp"
 
+#include "plugin/plugin_functions.hpp"
+
 Peer* peerInstance = NULL;
 
-FuncTransform fTransform;
-FuncColor fColor;
-FuncInt fShout;
-FuncInt fBossHP;
-FuncPlayerData fPlayerData;
-FuncPlayerUpdate fPlayerUpdate;
-FuncGameState fGameState;
+FuncTransform Plugin::fTransform;
+FuncColor Plugin::fColor;
+FuncInt Plugin::fShout;
+FuncInt Plugin::fBossHP;
+FuncPlayerData Plugin::fPlayerData;
+FuncPlayerUpdate Plugin::fPlayerUpdate;
+FuncGameState Plugin::fGameState;
 
 #pragma region FUNCTION_SETTERS
 
 void NetworkingPlugin_FuncTransform(FuncTransform func)
 {
-	fTransform = func;
+	Plugin::fTransform = func;
 }
 
 void NetworkingPlugin_FuncColor(FuncColor func)
 {
-	fColor = func;
+	Plugin::fColor = func;
 }
 
 void NetworkingPlugin_FuncShout(FuncInt func)
 {
-	fShout = func;
+	Plugin::fShout = func;
 }
 
 void NetworkingPlugin_FuncBossHP(FuncInt func)
 {
-	fBossHP = func;
+	Plugin::fBossHP = func;
 }
 
 void NetworkingPlugin_FuncPlayerData(FuncPlayerData func)
 {
-	fPlayerData = func;
+	Plugin::fPlayerData = func;
 }
 
 void NetworkingPlugin_FuncPlayerUpdate(FuncPlayerUpdate func)
 {
-	fPlayerUpdate = func;
+	Plugin::fPlayerUpdate = func;
 }
 
 void NetworkingPlugin_FuncGameState(FuncGameState func)
 {
-	fGameState = func;
+	Plugin::fGameState = func;
 }
 
 #pragma endregion

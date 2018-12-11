@@ -45,6 +45,12 @@
     <ClInclude Include="include\plugin\functionTypes.h">
       <Filter>Header Files\plugin</Filter>
     </ClInclude>
+    <ClInclude Include="include\client.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\plugin\plugin_functions.hpp">
+      <Filter>Header Files\plugin</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\connection.cpp">
@@ -61,6 +67,9 @@
     </ClCompile>
     <ClCompile Include="src\plugin\plugin.cpp">
       <Filter>Source Files\plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
