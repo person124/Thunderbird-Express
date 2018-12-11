@@ -31,6 +31,9 @@ extern "C"
 	PLUGIN_SYMBOL
 		void NetworkingPlugin_StartLoop();
 
+	PLUGIN_SYMBOL
+		bool NetworkingPlugin_IsServer();
+
 #pragma region FUNCTION_SETTERS
 
 	PLUGIN_SYMBOL
