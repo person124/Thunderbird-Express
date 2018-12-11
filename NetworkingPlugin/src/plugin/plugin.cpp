@@ -36,7 +36,7 @@ FuncGameState Plugin::fGameState;
 
 bool NetworkingPlugin_StartClient(char ip[128], int port)
 {
-	assert(peerInstance);
+	assert(!peerInstance);
 
 	std::string IP = std::string(ip);
 
