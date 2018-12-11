@@ -31,7 +31,6 @@ void Client::handlePacket(Packet* packet, Connection* conn)
 	switch (packet->packetID)
 	{
 
-
 	default:
 	case PACKET_BASE_ID:
 		assert(false);

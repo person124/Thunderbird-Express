@@ -16,23 +16,23 @@
 #ifndef _FUNCTION_TYPES_H_
 #define _FUNCTION_TYPES_H_
 
-// objectID, x, y, z, rX, rY, rZ
+// time, objectID, x, y, z, rX, rY, rZ
 typedef void(*FuncTransform)
-(int, float, float, float, float, float, float);
+(unsigned long long, int, float, float, float, float, float, float);
 
-// objectID, color
-typedef void(*FuncColor)(int, int);
+// time, objectID, color
+typedef void(*FuncColor)(unsigned long long, int, int);
 
 // Used for shout, bossHP
-typedef void(*FuncInt)(int);
+typedef void(*FuncInt)(unsigned long long, int);
 
-// objectID, name, score, health
-typedef void(*FuncPlayerData)(int, char[33], int, int);
+// time, objectID, name, score, health
+typedef void(*FuncPlayerData)(unsigned long long, int, char[33], int, int);
 
-// objectID, score, health
-typedef void(*FuncPlayerUpdate)(int, int, int);
+// time, objectID, score, health
+typedef void(*FuncPlayerUpdate)(unsigned long long, int, int, int);
 
-// state
-typedef void(*FuncGameState)(bool);
+// time, state
+typedef void(*FuncGameState)(unsigned long long, bool);
 
 #endif
