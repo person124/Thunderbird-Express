@@ -29,8 +29,7 @@ extern "C"
 			float rX, float rY, float rZ);
 
 	PLUGIN_SYMBOL
-		void NetworkingPlugin_SendColor(int objectID,
-			char red, char green, char blue, char alpha);
+		void NetworkingPlugin_SendColor(int objectID, int color);
 
 	PLUGIN_SYMBOL
 		void NetworkingPlugin_SendShout(int shout);
@@ -40,7 +39,7 @@ extern "C"
 
 	PLUGIN_SYMBOL
 		void NetworkingPlugin_SendPlayerData(int objectID,
-			char name[30], int score, int health);
+			char name[33], int score, int health);
 
 	PLUGIN_SYMBOL
 		void NetworkingPlugin_SendPlayerUpdate(int objectID,

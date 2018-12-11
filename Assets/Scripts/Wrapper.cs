@@ -15,6 +15,8 @@
 
 using System.Runtime.InteropServices;
 
+using UnityEngine;
+
 public class Wrapper
 {
 	public const string DLL = "NetworkingPlugin_x64";
@@ -25,8 +27,7 @@ public class Wrapper
 		float rX, float rY, float rZ);
 
 	[DllImport(DLL)]
-	public static extern void NetworkingPlugin_SendColor(int objectID,
-		char red, char green, char blue, char alpha);
+	public static extern void NetworkingPlugin_SendColor(int objectID, int color);
 
 	[DllImport(DLL)]
 	public static extern void NetworkingPlugin_SendShout(int shout);

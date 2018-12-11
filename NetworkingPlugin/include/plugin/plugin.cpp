@@ -32,13 +32,12 @@ void NetworkingPlugin_SendTransform(int objectID,
 	peerInstance->sendPacketToAll(&packet);
 }
 
-void NetworkingPlugin_SendColor(int objectID,
-	char red, char green, char blue, char alpha)
+void NetworkingPlugin_SendColor(int objectID, int color)
 {
 	if (peerInstance == NULL)
 		return;
 
-	PacketColor packet(objectID, red, green, blue, alpha);
+	PacketColor packet(objectID, color);
 
 	peerInstance->sendPacketToAll(&packet);
 }
@@ -64,7 +63,7 @@ void NetworkingPlugin_SendBossHP(int bossHP)
 }
 
 void NetworkingPlugin_SendPlayerData(int objectID,
-	char name[30], int score, int health)
+	char name[33], int score, int health)
 {
 	if (peerInstance == NULL)
 		return;

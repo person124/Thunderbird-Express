@@ -42,7 +42,7 @@ enum PacketTypes
 // Use this as #pragma BIT_END after the section you want to be aligned
 #define BIT_END pack(pop)
 
-#define NAME_SIZE 30
+#define NAME_SIZE 33 // 32 + Null Terminator
 
 #pragma BIT_START
 struct Packet
@@ -79,22 +79,14 @@ struct PacketTransform : public Packet
 
 struct PacketColor : public Packet
 {
-	PacketColor(unsigned int id,
-		unsigned char r, unsigned char g, unsigned char b,
-		unsigned char a) :Packet(PACKET_COLOR)
+	PacketColor(unsigned int id, unsigned int color) :Packet(PACKET_COLOR)
 	{
 		objectID = id;
-		red = r;
-		green = g;
-		blue = b;
-		alpha = a;
+		colorID = color;
 	}
 
 	unsigned int objectID;
-	unsigned char red;
-	unsigned char green;
-	unsigned char blue;
-	unsigned char alpha;
+	unsigned int colorID;
 };
 
 struct PacketShout : public Packet
