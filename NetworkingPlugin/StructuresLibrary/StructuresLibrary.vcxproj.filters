@@ -18,5 +18,16 @@
     <ClInclude Include="inludes\Structures.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="inludes\MessageFunctions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MessageFunctions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
