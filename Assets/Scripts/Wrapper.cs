@@ -23,7 +23,13 @@ public class Wrapper
 	public static extern bool NetworkingPlugin_StartClient(string ip, int port);
 
 	[DllImport(DLL)]
+	public static extern void NetworkingPlugin_DeletePeer();
+
+	[DllImport(DLL)]
 	public static extern void NetworkingPlugin_StartLoop();
+
+	[DllImport(DLL)]
+	public static extern bool NetworkingPlugin_IsServer();
 
 	// ==========================================================
 	// FUNCTION SETTERS

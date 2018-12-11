@@ -42,7 +42,24 @@ bool NetworkingPlugin_StartClient(const char* ip, int port)
 
 	peerInstance = new Client();
 
-	return peerInstance->startClient(IP, port);
+	bool value = peerInstance->startClient(IP, port);
+
+	if (!value)
+	{
+		delete peerInstance;
+		peerInstance = NULL;
+	}
+
+	return value;
+}
+
+void NetworkingPlugin_DeletePeer()
+{
+	assert(peerInstance);
+
+	delete peerInstance;
+
+	peerInstance = NULL;
 }
 
 void NetworkingPlugin_StartLoop()
@@ -50,6 +67,13 @@ void NetworkingPlugin_StartLoop()
 	assert(peerInstance);
 
 	peerInstance->startNetworkingLoop();
+}
+
+bool NetworkingPlugin_IsServer()
+{
+	assert(peerInstance);
+
+	return peerInstance->isServer();
 }
 
 #pragma region FUNCTION_SETTERS
