@@ -27,7 +27,59 @@ void NetworkingPlugin_SendTransform(int objectID,
 	if (peerInstance == NULL)
 		return;
 
-	PacketTransform packet = PacketTransform(objectID, x, y, z, rX, rY, rZ);
+	PacketTransform packet(objectID, x, y, z, rX, rY, rZ);
+
+	peerInstance->sendPacketToAll(&packet);
+}
+
+void NetworkingPlugin_SendColor(int objectID,
+	char red, char green, char blue, char alpha)
+{
+	if (peerInstance == NULL)
+		return;
+
+	PacketColor packet(objectID, red, green, blue, alpha);
+
+	peerInstance->sendPacketToAll(&packet);
+}
+
+void NetworkingPlugin_SendShout(int shout)
+{
+	if (peerInstance == NULL)
+		return;
+
+	PacketShout packet(shout);
+
+	peerInstance->sendPacketToAll(&packet);
+}
+
+void NetworkingPlugin_SendBossHP(int bossHP)
+{
+	if (peerInstance == NULL)
+		return;
+
+	PacketBossHP packet(bossHP);
+
+	peerInstance->sendPacketToAll(&packet);
+}
+
+void NetworkingPlugin_SendPlayerData(int objectID,
+	char name[30], int score, int health)
+{
+	if (peerInstance == NULL)
+		return;
+
+	PacketPlayerData packet(objectID, name, score, health);
+
+	peerInstance->sendPacketToAll(&packet);
+}
+
+void NetworkingPlugin_SendGameState(bool state)
+{
+	if (peerInstance == NULL)
+		return;
+
+	PacketGameState packet(state);
 
 	peerInstance->sendPacketToAll(&packet);
 }
