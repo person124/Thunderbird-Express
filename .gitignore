@@ -40,5 +40,7 @@ NetworkingPlugin/x64/*
 NetworkingPlugin/Debug/*
 NetworkingPlugin/StructuresLibrary/Debug/*
 
+*.sln
+
 # Networking Project Build Files
 Assets/Plugins*
