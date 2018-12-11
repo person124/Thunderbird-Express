@@ -25,6 +25,12 @@ extern "C"
 
 #include "plugin/functionTypes.h"
 
+	PLUGIN_SYMBOL
+		bool NetworkingPlugin_StartClient(const char* ip, int port);
+
+	PLUGIN_SYMBOL
+		void NetworkingPlugin_StartLoop();
+
 #pragma region FUNCTION_SETTERS
 
 	PLUGIN_SYMBOL

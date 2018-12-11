@@ -132,6 +132,8 @@ void Peer::startNetworkingLoop()
 {
 	assert(!(mThread && mThread->running));
 
+	mRunning = true;
+
 	mThread = new Thread();
 	mThread->handle = NULL;
 	Thread_Create(mThread, (ThreadFunc)loopHandler, this);
@@ -153,7 +155,7 @@ void Peer::internalNetworkingLoop()
 	{
 		if (incommming->data[2] >= PACKET_BASE_ID)
 		{
-			Packet* packet = (Packet*)incommming;
+			Packet* packet = (Packet*)incommming->data;
 			Connection connection = Connection(incommming->guid.g);
 			handlePacket(packet, &connection);
 		}
