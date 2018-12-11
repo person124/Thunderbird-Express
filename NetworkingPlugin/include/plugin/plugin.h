@@ -29,6 +29,9 @@ extern "C"
 		bool NetworkingPlugin_StartClient(const char* ip, int port);
 
 	PLUGIN_SYMBOL
+		bool NetworkingPlugin_StartServer(int port, int maxClients);
+
+	PLUGIN_SYMBOL
 		void NetworkingPlugin_DeletePeer();
 
 	PLUGIN_SYMBOL

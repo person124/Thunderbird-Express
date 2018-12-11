@@ -18,6 +18,7 @@
 #include "packet.hpp"
 #include "peer.hpp"
 #include "client.hpp"
+#include "server.hpp"
 
 #include "plugin/plugin_functions.hpp"
 
@@ -43,6 +44,23 @@ bool NetworkingPlugin_StartClient(const char* ip, int port)
 	peerInstance = new Client();
 
 	bool value = peerInstance->startClient(IP, port);
+
+	if (!value)
+	{
+		delete peerInstance;
+		peerInstance = NULL;
+	}
+
+	return value;
+}
+
+bool NetworkingPlugin_StartServer(int port, int maxClients)
+{
+	assert(!peerInstance);
+
+	peerInstance = new Server();
+
+	bool value = peerInstance->startServer(port, maxClients);
 
 	if (!value)
 	{
