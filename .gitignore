@@ -35,5 +35,12 @@ sysinfo.txt
 *.unitypackage
 
 # Networking Project Ignore Files
-NetworkingPlugin/Debug/*
+NetworkingPlugin/Win32/*
 NetworkingPlugin/x64/*
+NetworkingPlugin/Debug/*
+NetworkingPlugin/StructuresLibrary/Debug/*
+
+*.sln
+
+# Networking Project Build Files
+Assets/Plugins*
