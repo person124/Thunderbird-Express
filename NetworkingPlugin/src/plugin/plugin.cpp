@@ -17,8 +17,12 @@
 
 #include "packet.hpp"
 #include "peer.hpp"
+#include "client.hpp"
 
 #include "plugin/plugin_functions.hpp"
+
+#include <assert.h>
+#include <string>
 
 Peer* peerInstance = NULL;
 
@@ -29,6 +33,17 @@ FuncInt Plugin::fBossHP;
 FuncPlayerData Plugin::fPlayerData;
 FuncPlayerUpdate Plugin::fPlayerUpdate;
 FuncGameState Plugin::fGameState;
+
+bool NetworkingPlugin_StartClient(char ip[128], int port)
+{
+	assert(peerInstance);
+
+	std::string IP = std::string(ip);
+
+	peerInstance = new Client();
+
+	return peerInstance->startClient(IP, port);
+}
 
 #pragma region FUNCTION_SETTERS
 
