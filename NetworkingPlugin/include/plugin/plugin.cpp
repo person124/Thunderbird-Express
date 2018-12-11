@@ -74,6 +74,16 @@ void NetworkingPlugin_SendPlayerData(int objectID,
 	peerInstance->sendPacketToAll(&packet);
 }
 
+void NetworkingPlugin_SendPlayerUpdate(int objectID, int score, int health)
+{
+	if (peerInstance == NULL)
+		return;
+
+	PacketPlayerUpdate packet(objectID, score, health);
+
+	peerInstance->sendPacketToAll(&packet);
+}
+
 void NetworkingPlugin_SendGameState(bool state)
 {
 	if (peerInstance == NULL)

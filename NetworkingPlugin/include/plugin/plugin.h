@@ -43,6 +43,10 @@ extern "C"
 			char name[30], int score, int health);
 
 	PLUGIN_SYMBOL
+		void NetworkingPlugin_SendPlayerUpdate(int objectID,
+			int score, int health);
+
+	PLUGIN_SYMBOL
 		void NetworkingPlugin_SendGameState(bool state);
 
 #ifdef __cplusplus

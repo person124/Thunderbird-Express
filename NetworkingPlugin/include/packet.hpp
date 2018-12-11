@@ -31,6 +31,7 @@ enum PacketTypes
 	PACKET_SHOUT,
 	PACKET_BOSS_HP,
 	PACKET_PLAYER_DATA,
+	PACKET_PLAYER_UPDATE,
 	PACKET_GAME_STATE,
 	PACKET_END
 };
@@ -129,6 +130,21 @@ struct PacketPlayerData : public Packet
 
 	unsigned int objectID;
 	char name[NAME_SIZE];
+	unsigned int score;
+	unsigned int health;
+};
+
+struct PacketPlayerUpdate : public Packet
+{
+	PacketPlayerUpdate(unsigned int id,
+		unsigned int playerScore, unsigned int playerHealth) :Packet(PACKET_PLAYER_UPDATE)
+	{
+		objectID = id;
+		playerScore = score;
+		playerHealth = health;
+	}
+
+	unsigned int objectID;
 	unsigned int score;
 	unsigned int health;
 };
