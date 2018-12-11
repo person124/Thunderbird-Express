@@ -26,6 +26,12 @@ Server::Server()
 
 void Server::handlePacket(Packet* packet, Connection* conn)
 {
+	if (packet->packetID > PACKET_BASE_ID && packet->packetID < PACKET_COUNT)
+	{
+		// Send the packet to all but who sent it
+		sendPacketBut(packet, conn);
+	}
+
 	switch (packet->packetID)
 	{
 	case PACKET_TRANSFORM:
