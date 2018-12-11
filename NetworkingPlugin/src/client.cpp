@@ -30,7 +30,50 @@ void Client::handlePacket(Packet* packet, Connection* conn)
 {
 	switch (packet->packetID)
 	{
-
+	case PACKET_TRANSFORM:
+	{
+		PacketTransform* p = (PacketTransform*)packet;
+		Plugin::fTransform(p->timeStamp, p->objectID,
+			p->posX, p->posY, p->posZ,
+			p->rotX, p->rotY, p->rotZ);
+		break;
+	}
+	case PACKET_COLOR:
+	{
+		PacketColor* p = (PacketColor*)packet;
+		Plugin::fColor(p->timeStamp, p->objectID, p->colorID);
+		break;
+	}
+	case PACKET_SHOUT:
+	{
+		PacketShout* p = (PacketShout*)packet;
+		Plugin::fShout(p->timeStamp, p->shoutID);
+		break;
+	}
+	case PACKET_BOSS_HP:
+	{
+		PacketBossHP* p = (PacketBossHP*)packet;
+		Plugin::fBossHP(p->timeStamp, p->hp);
+		break;
+	}
+	case PACKET_PLAYER_DATA:
+	{
+		PacketPlayerData* p = (PacketPlayerData*)packet;
+		Plugin::fPlayerData(p->timeStamp, p->objectID, p->name, p->score, p->health);
+		break;
+	}
+	case PACKET_PLAYER_UPDATE:
+	{
+		PacketPlayerUpdate* p = (PacketPlayerUpdate*)packet;
+		Plugin::fPlayerUpdate(p->timeStamp, p->objectID, p->score, p->health);
+		break;
+	}
+	case PACKET_GAME_STATE:
+	{
+		PacketGameState* p = (PacketGameState*)packet;
+		Plugin::fGameState(p->timeStamp, p->trueForStartFalseForEnd);
+		break;
+	}
 	default:
 	case PACKET_BASE_ID:
 		assert(false);
