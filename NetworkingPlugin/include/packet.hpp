@@ -69,7 +69,8 @@ struct PacketTransform : public Packet
 {
 	PacketTransform(unsigned int id,
 		float x, float y, float z,
-		float rX, float rY, float rZ):Packet(PACKET_TRANSFORM)
+		float rX, float rY, float rZ,
+		float vX, float vY, float vZ):Packet(PACKET_TRANSFORM)
 	{
 		objectID = id;
 		posX = x;
@@ -83,6 +84,7 @@ struct PacketTransform : public Packet
 	unsigned int objectID;
 	float posX, posY, posZ;
 	float rotX, rotY, rotZ;
+	float velX, velY, velZ;
 };
 
 struct PacketColor : public Packet
