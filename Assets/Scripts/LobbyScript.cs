@@ -49,6 +49,7 @@ public class LobbyScript : MonoBehaviour {
         //spawn players
         preGameCamera.enabled = false;
 
+        GameObject.Find("ObjectManager").GetComponent<ObjectManager>().SetPlayerNumber(0, 0);
         Wrapper.NetworkingPlugin_SendPlayerIDs();
         Wrapper.NetworkingPlugin_SendGameState(true);
     }

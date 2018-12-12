@@ -109,7 +109,8 @@ public class Wrapper
 	[DllImport(DLL)]
 	public static extern void NetworkingPlugin_SendTransform(int objectID,
 		float x, float y, float z,
-		float rX, float rY, float rZ);
+		float rX, float rY, float rZ,
+        float vX, float vY, float vZ);
 
 	[DllImport(DLL)]
 	public static extern void NetworkingPlugin_SendColor(int objectID, int color);

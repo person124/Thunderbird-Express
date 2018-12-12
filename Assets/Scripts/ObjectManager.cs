@@ -10,21 +10,26 @@ public class ObjectManager : MonoBehaviour
     private Wrapper.FuncTransform funcTransform;
     private Wrapper.FuncColor funcColor;
     private Wrapper.FuncInt setPlayerNumberFunc;
+    private Wrapper.FuncGameState funcGameState;
+
+    private bool tick = false;
 
     private void Start()
     {
         funcTransform = HandleTransform;
         funcColor = HandleColor;
         setPlayerNumberFunc = SetPlayerNumber;
+        funcGameState = OnGameStateChange;
 
         Wrapper.NetworkingPlugin_FuncPlayerNumber(setPlayerNumberFunc);
         Wrapper.NetworkingPlugin_FuncTransform(funcTransform);
         Wrapper.NetworkingPlugin_FuncColor(funcColor);
+        Wrapper.NetworkingPlugin_FuncGameState(funcGameState);
     }
 
     private void Update()
     {
-        if (Wrapper.NetworkingPlugin_IsServer())
+        if (tick && Wrapper.NetworkingPlugin_IsServer())
         {
             // Send attack positions
             for (int i = 4; i < objects.Length; ++i)
@@ -33,7 +38,7 @@ public class ObjectManager : MonoBehaviour
                 Quaternion tmpRot = objects[i].transform.rotation;
                 Vector3 tmpVel = objects[i].GetComponent<Attack>().velocity;
 
-
+                Debug.Log(i + ", " + tmpPos + ", " + tmpRot + ", " + tmpVel);
                 Wrapper.NetworkingPlugin_SendTransform(i,
                     tmpPos.x, tmpPos.y, tmpPos.z,
                     tmpRot.x, tmpRot.y, tmpRot.z,
@@ -50,7 +55,8 @@ public class ObjectManager : MonoBehaviour
 
     public void HandleTransform(ulong time, int objectID,
         float x, float y, float z,
-        float rX, float rY, float rZ)
+        float rX, float rY, float rZ,
+        float vX, float vY, float vZ)
     {
         // Set object position
         objects[objectID].transform.position = new Vector3(x, y, z);
@@ -80,6 +86,13 @@ public class ObjectManager : MonoBehaviour
                 objects[i].GetComponent<PlayerMovementFunctions>().ID = num;
 
             }
+
+            objects[i].SetActive(true);
         }
+    }
+
+    public void OnGameStateChange(ulong time, bool value)
+    {
+        tick = value;
     }
 }

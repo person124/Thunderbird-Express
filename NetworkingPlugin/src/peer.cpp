@@ -62,7 +62,7 @@ void Peer::sendPacket(Packet* packet, Connection* dest, bool sendToAll)
 	mPeer->Send
 	(
 		(const char*)packet,
-		PACKET_SIZES[packet->packetID],
+		PACKET_SIZES[packet->packetID - PACKET_BASE_ID],
 		HIGH_PRIORITY,
 		RELIABLE_ORDERED,
 		0,

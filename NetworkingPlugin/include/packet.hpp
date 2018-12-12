@@ -79,6 +79,9 @@ struct PacketTransform : public Packet
 		rotX = rX;
 		rotY = rY;
 		rotZ = rZ;
+		velX = vX;
+		velY = vY;
+		velZ = vZ;
 	}
 
 	unsigned int objectID;

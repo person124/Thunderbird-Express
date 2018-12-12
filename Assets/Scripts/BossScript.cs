@@ -37,8 +37,8 @@ public class BossScript : MonoBehaviour
         if (attackTimer <= 0)
         {
             //Instantiate(attack, transform.position, Quaternion.identity);
-            whoops = ReturnUseable();
-            whoops.SendMessage("SetVelocity", transform.position);
+            //whoops = ReturnUseable();
+           // whoops.SendMessage("SetVelocity", transform.position);
             attackTimer = attackTimerMax;
         }
 
@@ -76,6 +76,6 @@ public class BossScript : MonoBehaviour
     {
         hp -= 1;
 
-        Wrapper.NetworkingPlugin_SendBossHP((int)hp);
+        //Wrapper.NetworkingPlugin_SendBossHP((int)hp);
     }
 }

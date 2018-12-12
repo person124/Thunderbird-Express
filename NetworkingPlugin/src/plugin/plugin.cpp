@@ -243,6 +243,8 @@ void NetworkingPlugin_SendGameState(bool state)
 	PacketGameState packet(state);
 
 	peerInstance->sendPacketToAll(&packet);
+
+	Plugin::fGameState(0, state);
 }
 
 #pragma endregion

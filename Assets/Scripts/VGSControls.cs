@@ -30,8 +30,10 @@ public class VGSControls : MonoBehaviour {
 	void Start () {
 
         scorekeeper = GetComponent<PlayerScore>();
-        resetShout();
-      
+
+        isTrashTalk = null;
+        shoutStarted = false;
+
         introText.SetActive(true);
         leftText.SetActive(false);
         rightText.SetActive(false);
