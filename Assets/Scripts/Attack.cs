@@ -95,7 +95,7 @@ public class Attack : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("WALL") == true)
         {
-            ResetPos();
+            //ResetPos();
         }
     }
     //getter and setter for movement

@@ -49,7 +49,6 @@ public class ButtonManager : MonoBehaviour {
         ip = ipText.text;
 
         bool worked = Wrapper.NetworkingPlugin_StartClient(ip, port);
-
         if (worked)
         {
             Wrapper.NetworkingPlugin_StartLoop();

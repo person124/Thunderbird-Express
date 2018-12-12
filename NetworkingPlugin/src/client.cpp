@@ -32,8 +32,14 @@ Client::~Client()
 	sendPacketToAll(&packet);
 }
 
+#include <fstream>
+
 void Client::handlePacket(Packet* packet, Connection* conn)
 {
+	std::fstream help = std::fstream("help.txt", std::fstream::out | std::fstream::app);
+	help << ((int)packet->packetID) << '\n';
+	help.close();
+
 	switch (packet->packetID)
 	{
 	case PACKET_TRANSFORM:

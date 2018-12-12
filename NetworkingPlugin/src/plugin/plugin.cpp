@@ -177,7 +177,7 @@ void NetworkingPlugin_SendTransform(int objectID,
 	if (peerInstance == NULL)
 		return;
 
-	PacketTransform packet(objectID, x, y, z, rX, rY, rZ, vX, vY, vZ);
+	PacketTransform packet = PacketTransform(objectID, x, y, z, rX, rY, rZ, vX, vY, vZ);
 
 	peerInstance->sendPacketToAll(&packet);
 }

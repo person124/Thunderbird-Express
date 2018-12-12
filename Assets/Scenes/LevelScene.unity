@@ -4311,6 +4311,10 @@ MonoBehaviour:
   - {fileID: 844956773}
   - {fileID: 1606684750}
   - {fileID: 1957106783}
+  hostScreen: {fileID: 1909659931}
+  clientScreen: {fileID: 1909659930}
+  activeScreen: {fileID: 1344474820}
+  preGameCamera: {fileID: 470141796}
 --- !u!4 &1807565717
 Transform:
   m_ObjectHideFlags: 0
@@ -4773,12 +4777,32 @@ Prefab:
       propertyPath: preGameCamera
       value: 
       objectReference: {fileID: 470141796}
+    - target: {fileID: 114370379112621458, guid: 2b275f85d95d6914e94227befe841410,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1807565716}
+    - target: {fileID: 114370379112621458, guid: 2b275f85d95d6914e94227befe841410,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StartGame
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b275f85d95d6914e94227befe841410, type: 2}
   m_IsPrefabAsset: 0
 --- !u!4 &1909659929 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4280481432278458, guid: 2b275f85d95d6914e94227befe841410,
+    type: 2}
+  m_PrefabInternal: {fileID: 1909659928}
+--- !u!1 &1909659930 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1345451254508276, guid: 2b275f85d95d6914e94227befe841410,
+    type: 2}
+  m_PrefabInternal: {fileID: 1909659928}
+--- !u!1 &1909659931 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1813966227791320, guid: 2b275f85d95d6914e94227befe841410,
     type: 2}
   m_PrefabInternal: {fileID: 1909659928}
 --- !u!114 &1913385591 stripped
