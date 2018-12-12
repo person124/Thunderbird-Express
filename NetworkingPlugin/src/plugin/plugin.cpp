@@ -171,12 +171,13 @@ void NetworkingPlugin_FuncOnClientLeave(FuncInt func)
 
 void NetworkingPlugin_SendTransform(int objectID,
 	float x, float y, float z,
-	float rX, float rY, float rZ)
+	float rX, float rY, float rZ,
+	float vX, float vY, float vZ)
 {
 	if (peerInstance == NULL)
 		return;
 
-	PacketTransform packet(objectID, x, y, z, rX, rY, rZ);
+	PacketTransform packet = PacketTransform(objectID, x, y, z, rX, rY, rZ, vX, vY, vZ);
 
 	peerInstance->sendPacketToAll(&packet);
 }
@@ -242,6 +243,8 @@ void NetworkingPlugin_SendGameState(bool state)
 	PacketGameState packet(state);
 
 	peerInstance->sendPacketToAll(&packet);
+
+	Plugin::fGameState(0, state);
 }
 
 #pragma endregion

@@ -34,11 +34,15 @@ public class BossScript : MonoBehaviour
 
         attackTimer -= Time.deltaTime;
 
+        if (!Wrapper.NetworkingPlugin_IsServer())
+            return;
+
         if (attackTimer <= 0)
         {
             //Instantiate(attack, transform.position, Quaternion.identity);
             whoops = ReturnUseable();
-            whoops.SendMessage("SetVelocity", transform.position);
+            if (whoops)
+                whoops.SendMessage("SetVelocity", transform.position);
             attackTimer = attackTimerMax;
         }
 

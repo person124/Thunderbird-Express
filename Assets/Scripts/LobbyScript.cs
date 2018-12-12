@@ -4,26 +4,14 @@ using UnityEngine;
 
 public class LobbyScript : MonoBehaviour {
 
-    public GameObject hostScreen;
-    public GameObject clientScreen;
-    public GameObject activeScreen;
+    
 
-    public Camera preGameCamera;
-
-    private Wrapper.FuncInt setPlayerNumberFunc;
+   
 
     // Use this for initialization
     void Start () {
 
-        hostScreen.SetActive(false);
-        clientScreen.SetActive(false);
-
-        if (Wrapper.NetworkingPlugin_IsServer())
-        {
-            hostScreen.SetActive(true);
-        }
-        else
-            clientScreen.SetActive(true);
+        
 
 
 
@@ -39,16 +27,7 @@ public class LobbyScript : MonoBehaviour {
     {
         //yup
 
-        hostScreen.SetActive(false);
-        clientScreen.SetActive(false);
-        activeScreen.SetActive(true);
-
-        //spawn players
-        preGameCamera.enabled = false;
+        
     }
 
-    public void SetPlayerNumber(ulong time, int num)
-    {
-
-    }
 }

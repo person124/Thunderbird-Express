@@ -88,7 +88,8 @@ extern "C"
 	PLUGIN_SYMBOL
 		void NetworkingPlugin_SendTransform(int objectID,
 			float x, float y, float z,
-			float rX, float rY, float rZ);
+			float rX, float rY, float rZ,
+			float vX, float vY, float vZ);
 
 	PLUGIN_SYMBOL
 		void NetworkingPlugin_SendColor(int objectID, int color);
