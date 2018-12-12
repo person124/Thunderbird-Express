@@ -53,7 +53,7 @@ public class Wrapper
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public delegate void FuncPlayerData(ulong time, int objectID,
-		char[] name, int score, int health);
+		StringBuilder name, int nameMaxLength, int score, int health);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public delegate void FuncPlayerUpdate(ulong time, int objectID, int score, int health);
@@ -100,7 +100,7 @@ public class Wrapper
 	[DllImport(DLL)]
 	public static extern void NetworkingPlugin_SendBossHP(int bossHP);
 
-	[DllImport(DLL, CallingConvention = CallingConvention.Cdecl)]
+	[DllImport(DLL)]
 	public static extern void NetworkingPlugin_SendPlayerData(int objectID,
 		string name, int score, int health);
 
