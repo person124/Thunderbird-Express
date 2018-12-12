@@ -29,6 +29,9 @@ extern "C"
 		bool NetworkingPlugin_StartClient(const char* ip, int port);
 
 	PLUGIN_SYMBOL
+		bool NetworkingPlugin_StartServer(int port, int maxClients);
+
+	PLUGIN_SYMBOL
 		void NetworkingPlugin_DeletePeer();
 
 	PLUGIN_SYMBOL
@@ -80,7 +83,7 @@ extern "C"
 
 	PLUGIN_SYMBOL
 		void NetworkingPlugin_SendPlayerData(int objectID,
-			char name[33], int score, int health);
+			const char* name, int score, int health);
 
 	PLUGIN_SYMBOL
 		void NetworkingPlugin_SendPlayerUpdate(int objectID,
