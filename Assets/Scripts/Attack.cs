@@ -51,7 +51,6 @@ public class Attack : MonoBehaviour
 
     void SetVelocity(Vector3 pos)
     {
-        int x;
         transform.position = pos;
         isUsed = true;
         velocity = new Vector3(Random.Range(-maxSpeed, maxSpeed), 0.0f, Random.Range(-maxSpeed, maxSpeed));
@@ -95,7 +94,7 @@ public class Attack : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("WALL") == true)
         {
-            //ResetPos();
+            ResetPos();
         }
     }
     //getter and setter for movement
