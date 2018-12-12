@@ -63,7 +63,7 @@ void Server::handlePacket(Packet* packet, Connection* conn)
 	case PACKET_PLAYER_DATA:
 	{
 		PacketPlayerData* p = (PacketPlayerData*)packet;
-		Plugin::fPlayerData(p->timeStamp, p->objectID, p->name, NAME_SIZE, p->score, p->health);
+		Plugin::fPlayerData(p->timeStamp, p->objectID, p->name, p->score, p->health);
 		break;
 	}
 	case PACKET_PLAYER_UPDATE:

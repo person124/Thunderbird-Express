@@ -53,7 +53,7 @@ public class Wrapper
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public delegate void FuncPlayerData(ulong time, int objectID,
-		StringBuilder name, int nameMaxLength, int score, int health);
+		string name, int nameMaxLength, int score, int health);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public delegate void FuncPlayerUpdate(ulong time, int objectID, int score, int health);

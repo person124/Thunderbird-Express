@@ -26,9 +26,8 @@ typedef void(*FuncColor)(unsigned long long, int, int);
 // Used for shout, bossHP
 typedef void(*FuncInt)(unsigned long long, int);
 
-// time, objectID, name, name max length, score, health
-// Max length is 33
-typedef void(*FuncPlayerData)(unsigned long long, int, char*, int, int, int);
+// time, objectID, name, score, health
+typedef void(*FuncPlayerData)(unsigned long long, int, const char*, int, int);
 
 // time, objectID, score, health
 typedef void(*FuncPlayerUpdate)(unsigned long long, int, int, int);
