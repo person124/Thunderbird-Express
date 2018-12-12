@@ -136,6 +136,8 @@ public class VGSControls : MonoBehaviour {
 
     void sendShoutOverNet()
     {
+        Debug.Log("THUNDERBIRD YEULLWLO");
+
         shoutRef.SendMessage("PlayShout", (int)type);
 
         Wrapper.NetworkingPlugin_SendShout((int)type);

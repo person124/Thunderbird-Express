@@ -93,9 +93,9 @@ public class Attack : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.CompareTag("WALL") == true)
+        if (collision.gameObject.CompareTag("WALL") == true && Wrapper.NetworkingPlugin_IsServer())
         {
-            //ResetPos();
+            ResetPos();
         }
     }
     //getter and setter for movement
