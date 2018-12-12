@@ -49,7 +49,8 @@ public class Wrapper
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public delegate void FuncTransform(ulong time, int objectID,
 		float x, float y, float z,
-		float rX, float rY, float rZ);
+		float rX, float rY, float rZ,
+		float vX, float vY, float vZ);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public delegate void FuncColor(ulong time, int objectID, int color);
