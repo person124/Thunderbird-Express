@@ -55,6 +55,9 @@ extern "C"
 		void NetworkingPlugin_FuncBossHP(FuncInt func);
 
 	PLUGIN_SYMBOL
+		void NetworkingPlugin_FuncPlayerNumber(FuncInt func);
+
+	PLUGIN_SYMBOL
 		void NetworkingPlugin_FuncPlayerData(FuncPlayerData func);
 
 	PLUGIN_SYMBOL

@@ -24,6 +24,7 @@ struct Plugin
 	static FuncColor fColor;
 	static FuncInt fShout;
 	static FuncInt fBossHP;
+	static FuncInt fPlayerNumber;
 	static FuncPlayerData fPlayerData;
 	static FuncPlayerUpdate fPlayerUpdate;
 	static FuncGameState fGameState;

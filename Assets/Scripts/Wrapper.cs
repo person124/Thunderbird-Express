@@ -74,6 +74,9 @@ public class Wrapper
 	public static extern void NetworkingPlugin_FuncBossHP(FuncInt func);
 
 	[DllImport(DLL)]
+	public static extern void NetworkingPlugin_FuncPlayerNumber(FuncInt func);
+
+	[DllImport(DLL)]
 	public static extern void NetworkingPlugin_FuncPlayerData(FuncPlayerData func);
 
 	[DllImport(DLL)]

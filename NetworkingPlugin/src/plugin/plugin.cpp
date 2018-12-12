@@ -31,6 +31,7 @@ FuncTransform Plugin::fTransform;
 FuncColor Plugin::fColor;
 FuncInt Plugin::fShout;
 FuncInt Plugin::fBossHP;
+FuncInt Plugin::fPlayerNumber;
 FuncPlayerData Plugin::fPlayerData;
 FuncPlayerUpdate Plugin::fPlayerUpdate;
 FuncGameState Plugin::fGameState;
@@ -114,6 +115,11 @@ void NetworkingPlugin_FuncShout(FuncInt func)
 void NetworkingPlugin_FuncBossHP(FuncInt func)
 {
 	Plugin::fBossHP = func;
+}
+
+void NetworkingPlugin_FuncPlayerNumber(FuncInt func)
+{
+	Plugin::fPlayerNumber = func;
 }
 
 void NetworkingPlugin_FuncPlayerData(FuncPlayerData func)

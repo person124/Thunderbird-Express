@@ -22,6 +22,7 @@ unsigned int PACKET_SIZES[PACKET_COUNT] =
 	sizeof(PacketColor),
 	sizeof(PacketShout),
 	sizeof(PacketBossHP),
+	sizeof(PacketPlayerNumber),
 	sizeof(PacketPlayerData),
 	sizeof(PacketPlayerUpdate),
 	sizeof(PacketGameState)

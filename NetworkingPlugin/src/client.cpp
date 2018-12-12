@@ -56,6 +56,12 @@ void Client::handlePacket(Packet* packet, Connection* conn)
 		Plugin::fBossHP(p->timeStamp, p->hp);
 		break;
 	}
+	case PACKET_PLAYER_NUMBER:
+	{
+		PacketPlayerNumber* p = (PacketPlayerNumber*)packet;
+		Plugin::fPlayerNumber(p->timeStamp, p->playerID);
+		break;
+	}
 	case PACKET_PLAYER_DATA:
 	{
 		PacketPlayerData* p = (PacketPlayerData*)packet;

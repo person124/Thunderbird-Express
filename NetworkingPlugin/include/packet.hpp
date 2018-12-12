@@ -30,6 +30,7 @@ enum PacketTypes
 	PACKET_COLOR,
 	PACKET_SHOUT,
 	PACKET_BOSS_HP,
+	PACKET_PLAYER_NUMBER,
 	PACKET_PLAYER_DATA,
 	PACKET_PLAYER_UPDATE,
 	PACKET_GAME_STATE,
@@ -107,6 +108,16 @@ struct PacketBossHP : public Packet
 	}
 
 	unsigned int hp;
+};
+
+struct PacketPlayerNumber : public Packet
+{
+	PacketPlayerNumber(unsigned int num) :Packet(PACKET_PLAYER_NUMBER)
+	{
+		playerID = num;
+	}
+
+	unsigned int playerID;
 };
 
 struct PacketPlayerData : public Packet
