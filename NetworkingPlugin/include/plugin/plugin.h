@@ -42,6 +42,9 @@ extern "C"
 	PLUGIN_SYMBOL
 		bool NetworkingPlugin_IsServer();
 
+	PLUGIN_SYMBOL
+		void NetworkingPlugin_SendPlayerIDs();
+
 #pragma endregion
 
 #pragma region FUNCTION_SETTERS

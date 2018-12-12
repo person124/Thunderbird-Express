@@ -101,6 +101,14 @@ bool NetworkingPlugin_IsServer()
 	return peerInstance->isServer();
 }
 
+void NetworkingPlugin_SendPlayerIDs()
+{
+	assert(peerInstance);
+	assert(peerInstance->isServer());
+
+	((Server*)peerInstance)->sendClientIds();
+}
+
 #pragma endregion
 
 #pragma region FUNCTION_SETTERS
