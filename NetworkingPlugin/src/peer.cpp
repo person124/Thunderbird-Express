@@ -120,6 +120,10 @@ bool Peer::startClient(const std::string& ip, unsigned int port)
 
 	mIsServer = false;
 
+	// Tell the server that we joined
+	PacketClientJoin joinPacket = PacketClientJoin();
+	sendPacketToAll(&joinPacket);
+
 	return true;
 }
 

@@ -20,6 +20,10 @@ public class Wrapper
 {
 	public const string DLL = "NetworkingPlugin_x64";
 
+	// ==========================================================
+	// MISC FUNCTIONS
+	// ==========================================================
+
 	[DllImport(DLL)]
 	public static extern bool NetworkingPlugin_StartClient(string ip, int port);
 
@@ -34,6 +38,9 @@ public class Wrapper
 
 	[DllImport(DLL)]
 	public static extern bool NetworkingPlugin_IsServer();
+
+	[DllImport(DLL)]
+	public static extern void NetworkingPlugin_SendPlayerIDs();
 
 	// ==========================================================
 	// FUNCTION SETTERS
@@ -61,6 +68,9 @@ public class Wrapper
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public delegate void FuncGameState(ulong time, bool state);
 
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public delegate void FuncVoid();
+
 	[DllImport(DLL)]
 	public static extern void NetworkingPlugin_FuncTransform(FuncTransform func);
 
@@ -74,6 +84,9 @@ public class Wrapper
 	public static extern void NetworkingPlugin_FuncBossHP(FuncInt func);
 
 	[DllImport(DLL)]
+	public static extern void NetworkingPlugin_FuncPlayerNumber(FuncInt func);
+
+	[DllImport(DLL)]
 	public static extern void NetworkingPlugin_FuncPlayerData(FuncPlayerData func);
 
 	[DllImport(DLL)]
@@ -81,6 +94,12 @@ public class Wrapper
 
 	[DllImport(DLL)]
 	public static extern void NetworkingPlugin_FuncGameState(FuncGameState func);
+
+	[DllImport(DLL)]
+	public static extern void NetworkingPlugin_FuncOnServerShutdown(FuncVoid func);
+
+	[DllImport(DLL)]
+	public static extern void NetworkingPlugin_FuncOnClientLeave(FuncInt func);
 
 	// ==========================================================
 	// SEND PACKET FUNCTIONS

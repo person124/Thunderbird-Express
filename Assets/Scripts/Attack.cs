@@ -18,14 +18,14 @@ public class Attack : MonoBehaviour
 
     MeshRenderer mesh;
 
-    enum AttackType
+    public enum AttackType
     {
         RED,
         YELLOW,
         BLUE
     };
 
-    AttackType type;
+    public AttackType type;
 
     // Use this for initialization
     void Start()
@@ -93,11 +93,9 @@ public class Attack : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        Debug.Log("We made it!");
         if (collision.gameObject.CompareTag("WALL") == true)
         {
             ResetPos();
-            //GameObject.Destroy(gameObject);
         }
     }
     //getter and setter for movement

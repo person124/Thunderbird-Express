@@ -25,6 +25,8 @@ extern "C"
 
 #include "plugin/functionTypes.h"
 
+#pragma region MISC_FUNCTIONS
+
 	PLUGIN_SYMBOL
 		bool NetworkingPlugin_StartClient(const char* ip, int port);
 
@@ -39,6 +41,11 @@ extern "C"
 
 	PLUGIN_SYMBOL
 		bool NetworkingPlugin_IsServer();
+
+	PLUGIN_SYMBOL
+		void NetworkingPlugin_SendPlayerIDs();
+
+#pragma endregion
 
 #pragma region FUNCTION_SETTERS
 
@@ -55,6 +62,9 @@ extern "C"
 		void NetworkingPlugin_FuncBossHP(FuncInt func);
 
 	PLUGIN_SYMBOL
+		void NetworkingPlugin_FuncPlayerNumber(FuncInt func);
+
+	PLUGIN_SYMBOL
 		void NetworkingPlugin_FuncPlayerData(FuncPlayerData func);
 
 	PLUGIN_SYMBOL
@@ -62,6 +72,14 @@ extern "C"
 
 	PLUGIN_SYMBOL
 		void NetworkingPlugin_FuncGameState(FuncGameState func);
+
+	// Non Packet Functions
+	
+	PLUGIN_SYMBOL
+		void NetworkingPlugin_FuncOnServerShutdown(FuncVoid func);
+
+	PLUGIN_SYMBOL
+		void NetworkingPlugin_FuncOnClientLeave(FuncInt func);
 
 #pragma endregion
 
