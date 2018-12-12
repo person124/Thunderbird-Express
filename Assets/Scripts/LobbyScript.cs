@@ -10,7 +10,7 @@ public class LobbyScript : MonoBehaviour {
 
     public Camera preGameCamera;
 
-    private Wrapper.FuncInt setPlayerNumberFunc;
+   
 
     // Use this for initialization
     void Start () {
@@ -23,7 +23,10 @@ public class LobbyScript : MonoBehaviour {
             hostScreen.SetActive(true);
         }
         else
+        {
             clientScreen.SetActive(true);
+            
+        }
 
 
 
@@ -45,10 +48,9 @@ public class LobbyScript : MonoBehaviour {
 
         //spawn players
         preGameCamera.enabled = false;
+
+        Wrapper.NetworkingPlugin_SendPlayerIDs();
+        Wrapper.NetworkingPlugin_SendGameState(true);
     }
 
-    public void SetPlayerNumber(ulong time, int num)
-    {
-
-    }
 }
