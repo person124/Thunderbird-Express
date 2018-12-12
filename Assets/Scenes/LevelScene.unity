@@ -4239,7 +4239,11 @@ MonoBehaviour:
   player2Name: dorkus2
   player3Name: dorkus3
   player4Name: dorkus4
-  scoreScreen: {fileID: 716342287}
+  scoreScreen: {fileID: 658306090}
+  player1ScoreObj: {fileID: 1596757225}
+  player2ScoreObj: {fileID: 1563431048}
+  player3ScoreObj: {fileID: 2138984357}
+  player4ScoreObj: {fileID: 1437969317}
   player1ScoreText: {fileID: 0}
   player2ScoreText: {fileID: 0}
   player3ScoreText: {fileID: 0}
