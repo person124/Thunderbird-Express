@@ -73,13 +73,44 @@ public class BossScript : MonoBehaviour
 
     public void HandleHP(ulong time, int numShout)
     {
-        SubtractFromHP();
+        int damage = 0;
+        switch (numShout)
+        {
+            case 3:
+                damage = 3;
+                break;
+            case 4:
+                damage = 2;
+                break;
+            case 5:
+                damage = 1;
+                break;
+        }
+
+        UnityMainThreadDispatcher.Instance().Enqueue(HPmanage(time, damage));
+        //SubtractFromHP();
     }
 
-    void SubtractFromHP()
+    public IEnumerator HPmanage(ulong time, int hp)
     {
-        hp -= 1;
+        yield return null;
 
-        Wrapper.NetworkingPlugin_SendBossHP((int)hp);
+    }
+    
+    void SubtractFromHP(int shoutSent)
+    {
+        switch (shoutSent)
+        {
+            case 3:
+                hp -= 3;
+                break;
+            case 4:
+                hp -= 2;
+                break;
+            case 5:
+                --hp;
+                break;
+        }
+        Wrapper.NetworkingPlugin_SendBossHP(hp);
     }
 }

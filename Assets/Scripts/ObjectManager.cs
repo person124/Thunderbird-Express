@@ -56,6 +56,8 @@ public class ObjectManager : MonoBehaviour
                 Quaternion tmpRot = objects[i].transform.rotation;
                 Vector3 tmpVel = objects[i].GetComponent<Attack>().velocity;
 
+                Wrapper.NetworkingPlugin_SendColor(i, (int)objects[i].GetComponent<Attack>().type);
+
                 Wrapper.NetworkingPlugin_SendTransform(i,
                     tmpPos.x, tmpPos.y, tmpPos.z,
                     tmpRot.x, tmpRot.y, tmpRot.z,
@@ -92,9 +94,15 @@ public class ObjectManager : MonoBehaviour
 
     public void HandleColor(ulong time, int objectID, int color)
     {
-
+        UnityMainThreadDispatcher.Instance().Enqueue(Color(time, objectID, color));
     }
 
+    public IEnumerator Color(ulong time, int objectID, int color)
+    {
+        yield return null;
+
+        objects[objectID].SendMessage("SetAttackType", color);
+    }
     public void SetPlayerNumber(ulong time, int num)
     {
         UnityMainThreadDispatcher.Instance().Enqueue(yuppers(time, num));

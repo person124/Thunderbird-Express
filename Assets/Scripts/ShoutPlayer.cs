@@ -20,15 +20,25 @@ public class ShoutPlayer : MonoBehaviour
 
     public void HandleSound(ulong time, int numShout)
     {
-        PlayShout(numShout);
+        UnityMainThreadDispatcher.Instance().Enqueue(SendAudio(time, numShout));
     }
 
 	void PlayShout(int shoutToPlay)
     {
         if (shoutToPlay >= 3)
         {
-            Boss.SendMessage("SubtractFromHP");
+            Boss.SendMessage("SubtractFromHP", shoutToPlay);
         }
+        
         audioSource.PlayOneShot(shouts[shoutToPlay]);
     }
+
+    public IEnumerator SendAudio(ulong time, int shoutToPlay)
+    {
+        yield return null;
+
+        // Set object position
+        PlayShout(shoutToPlay);
+    }
+
 }
