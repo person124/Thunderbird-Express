@@ -14,6 +14,8 @@ public class PlayerHealth : MonoBehaviour {
     public PlayerInput input;
     public PlayerScore scorekeeper;
 
+    public bool dead = false;
+
     enum ShieldType
     {
         RED,
@@ -28,6 +30,7 @@ public class PlayerHealth : MonoBehaviour {
     // Use this for initialization
     void Start () {
         health = 3;
+        dead = false;
         mainCamera = GetComponentInChildren<Camera>();
         input = GetComponent<PlayerInput>();
         scorekeeper = GetComponent<PlayerScore>();
@@ -78,6 +81,8 @@ public class PlayerHealth : MonoBehaviour {
             mainCamera.enabled = false;
             deadCamera.enabled = true;
             input.enabled = false;
+
+            dead = true;
 
             return false;
         }
