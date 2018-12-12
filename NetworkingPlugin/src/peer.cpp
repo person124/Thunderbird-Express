@@ -88,6 +88,8 @@ bool Peer::startServer(unsigned int port, unsigned int maxClients)
 
 	mPeer->SetMaximumIncomingConnections(mMaxClients);
 
+	mIsServer = true;
+
 	return true;
 }
 
@@ -115,6 +117,8 @@ bool Peer::startClient(const std::string& ip, unsigned int port)
 		packet = mPeer->Receive();
 	if (packet->data[0] != ID_CONNECTION_REQUEST_ACCEPTED)
 		return false;
+
+	mIsServer = false;
 
 	return true;
 }
