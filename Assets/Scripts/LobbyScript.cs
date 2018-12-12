@@ -6,8 +6,9 @@ public class LobbyScript : MonoBehaviour {
 
     public GameObject hostScreen;
     public GameObject clientScreen;
-    public GameObject activeScreen; 
+    public GameObject activeScreen;
 
+    public Camera preGameCamera;
 
     // Use this for initialization
     void Start () {
@@ -41,6 +42,6 @@ public class LobbyScript : MonoBehaviour {
         activeScreen.SetActive(true);
 
         //spawn players
-
+        preGameCamera.enabled = false;
     }
 }

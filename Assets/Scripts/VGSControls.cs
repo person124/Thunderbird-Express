@@ -8,6 +8,7 @@ public class VGSControls : MonoBehaviour {
     public GameObject leftText;
     public GameObject rightText;
 
+    public PlayerScore scorekeeper;
 
     bool shoutStarted;
     bool? isTrashTalk;
@@ -27,6 +28,7 @@ public class VGSControls : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+        scorekeeper = GetComponent<PlayerScore>();
         resetShout();
       
         introText.SetActive(true);
@@ -68,7 +70,10 @@ public class VGSControls : MonoBehaviour {
             {
                 //change type 
                 if (isTrashTalk == true)
+                {
                     type = ShoutType.TRASHTALK_DORK;
+                    scorekeeper.incrementScore(1000);
+                }
                 else
                     type = ShoutType.SHIELD_RED;
 
@@ -81,7 +86,11 @@ public class VGSControls : MonoBehaviour {
             else if (Input.GetMouseButtonDown(1)) //right
             {
                 if (isTrashTalk == true)
+                {
                     type = ShoutType.TRASHTALK_SHORTS;
+                    scorekeeper.incrementScore(500);
+
+                }
                 else
                     type = ShoutType.SHIELD_BLUE;
 
@@ -94,7 +103,10 @@ public class VGSControls : MonoBehaviour {
             else if (Input.GetMouseButtonDown(2)) //middle
             {
                 if (isTrashTalk == true)
+                {
                     type = ShoutType.TRASHTALK_DAD;
+                    scorekeeper.incrementScore(2000);
+                }
                 else
                     type = ShoutType.SHIELD_YELLOW;
 
