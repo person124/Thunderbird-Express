@@ -9,6 +9,7 @@ public class VGSControls : MonoBehaviour {
     public GameObject rightText;
 
     public PlayerScore scorekeeper;
+    public GameObject shoutRef;
 
     bool shoutStarted;
     bool? isTrashTalk;
@@ -122,11 +123,19 @@ public class VGSControls : MonoBehaviour {
 
     void resetShout()
     {
+        sendShoutOverNet();
         isTrashTalk = null;
         shoutStarted = false;
 
         introText.SetActive(true);
         leftText.SetActive(false);
         rightText.SetActive(false);
+    }
+
+    void sendShoutOverNet()
+    {
+        shoutRef.SendMessage("PlayShout", (int)type);
+
+        Wrapper.NetworkingPlugin_SendShout((int)type);
     }
 }
