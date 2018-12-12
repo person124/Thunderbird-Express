@@ -83,13 +83,11 @@ public class ObjectManager : MonoBehaviour
         float rX, float rY, float rZ,
         float vX, float vY, float vZ)
     {
-        Debug.Log(objectID);
+        yield return null;
 
         // Set object position
         objects[objectID].transform.position = new Vector3(x, y, z);
         objects[objectID].transform.rotation = Quaternion.Euler(rX, rY, rZ);
-
-        yield return null;
     }
 
     public void HandleColor(ulong time, int objectID, int color)
@@ -99,35 +97,13 @@ public class ObjectManager : MonoBehaviour
 
     public void SetPlayerNumber(ulong time, int num)
     {
-        if (!Wrapper.NetworkingPlugin_IsServer())
-            UnityMainThreadDispatcher.Instance().Enqueue(yuppers(time, num));
-        else
-        {
-            for (int i = 0; i < 4; ++i)
-            {
-                if (i != num)
-                {
-                    Destroy(objects[i].transform.GetChild(0).gameObject);
-                    objects[i].GetComponent<PlayerInput>().enabled = false;
-                    objects[i].GetComponent<PlayerMovementFunctions>().enabled = false;
-                    objects[i].GetComponent<VGSControls>().enabled = false;
-                    objects[i].GetComponent<PlayerScore>().enabled = false;
-                }
-                else
-                {
-                    objects[i].GetComponent<PlayerMovementFunctions>().ID = num;
-
-                }
-
-                objects[i].SetActive(true);
-            }
-        }
+        UnityMainThreadDispatcher.Instance().Enqueue(yuppers(time, num));
     }
 
 
     public IEnumerator yuppers(ulong time, int num)
     {
-        Debug.Log(false);
+        yield return null;
 
         for (int i = 0; i < 4; ++i)
         {
@@ -154,12 +130,17 @@ public class ObjectManager : MonoBehaviour
 
         //spawn players
         preGameCamera.enabled = false;
-
-        yield return null;
     }
 
     public void OnGameStateChange(ulong time, bool value)
     {
+        UnityMainThreadDispatcher.Instance().Enqueue(Blarg(time, value));
+    }
+
+    public IEnumerator Blarg(ulong time, bool value)
+    {
+        yield return null;
+
         tick = value;
 
         if (value)
