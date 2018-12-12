@@ -14,6 +14,7 @@
 */
 
 using System.Runtime.InteropServices;
+using System.Text;
 
 public class Wrapper
 {
@@ -21,6 +22,9 @@ public class Wrapper
 
 	[DllImport(DLL)]
 	public static extern bool NetworkingPlugin_StartClient(string ip, int port);
+
+	[DllImport(DLL)]
+	public static extern bool NetworkingPlugin_StartServer(int port, int maxClients);
 
 	[DllImport(DLL)]
 	public static extern void NetworkingPlugin_DeletePeer();
@@ -49,7 +53,7 @@ public class Wrapper
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public delegate void FuncPlayerData(ulong time, int objectID,
-		char[] name, int score, int health);
+		string name, int nameMaxLength, int score, int health);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public delegate void FuncPlayerUpdate(ulong time, int objectID, int score, int health);
@@ -98,7 +102,7 @@ public class Wrapper
 
 	[DllImport(DLL)]
 	public static extern void NetworkingPlugin_SendPlayerData(int objectID,
-		char[] name, int score, int health);
+		string name, int score, int health);
 
 	[DllImport(DLL)]
 	public static extern void NetworkingPlugin_SendPlayerUpdate(int objectID,
