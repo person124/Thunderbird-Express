@@ -28,6 +28,10 @@ struct Plugin
 	static FuncPlayerData fPlayerData;
 	static FuncPlayerUpdate fPlayerUpdate;
 	static FuncGameState fGameState;
+
+	// Non Packet Functions
+	static FuncVoid fServerShutdown;
+	static FuncInt fClientLeave;
 };
 
 #endif

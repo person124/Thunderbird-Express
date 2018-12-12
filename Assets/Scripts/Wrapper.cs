@@ -61,6 +61,9 @@ public class Wrapper
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public delegate void FuncGameState(ulong time, bool state);
 
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public delegate void FuncVoid();
+
 	[DllImport(DLL)]
 	public static extern void NetworkingPlugin_FuncTransform(FuncTransform func);
 
@@ -84,6 +87,12 @@ public class Wrapper
 
 	[DllImport(DLL)]
 	public static extern void NetworkingPlugin_FuncGameState(FuncGameState func);
+
+	[DllImport(DLL)]
+	public static extern void NetworkingPlugin_FuncOnServerShutdown(FuncVoid func);
+
+	[DllImport(DLL)]
+	public static extern void NetworkingPlugin_FuncOnClientLeave(FuncInt func);
 
 	// ==========================================================
 	// SEND PACKET FUNCTIONS

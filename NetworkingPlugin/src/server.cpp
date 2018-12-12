@@ -39,6 +39,9 @@ Server::~Server()
 	}
 
 	delete[] mConnections;
+
+	PacketServerShutdown shutdown = PacketServerShutdown();
+	sendPacketToAll(&shutdown);
 }
 
 void Server::handlePacket(Packet* packet, Connection* conn)

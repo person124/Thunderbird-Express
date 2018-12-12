@@ -28,5 +28,7 @@ unsigned int PACKET_SIZES[PACKET_COUNT] =
 	sizeof(PacketGameState),
 
 	// Non Unity Packets
-	sizeof(PacketClientJoin)
+	sizeof(PacketClientJoin),
+	sizeof(PacketServerShutdown),
+	sizeof(PacketClientDisconnect)
 };

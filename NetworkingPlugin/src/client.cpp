@@ -84,6 +84,11 @@ void Client::handlePacket(Packet* packet, Connection* conn)
 		Plugin::fGameState(p->timeStamp, p->trueForStartFalseForEnd);
 		break;
 	}
+	case PACKET_SERVER_SHUTDOWN:
+	{
+		Plugin::fServerShutdown();
+		break;
+	}
 	default:
 	case PACKET_BASE_ID:
 		assert(false);

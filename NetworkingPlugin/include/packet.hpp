@@ -37,6 +37,8 @@ enum PacketTypes
 
 	// Non Unity Exposed Packets
 	PACKET_CLIENT_JOIN,
+	PACKET_SERVER_SHUTDOWN,
+	PACKET_CLIENT_DISCONNECT,
 
 	// To know how many packets exist
 	PACKET_END
@@ -172,6 +174,16 @@ struct PacketGameState : public Packet
 struct PacketClientJoin : public Packet
 {
 	PacketClientJoin():Packet(PACKET_CLIENT_JOIN) {}
+};
+
+struct PacketServerShutdown : public Packet
+{
+	PacketServerShutdown():Packet(PACKET_SERVER_SHUTDOWN) {}
+};
+
+struct PacketClientDisconnect : public Packet
+{
+	PacketClientDisconnect():Packet(PACKET_CLIENT_DISCONNECT) {}
 };
 #pragma BIT_END
 

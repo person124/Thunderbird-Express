@@ -35,4 +35,7 @@ typedef void(*FuncPlayerUpdate)(unsigned long long, int, int, int);
 // time, state
 typedef void(*FuncGameState)(unsigned long long, bool);
 
+// time
+typedef void(*FuncVoid)();
+
 #endif
