@@ -22,9 +22,20 @@ class Server : public Peer
 {
 public:
 	Server();
+	~Server();
 
 protected:
 	void handlePacket(Packet* packet, Connection* conn);
+
+private:
+	// Adds a connection to the list of connections, updates mConnectedClientCount
+	void addConnection(Connection* conn);
+
+	// Removes a connection from the list, updates mConnectedClientCount
+	unsigned int removeConnection(Connection* conn);
+
+	Connection** mConnections; // Instance of connected clients
+	unsigned int mConnectedClientCount; // Number of connected clients
 };
 
 #endif

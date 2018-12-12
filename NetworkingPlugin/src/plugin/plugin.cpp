@@ -31,9 +31,16 @@ FuncTransform Plugin::fTransform;
 FuncColor Plugin::fColor;
 FuncInt Plugin::fShout;
 FuncInt Plugin::fBossHP;
+FuncInt Plugin::fPlayerNumber;
 FuncPlayerData Plugin::fPlayerData;
 FuncPlayerUpdate Plugin::fPlayerUpdate;
 FuncGameState Plugin::fGameState;
+
+// Non packet functions
+FuncVoid Plugin::fServerShutdown;
+FuncInt Plugin::fClientLeave;
+
+#pragma region MISC_FUNCTIONS
 
 bool NetworkingPlugin_StartClient(const char* ip, int port)
 {
@@ -94,6 +101,8 @@ bool NetworkingPlugin_IsServer()
 	return peerInstance->isServer();
 }
 
+#pragma endregion
+
 #pragma region FUNCTION_SETTERS
 
 void NetworkingPlugin_FuncTransform(FuncTransform func)
@@ -116,6 +125,11 @@ void NetworkingPlugin_FuncBossHP(FuncInt func)
 	Plugin::fBossHP = func;
 }
 
+void NetworkingPlugin_FuncPlayerNumber(FuncInt func)
+{
+	Plugin::fPlayerNumber = func;
+}
+
 void NetworkingPlugin_FuncPlayerData(FuncPlayerData func)
 {
 	Plugin::fPlayerData = func;
@@ -129,6 +143,18 @@ void NetworkingPlugin_FuncPlayerUpdate(FuncPlayerUpdate func)
 void NetworkingPlugin_FuncGameState(FuncGameState func)
 {
 	Plugin::fGameState = func;
+}
+
+// Non Packet Functions
+
+void NetworkingPlugin_FuncOnServerShutdown(FuncVoid func)
+{
+	Plugin::fServerShutdown = func;
+}
+
+void NetworkingPlugin_FuncOnClientLeave(FuncInt func)
+{
+	Plugin::fClientLeave = func;
 }
 
 #pragma endregion

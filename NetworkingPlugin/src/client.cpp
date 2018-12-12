@@ -26,6 +26,12 @@ Client::Client()
 {
 }
 
+Client::~Client()
+{
+	PacketClientDisconnect packet = PacketClientDisconnect();
+	sendPacketToAll(&packet);
+}
+
 void Client::handlePacket(Packet* packet, Connection* conn)
 {
 	switch (packet->packetID)
@@ -56,6 +62,12 @@ void Client::handlePacket(Packet* packet, Connection* conn)
 		Plugin::fBossHP(p->timeStamp, p->hp);
 		break;
 	}
+	case PACKET_PLAYER_NUMBER:
+	{
+		PacketPlayerNumber* p = (PacketPlayerNumber*)packet;
+		Plugin::fPlayerNumber(p->timeStamp, p->playerID);
+		break;
+	}
 	case PACKET_PLAYER_DATA:
 	{
 		PacketPlayerData* p = (PacketPlayerData*)packet;
@@ -72,6 +84,18 @@ void Client::handlePacket(Packet* packet, Connection* conn)
 	{
 		PacketGameState* p = (PacketGameState*)packet;
 		Plugin::fGameState(p->timeStamp, p->trueForStartFalseForEnd);
+		break;
+	}
+	case PACKET_SERVER_SHUTDOWN:
+	{
+		Plugin::fServerShutdown();
+		break;
+	}
+	case PACKET_CLIENT_DISCONNECT:
+	{
+		PacketClientDisconnect* p = (PacketClientDisconnect*)packet;
+		Plugin::fClientLeave(p->timeStamp, p->clientID);
+
 		break;
 	}
 	default:

@@ -30,9 +30,17 @@ enum PacketTypes
 	PACKET_COLOR,
 	PACKET_SHOUT,
 	PACKET_BOSS_HP,
+	PACKET_PLAYER_NUMBER,
 	PACKET_PLAYER_DATA,
 	PACKET_PLAYER_UPDATE,
 	PACKET_GAME_STATE,
+
+	// Non Unity Exposed Packets
+	PACKET_CLIENT_JOIN,
+	PACKET_SERVER_SHUTDOWN,
+	PACKET_CLIENT_DISCONNECT,
+
+	// To know how many packets exist
 	PACKET_END
 };
 
@@ -109,6 +117,16 @@ struct PacketBossHP : public Packet
 	unsigned int hp;
 };
 
+struct PacketPlayerNumber : public Packet
+{
+	PacketPlayerNumber(unsigned int num) :Packet(PACKET_PLAYER_NUMBER)
+	{
+		playerID = num;
+	}
+
+	unsigned int playerID;
+};
+
 struct PacketPlayerData : public Packet
 {
 	PacketPlayerData(unsigned int id, char playerName[NAME_SIZE],
@@ -149,6 +167,30 @@ struct PacketGameState : public Packet
 	}
 
 	bool trueForStartFalseForEnd;
+};
+
+// Non Unity Exposed Packets
+
+struct PacketClientJoin : public Packet
+{
+	PacketClientJoin():Packet(PACKET_CLIENT_JOIN) {}
+};
+
+struct PacketServerShutdown : public Packet
+{
+	PacketServerShutdown():Packet(PACKET_SERVER_SHUTDOWN) {}
+};
+
+struct PacketClientDisconnect : public Packet
+{
+	PacketClientDisconnect():Packet(PACKET_CLIENT_DISCONNECT) {}
+
+	PacketClientDisconnect(unsigned int id):Packet(PACKET_CLIENT_DISCONNECT)
+	{
+		clientID = id;
+	}
+
+	unsigned int clientID;
 };
 #pragma BIT_END
 
