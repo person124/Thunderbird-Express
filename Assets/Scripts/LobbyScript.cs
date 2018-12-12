@@ -10,6 +10,8 @@ public class LobbyScript : MonoBehaviour {
 
     public Camera preGameCamera;
 
+    private Wrapper.FuncInt setPlayerNumberFunc;
+
     // Use this for initialization
     void Start () {
 
@@ -43,5 +45,10 @@ public class LobbyScript : MonoBehaviour {
 
         //spawn players
         preGameCamera.enabled = false;
+    }
+
+    public void SetPlayerNumber(ulong time, int num)
+    {
+
     }
 }

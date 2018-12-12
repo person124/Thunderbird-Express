@@ -12,6 +12,8 @@ public class ButtonManager : MonoBehaviour {
     public string ip;
     public int port;
 
+    private
+
 	// Use this for initialization
 	void Start () {
 		
@@ -34,12 +36,11 @@ public class ButtonManager : MonoBehaviour {
         {
             Wrapper.NetworkingPlugin_StartLoop();
 
-            SceneManager.LoadScene("LevelScene");
+            //SceneManager.LoadScene("LevelScene");
         }
 
 
     }
-
 
     public void connectToGame()
     {
@@ -50,7 +51,9 @@ public class ButtonManager : MonoBehaviour {
 
         if (worked)
         {
-           SceneManager.LoadScene("LevelScene");
+            Wrapper.NetworkingPlugin_StartLoop();
+
+            SceneManager.LoadScene("LevelScene");
         }
 
     }
