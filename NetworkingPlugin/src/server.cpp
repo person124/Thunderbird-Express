@@ -44,6 +44,22 @@ Server::~Server()
 	sendPacketToAll(&shutdown);
 }
 
+// Sends the ids to all of the connected clients
+void Server::sendClientIds()
+{
+	unsigned int count = 1;
+
+	for (unsigned int i = 0; i < MAX_PLAYER_COUNT - 1; ++i)
+	{
+		if (mConnections[i] != NULL)
+		{
+			PacketPlayerNumber number = PacketPlayerNumber(count);
+			sendPacket(&number, mConnections[i]);
+			count++;
+		}
+	}
+}
+
 void Server::handlePacket(Packet* packet, Connection* conn)
 {
 	// Make sure to only send packets that need to be sent
@@ -106,10 +122,6 @@ void Server::handlePacket(Packet* packet, Connection* conn)
 	{
 		// When a client joins
 		addConnection(conn);
-
-		PacketPlayerNumber number = PacketPlayerNumber(mConnectedClientCount);
-		sendPacket(&number, conn);
-
 		break;
 	}
 

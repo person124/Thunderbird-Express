@@ -24,6 +24,9 @@ public:
 	Server();
 	~Server();
 
+	// Sends the ids to all of the connected clients
+	void sendClientIds();
+
 protected:
 	void handlePacket(Packet* packet, Connection* conn);
 

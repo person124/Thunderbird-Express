@@ -39,6 +39,9 @@ public class Wrapper
 	[DllImport(DLL)]
 	public static extern bool NetworkingPlugin_IsServer();
 
+	[DllImport(DLL)]
+	public static extern void NetworkingPlugin_SendPlayerIDs();
+
 	// ==========================================================
 	// FUNCTION SETTERS
 	// ==========================================================
