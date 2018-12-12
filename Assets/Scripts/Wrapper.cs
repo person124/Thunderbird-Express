@@ -20,6 +20,10 @@ public class Wrapper
 {
 	public const string DLL = "NetworkingPlugin_x64";
 
+	// ==========================================================
+	// MISC FUNCTIONS
+	// ==========================================================
+
 	[DllImport(DLL)]
 	public static extern bool NetworkingPlugin_StartClient(string ip, int port);
 
