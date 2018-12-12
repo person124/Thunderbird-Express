@@ -25,5 +25,8 @@ unsigned int PACKET_SIZES[PACKET_COUNT] =
 	sizeof(PacketPlayerNumber),
 	sizeof(PacketPlayerData),
 	sizeof(PacketPlayerUpdate),
-	sizeof(PacketGameState)
+	sizeof(PacketGameState),
+
+	// Non Unity Packets
+	sizeof(PacketClientJoin)
 };

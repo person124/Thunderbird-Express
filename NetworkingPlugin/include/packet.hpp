@@ -34,6 +34,11 @@ enum PacketTypes
 	PACKET_PLAYER_DATA,
 	PACKET_PLAYER_UPDATE,
 	PACKET_GAME_STATE,
+
+	// Non Unity Exposed Packets
+	PACKET_CLIENT_JOIN,
+
+	// To know how many packets exist
 	PACKET_END
 };
 
@@ -160,6 +165,13 @@ struct PacketGameState : public Packet
 	}
 
 	bool trueForStartFalseForEnd;
+};
+
+// Non Unity Exposed Packets
+
+struct PacketClientJoin : public Packet
+{
+	PacketClientJoin():Packet(PACKET_CLIENT_JOIN) {}
 };
 #pragma BIT_END
 

@@ -25,6 +25,9 @@ public:
 
 protected:
 	void handlePacket(Packet* packet, Connection* conn);
+
+private:
+	unsigned int mConnectedClientCount;
 };
 
 #endif

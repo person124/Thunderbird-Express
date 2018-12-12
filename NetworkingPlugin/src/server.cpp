@@ -22,11 +22,13 @@
 
 Server::Server()
 {
+	mConnectedClientCount = 0;
 }
 
 void Server::handlePacket(Packet* packet, Connection* conn)
 {
-	if (packet->packetID > PACKET_BASE_ID && packet->packetID < PACKET_COUNT)
+	// Make sure to only send packets that need to be sent
+	if (packet->packetID > PACKET_BASE_ID && packet->packetID <= PACKET_GAME_STATE)
 	{
 		// Send the packet to all but who sent it
 		sendPacketBut(packet, conn);
@@ -34,6 +36,7 @@ void Server::handlePacket(Packet* packet, Connection* conn)
 
 	switch (packet->packetID)
 	{
+#pragma region UNITY_PACKETS
 	case PACKET_TRANSFORM:
 	{
 		PacketTransform* p = (PacketTransform*)packet;
@@ -76,6 +79,18 @@ void Server::handlePacket(Packet* packet, Connection* conn)
 	{
 		PacketGameState* p = (PacketGameState*)packet;
 		Plugin::fGameState(p->timeStamp, p->trueForStartFalseForEnd);
+		break;
+	}
+#pragma endregion
+
+	case PACKET_CLIENT_JOIN:
+	{
+		// When a client joins
+		PacketPlayerNumber number = PacketPlayerNumber(mConnectedClientCount);
+		sendPacket(&number, conn);
+
+		mConnectedClientCount++;
+
 		break;
 	}
 	default:
