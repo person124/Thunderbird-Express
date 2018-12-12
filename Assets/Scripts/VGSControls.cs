@@ -9,7 +9,7 @@ public class VGSControls : MonoBehaviour {
     public GameObject rightText;
 
     public PlayerScore scorekeeper;
-    public GameObject shoutRef;
+    GameObject shoutRef;
 
     bool shoutStarted;
     bool? isTrashTalk;
@@ -28,7 +28,7 @@ public class VGSControls : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+        shoutRef = transform.root.gameObject;
         scorekeeper = GetComponent<PlayerScore>();
 
         isTrashTalk = null;

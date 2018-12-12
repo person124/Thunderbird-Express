@@ -27,10 +27,10 @@ public class ObjectManager : MonoBehaviour
         setPlayerNumberFunc = SetPlayerNumber;
         funcGameState = OnGameStateChange;
 
-        Wrapper.NetworkingPlugin_FuncTransform(funcTransform);
-        Wrapper.NetworkingPlugin_FuncPlayerNumber(setPlayerNumberFunc);
-        Wrapper.NetworkingPlugin_FuncColor(funcColor);
-        Wrapper.NetworkingPlugin_FuncGameState(funcGameState);
+        Wrapper.SetFuncTransform(funcTransform);
+        Wrapper.SetFuncPlayerNumber(setPlayerNumberFunc);
+        Wrapper.SetFuncColor(funcColor);
+        Wrapper.SetFuncGameState(funcGameState);
 
         hostScreen.SetActive(false);
         clientScreen.SetActive(false);
@@ -77,42 +77,37 @@ public class ObjectManager : MonoBehaviour
         float rX, float rY, float rZ,
         float vX, float vY, float vZ)
     {
-        UnityMainThreadDispatcher.Instance().Enqueue(Works(time, objectID, x, y, z, rX, rY, rZ, vX, vY, vZ));
-    }
-
-    public IEnumerator Works(ulong time, int objectID,
-        float x, float y, float z,
-        float rX, float rY, float rZ,
-        float vX, float vY, float vZ)
-    {
-        yield return null;
-
         // Set object position
         objects[objectID].transform.position = new Vector3(x, y, z);
         objects[objectID].transform.rotation = Quaternion.Euler(rX, rY, rZ);
+        //UnityMainThreadDispatcher.Instance().Enqueue(Works(time, objectID, x, y, z, rX, rY, rZ, vX, vY, vZ));
     }
+
+    //public IEnumerator Works(ulong time, int objectID,
+    //    float x, float y, float z,
+    //    float rX, float rY, float rZ,
+    //    float vX, float vY, float vZ)
+    //{
+    //    yield return null;
+    //
+    //    // Set object position
+    //    objects[objectID].transform.position = new Vector3(x, y, z);
+    //    objects[objectID].transform.rotation = Quaternion.Euler(rX, rY, rZ);
+    //}
 
     public void HandleColor(ulong time, int objectID, int color)
     {
-        UnityMainThreadDispatcher.Instance().Enqueue(Color(time, objectID, color));
-    }
-
-    public IEnumerator Color(ulong time, int objectID, int color)
-    {
-        yield return null;
-
         objects[objectID].SendMessage("SetAttackType", color);
+        //UnityMainThreadDispatcher.Instance().Enqueue(Color(time, objectID, color));
     }
+
+    //public IEnumerator Color(ulong time, int objectID, int color)
+    //{
+    //    yield return null;
+    //
+    //}
     public void SetPlayerNumber(ulong time, int num)
     {
-        UnityMainThreadDispatcher.Instance().Enqueue(yuppers(time, num));
-    }
-
-
-    public IEnumerator yuppers(ulong time, int num)
-    {
-        yield return null;
-
         for (int i = 0; i < 4; ++i)
         {
             if (i != num)
@@ -138,17 +133,18 @@ public class ObjectManager : MonoBehaviour
 
         //spawn players
         preGameCamera.enabled = false;
+        //UnityMainThreadDispatcher.Instance().Enqueue(yuppers(time, num));
     }
+
+
+    //public IEnumerator yuppers(ulong time, int num)
+    //{
+    //    yield return null;
+    //
+    //}
 
     public void OnGameStateChange(ulong time, bool value)
     {
-        UnityMainThreadDispatcher.Instance().Enqueue(Blarg(time, value));
-    }
-
-    public IEnumerator Blarg(ulong time, bool value)
-    {
-        yield return null;
-
         tick = value;
 
         if (value)
@@ -160,7 +156,14 @@ public class ObjectManager : MonoBehaviour
             //spawn players
             preGameCamera.enabled = false;
         }
+        //UnityMainThreadDispatcher.Instance().Enqueue(Blarg(time, value));
     }
+
+    //public IEnumerator Blarg(ulong time, bool value)
+    //{
+    //    yield return null;
+    //
+    //}
 
     public void StartGame()
     {

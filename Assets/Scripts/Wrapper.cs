@@ -297,7 +297,7 @@ public class Wrapper
 
 	public static void SetFuncOnServerShutdown(FuncVoid func)
 	{
-		NetworkingPlugin_FuncOnServerShutdown(HandlerServerShutdown);
+		NetworkingPlugin_FuncOnServerShutdown(HandleServerShutdown);
 		mainThreadServerShutdown = func;
 	}
 
