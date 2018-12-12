@@ -97,31 +97,7 @@ public class ObjectManager : MonoBehaviour
 
     public void SetPlayerNumber(ulong time, int num)
     {
-        if (!Wrapper.NetworkingPlugin_IsServer())
-            UnityMainThreadDispatcher.Instance().Enqueue(yuppers(time, num));
-        else
-        {
-            Debug.Log("wut");
-
-            for (int i = 0; i < 4; ++i)
-            {
-                if (i != num)
-                {
-                    Destroy(objects[i].transform.GetChild(0).gameObject);
-                    objects[i].GetComponent<PlayerInput>().enabled = false;
-                    objects[i].GetComponent<PlayerMovementFunctions>().enabled = false;
-                    objects[i].GetComponent<VGSControls>().enabled = false;
-                    objects[i].GetComponent<PlayerScore>().enabled = false;
-                }
-                else
-                {
-                    objects[i].GetComponent<PlayerMovementFunctions>().ID = num;
-
-                }
-
-                objects[i].SetActive(true);
-            }
-        }
+        UnityMainThreadDispatcher.Instance().Enqueue(yuppers(time, num));
     }
 
 
