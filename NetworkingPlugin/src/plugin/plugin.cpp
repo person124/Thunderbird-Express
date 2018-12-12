@@ -178,12 +178,14 @@ void NetworkingPlugin_SendBossHP(int bossHP)
 }
 
 void NetworkingPlugin_SendPlayerData(int objectID,
-	char name[33], int score, int health)
+	const char* name, int score, int health)
 {
 	if (peerInstance == NULL)
 		return;
 
-	PacketPlayerData packet(objectID, name, score, health);
+	char temp[33];
+	strcpy_s(temp, name);
+	PacketPlayerData packet(objectID, temp, score, health);
 
 	peerInstance->sendPacketToAll(&packet);
 }

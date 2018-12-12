@@ -14,6 +14,7 @@
 */
 
 using System.Runtime.InteropServices;
+using System.Text;
 
 public class Wrapper
 {
@@ -99,9 +100,9 @@ public class Wrapper
 	[DllImport(DLL)]
 	public static extern void NetworkingPlugin_SendBossHP(int bossHP);
 
-	[DllImport(DLL)]
+	[DllImport(DLL, CallingConvention = CallingConvention.Cdecl)]
 	public static extern void NetworkingPlugin_SendPlayerData(int objectID,
-		char[] name, int score, int health);
+		string name, int score, int health);
 
 	[DllImport(DLL)]
 	public static extern void NetworkingPlugin_SendPlayerUpdate(int objectID,

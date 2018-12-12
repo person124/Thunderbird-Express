@@ -83,7 +83,7 @@ extern "C"
 
 	PLUGIN_SYMBOL
 		void NetworkingPlugin_SendPlayerData(int objectID,
-			char name[33], int score, int health);
+			const char* name, int score, int health);
 
 	PLUGIN_SYMBOL
 		void NetworkingPlugin_SendPlayerUpdate(int objectID,
