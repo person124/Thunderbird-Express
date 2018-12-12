@@ -1,19 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Attack : MonoBehaviour {
-
+public class Attack : MonoBehaviour
+{
     public Material red;
     public Material yellow;
     public Material blue;
 
     public Vector3 velocity;
     public float maxSpeed;
+    float minSpeed;
 
-    public float lifeTimer;
-    public float lifeTimerMax = 4;
+    bool isUsed;
+    Rigidbody rb;
 
+    public Vector3 startPos;
 
     MeshRenderer mesh;
 
@@ -29,12 +30,43 @@ public class Attack : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-
-        lifeTimer = lifeTimerMax;
-
-        type = (AttackType)Random.Range(0, 3);
+        isUsed = false;
+        rb = GetComponent<Rigidbody>();
 
         mesh = GetComponent<MeshRenderer>();
+
+        maxSpeed = 6.5f;
+        minSpeed = 4.0f;
+
+    }
+	
+	// Update is called once per frame
+	void Update () {
+
+        //this.transform.position += velocity;
+        //TO DO: REPLACE WITH NETWORKED MOVEMENT
+
+        
+    }
+
+    void SetVelocity(Vector3 pos)
+    {
+        int x;
+        transform.position = pos;
+        isUsed = true;
+        velocity = new Vector3(Random.Range(-maxSpeed, maxSpeed), 0.0f, Random.Range(-maxSpeed, maxSpeed));
+        if (velocity.x < 0)
+            velocity.x -= minSpeed;
+        else
+            velocity.x += minSpeed;
+
+        if (velocity.z < 0)
+            velocity.z -= minSpeed;
+        else
+            velocity.z += minSpeed;
+
+        rb.velocity = velocity;
+        type = (AttackType)Random.Range(0, 3);
 
         switch (type)
         {
@@ -50,20 +82,13 @@ public class Attack : MonoBehaviour {
             default:
                 break;
         }
-
-        maxSpeed = .5f;
-
-        velocity = new Vector3(Random.Range(-maxSpeed, maxSpeed), 0.0f, Random.Range(-maxSpeed, maxSpeed));
-
     }
-	
-	// Update is called once per frame
-	void Update () {
 
-        this.transform.position += velocity;
-        //TO DO: REPLACE WITH NETWORKED MOVEMENT
-
-        
+    void ResetPos()
+    {
+        rb.velocity = Vector3.zero;
+        transform.position = startPos;
+        SetUsed();
     }
 
     private void OnTriggerEnter(Collider collision)
@@ -71,7 +96,11 @@ public class Attack : MonoBehaviour {
         Debug.Log("We made it!");
         if (collision.gameObject.CompareTag("WALL") == true)
         {
-            GameObject.Destroy(gameObject);
+            ResetPos();
+            //GameObject.Destroy(gameObject);
         }
     }
+    //getter and setter for movement
+    public bool ReturnUsed() { return isUsed;}
+    public void SetUsed() { isUsed = !isUsed; }
 }

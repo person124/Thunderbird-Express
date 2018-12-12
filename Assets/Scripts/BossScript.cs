@@ -8,12 +8,14 @@ public class BossScript : MonoBehaviour {
     public float attackTimerMax;
 
     public GameObject attack;
+    GameObject whoops;
 
     public float hp;
     float rotSpeed = 200;
 
-	// Use this for initialization
-	void Start () {
+    public Attack[] attackList;
+    // Use this for initialization
+    void Start () {
         hp = 1000;
 
         attackTimer = attackTimerMax;
@@ -31,7 +33,9 @@ public class BossScript : MonoBehaviour {
 
         if (attackTimer <= 0)
         {
-            Instantiate(attack, transform.position, Quaternion.identity); 
+            //Instantiate(attack, transform.position, Quaternion.identity);
+            whoops = ReturnUseable();
+            whoops.SendMessage("SetVelocity", transform.position);
             attackTimer = attackTimerMax;
         }
 
@@ -48,5 +52,15 @@ public class BossScript : MonoBehaviour {
         }
     }
 
-
+    GameObject ReturnUseable()
+    {
+        foreach(Attack attacks in attackList)
+        {
+            if (!attacks.ReturnUsed())
+            {
+                return attacks.gameObject;
+            }
+        }
+        return whoops;
+    }
 }
