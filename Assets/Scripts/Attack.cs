@@ -66,9 +66,22 @@ public class Attack : MonoBehaviour
             velocity.z += minSpeed;
 
         rb.velocity = velocity;
-        type = (AttackType)Random.Range(0, 3);
+        SetAttackType(Random.Range(0, 3));
 
-        switch (type)
+
+    }
+
+    void ResetPos()
+    {
+        rb.velocity = Vector3.zero;
+        transform.position = startPos;
+        SetUsed();
+    }
+
+    void SetAttackType(int num)
+    {
+        type = (AttackType)num;
+        switch ((AttackType)num)
         {
             case AttackType.RED:
                 mesh.material = red;
@@ -83,14 +96,6 @@ public class Attack : MonoBehaviour
                 break;
         }
     }
-
-    void ResetPos()
-    {
-        rb.velocity = Vector3.zero;
-        transform.position = startPos;
-        SetUsed();
-    }
-
     private void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.CompareTag("WALL") == true && Wrapper.NetworkingPlugin_IsServer())
