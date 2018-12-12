@@ -6,7 +6,7 @@ using TMPro;
 public class Scoreboard : MonoBehaviour {
 
     public GameObject playerList;
-
+    public GameObject boss;
     //i didnt think until too late to use arrays, shoot me
     float setupTimer;
     float setupTimerMax;
@@ -81,27 +81,24 @@ public class Scoreboard : MonoBehaviour {
         else
             scoreScreen.SetActive(false);
 
-        if (everybodysDead() == true)
+        WinStateActive();
+    }
+
+    void WinStateActive()
+    {
+        float highestScore = player1Score.score;
+        if (everybodysDead() == true || boss.GetComponent<BossScript>().hp <= 0)
         {
             Debug.Log("ERRYBODY DEAD - network this");
-
-            float highestScore = player1Score.score;
-
-            if (player2Score.score >= highestScore )
-            {
+            if (player2Score.score >= highestScore)
                 highestScore = player2Score.score;
-            }
-
             if (player3Score.score >= highestScore)
-            {
                 highestScore = player3Score.score;
-            }
-
             if (player4Score.score >= highestScore)
-            {
                 highestScore = player4Score.score;
-            }
 
+            // put a send message here for a win game screen that 
+            //will kick people back to main sceneand end the game
         }
 
     }
