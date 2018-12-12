@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossScript : MonoBehaviour {
-
+public class BossScript : MonoBehaviour
+{
+    private Wrapper.FuncInt bossHP;
     public float attackTimer;
     public float attackTimerMax;
 
     public GameObject attack;
     GameObject whoops;
 
-    public float hp;
+    public int hp;
     float rotSpeed = 200;
 
     public Attack[] attackList;
@@ -19,6 +20,8 @@ public class BossScript : MonoBehaviour {
         hp = 1000;
 
         attackTimer = attackTimerMax;
+        bossHP = HandleHP;
+        Wrapper.NetworkingPlugin_FuncBossHP(bossHP);
 	}
 	
 	// Update is called once per frame
@@ -62,5 +65,17 @@ public class BossScript : MonoBehaviour {
             }
         }
         return whoops;
+    }
+
+    public void HandleHP(ulong time, int numShout)
+    {
+        SubtractFromHP();
+    }
+
+    void SubtractFromHP()
+    {
+        hp -= 1;
+
+        Wrapper.NetworkingPlugin_SendBossHP((int)hp);
     }
 }

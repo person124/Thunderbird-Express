@@ -7,12 +7,13 @@ public class ShoutPlayer : MonoBehaviour
     private Wrapper.FuncInt funcSound;
     public AudioClip[] shouts;
     AudioSource audioSource;
+    GameObject Boss;
 
     // Use this for initialization
     void Start ()
     {
         audioSource = GetComponent<AudioSource>();
-
+        Boss = GameObject.Find("Boss");
         funcSound = HandleSound;
         Wrapper.NetworkingPlugin_FuncShout(funcSound);
     }
@@ -24,6 +25,10 @@ public class ShoutPlayer : MonoBehaviour
 
 	void PlayShout(int shoutToPlay)
     {
+        if (shoutToPlay >= 3)
+        {
+            Boss.SendMessage("SubtractFromHP");
+        }
         audioSource.PlayOneShot(shouts[shoutToPlay]);
     }
 }
