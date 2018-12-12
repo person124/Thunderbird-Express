@@ -28,6 +28,8 @@ Client::Client()
 
 Client::~Client()
 {
+	PacketClientDisconnect packet = PacketClientDisconnect();
+	sendPacketToAll(&packet);
 }
 
 void Client::handlePacket(Packet* packet, Connection* conn)
@@ -87,6 +89,13 @@ void Client::handlePacket(Packet* packet, Connection* conn)
 	case PACKET_SERVER_SHUTDOWN:
 	{
 		Plugin::fServerShutdown();
+		break;
+	}
+	case PACKET_CLIENT_DISCONNECT:
+	{
+		PacketClientDisconnect* p = (PacketClientDisconnect*)packet;
+		Plugin::fClientLeave(p->timeStamp, p->clientID);
+
 		break;
 	}
 	default:

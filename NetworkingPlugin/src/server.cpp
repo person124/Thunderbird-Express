@@ -113,6 +113,19 @@ void Server::handlePacket(Packet* packet, Connection* conn)
 		break;
 	}
 
+	case PACKET_CLIENT_DISCONNECT:
+	{
+		// When a client leaves
+
+		unsigned int id = removeConnection(conn);
+		assert(id != 0);
+
+		PacketClientDisconnect disconnect = PacketClientDisconnect(id);
+		sendPacketBut(&disconnect, conn);
+
+		break;
+	}
+
 	case PACKET_BASE_ID:
 	default:
 		assert(false);
@@ -133,7 +146,7 @@ void Server::addConnection(Connection* conn)
 	}
 }
 
-void Server::removeConnection(Connection* conn)
+unsigned int Server::removeConnection(Connection* conn)
 {
 	for (unsigned int i = 0; i < MAX_PLAYER_COUNT - 1; ++i)
 	{
@@ -141,7 +154,9 @@ void Server::removeConnection(Connection* conn)
 		{
 			delete mConnections[i];
 			mConnectedClientCount--;
-			return;
+			return i + 1;
 		}
 	}
+
+	return 0;
 }

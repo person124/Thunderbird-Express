@@ -184,6 +184,13 @@ struct PacketServerShutdown : public Packet
 struct PacketClientDisconnect : public Packet
 {
 	PacketClientDisconnect():Packet(PACKET_CLIENT_DISCONNECT) {}
+
+	PacketClientDisconnect(unsigned int id):Packet(PACKET_CLIENT_DISCONNECT)
+	{
+		clientID = id;
+	}
+
+	unsigned int clientID;
 };
 #pragma BIT_END
 
