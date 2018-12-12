@@ -15,6 +15,7 @@
 
 #include "server.hpp"
 
+#include "connection.hpp"
 #include "packet.hpp"
 #include "plugin/plugin_functions.hpp"
 
@@ -101,10 +102,10 @@ void Server::handlePacket(Packet* packet, Connection* conn)
 	case PACKET_CLIENT_JOIN:
 	{
 		// When a client joins
+		addConnection(conn);
+
 		PacketPlayerNumber number = PacketPlayerNumber(mConnectedClientCount);
 		sendPacket(&number, conn);
-
-		mConnectedClientCount++;
 
 		break;
 	}
@@ -113,5 +114,31 @@ void Server::handlePacket(Packet* packet, Connection* conn)
 	default:
 		assert(false);
 		break;
+	}
+}
+
+void Server::addConnection(Connection* conn)
+{
+	for (unsigned int i = 0; i < MAX_PLAYER_COUNT - 1; ++i)
+	{
+		if (mConnections[i] == NULL)
+		{
+			mConnections[i] = new Connection(conn->getID());
+			mConnectedClientCount++;
+			return;
+		}
+	}
+}
+
+void Server::removeConnection(Connection* conn)
+{
+	for (unsigned int i = 0; i < MAX_PLAYER_COUNT - 1; ++i)
+	{
+		if (mConnections[i] && mConnections[i]->getID() == conn->getID())
+		{
+			delete mConnections[i];
+			mConnectedClientCount--;
+			return;
+		}
 	}
 }
