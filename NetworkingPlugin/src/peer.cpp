@@ -172,7 +172,7 @@ void Peer::internalNetworkingLoop()
 		mPeer->DeallocatePacket(incommming), incommming = mPeer->Receive()
 	)
 	{
-		if (incommming->data[2] >= PACKET_BASE_ID)
+		if (incommming->length > 9 && incommming->data[9] >= PACKET_BASE_ID)
 		{
 			Packet* packet = (Packet*)incommming->data;
 			Connection connection = Connection(incommming->guid.g);

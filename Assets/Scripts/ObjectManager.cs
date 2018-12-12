@@ -83,13 +83,13 @@ public class ObjectManager : MonoBehaviour
         float rX, float rY, float rZ,
         float vX, float vY, float vZ)
     {
+        yield return null;
+
         Debug.Log(objectID);
 
         // Set object position
         objects[objectID].transform.position = new Vector3(x, y, z);
         objects[objectID].transform.rotation = Quaternion.Euler(rX, rY, rZ);
-
-        yield return null;
     }
 
     public void HandleColor(ulong time, int objectID, int color)
@@ -99,10 +99,14 @@ public class ObjectManager : MonoBehaviour
 
     public void SetPlayerNumber(ulong time, int num)
     {
+        Debug.Log("player num: " + num);
+
         if (!Wrapper.NetworkingPlugin_IsServer())
             UnityMainThreadDispatcher.Instance().Enqueue(yuppers(time, num));
         else
         {
+            Debug.Log("wut");
+
             for (int i = 0; i < 4; ++i)
             {
                 if (i != num)
@@ -127,6 +131,8 @@ public class ObjectManager : MonoBehaviour
 
     public IEnumerator yuppers(ulong time, int num)
     {
+        yield return null;
+
         Debug.Log(false);
 
         for (int i = 0; i < 4; ++i)
@@ -154,12 +160,17 @@ public class ObjectManager : MonoBehaviour
 
         //spawn players
         preGameCamera.enabled = false;
-
-        yield return null;
     }
 
     public void OnGameStateChange(ulong time, bool value)
     {
+        UnityMainThreadDispatcher.Instance().Enqueue(Blarg(time, value));
+    }
+
+    public IEnumerator Blarg(ulong time, bool value)
+    {
+        yield return null;
+
         tick = value;
 
         if (value)
