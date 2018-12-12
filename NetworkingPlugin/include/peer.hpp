@@ -31,6 +31,9 @@ struct Packet;
 struct Connection;
 struct Thread;
 
+// To keep track of player count
+#define MAX_PLAYER_COUNT 4
+
 // This class acts as a base class that encapsulates RakPeerInterface
 class Peer
 {

@@ -23,6 +23,21 @@
 Server::Server()
 {
 	mConnectedClientCount = 0;
+
+	mConnections = new Connection*[MAX_PLAYER_COUNT - 1];
+	for (unsigned int i = 0; i < MAX_PLAYER_COUNT - 1; ++i)
+		mConnections[i] = NULL;
+}
+
+Server::~Server()
+{
+	for (unsigned int i = 0; i < MAX_PLAYER_COUNT - 1; ++i)
+	{
+		if (mConnections[i] != NULL)
+			delete mConnections[i];
+	}
+
+	delete[] mConnections;
 }
 
 void Server::handlePacket(Packet* packet, Connection* conn)
@@ -93,8 +108,9 @@ void Server::handlePacket(Packet* packet, Connection* conn)
 
 		break;
 	}
-	default:
+
 	case PACKET_BASE_ID:
+	default:
 		assert(false);
 		break;
 	}

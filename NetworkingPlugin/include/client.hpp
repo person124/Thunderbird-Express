@@ -22,6 +22,7 @@ class Client : public Peer
 {
 public:
 	Client();
+	~Client();
 
 protected:
 	void handlePacket(Packet* packet, Connection* conn);

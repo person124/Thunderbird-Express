@@ -22,12 +22,14 @@ class Server : public Peer
 {
 public:
 	Server();
+	~Server();
 
 protected:
 	void handlePacket(Packet* packet, Connection* conn);
 
 private:
-	unsigned int mConnectedClientCount;
+	Connection** mConnections; // Instance of connected clients
+	unsigned int mConnectedClientCount; // Number of connected clients
 };
 
 #endif

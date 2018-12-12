@@ -26,6 +26,10 @@ Client::Client()
 {
 }
 
+Client::~Client()
+{
+}
+
 void Client::handlePacket(Packet* packet, Connection* conn)
 {
 	switch (packet->packetID)
