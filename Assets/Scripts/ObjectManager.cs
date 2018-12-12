@@ -85,8 +85,6 @@ public class ObjectManager : MonoBehaviour
     {
         yield return null;
 
-        Debug.Log(objectID);
-
         // Set object position
         objects[objectID].transform.position = new Vector3(x, y, z);
         objects[objectID].transform.rotation = Quaternion.Euler(rX, rY, rZ);
@@ -99,8 +97,6 @@ public class ObjectManager : MonoBehaviour
 
     public void SetPlayerNumber(ulong time, int num)
     {
-        Debug.Log("player num: " + num);
-
         if (!Wrapper.NetworkingPlugin_IsServer())
             UnityMainThreadDispatcher.Instance().Enqueue(yuppers(time, num));
         else
@@ -132,8 +128,6 @@ public class ObjectManager : MonoBehaviour
     public IEnumerator yuppers(ulong time, int num)
     {
         yield return null;
-
-        Debug.Log(false);
 
         for (int i = 0; i < 4; ++i)
         {
