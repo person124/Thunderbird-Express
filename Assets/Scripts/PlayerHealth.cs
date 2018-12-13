@@ -46,6 +46,8 @@ public class PlayerHealth : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!Wrapper.NetworkingPlugin_IsServer())
+            return;
 
         Debug.Log("collision");
 
@@ -68,14 +70,13 @@ public class PlayerHealth : MonoBehaviour {
 
             }
 
+            other.gameObject.SendMessage("ResetPos");
+
         }
     }
 
-
-    bool DamagePlayer()
+    public void CheckHealth()
     {
-        --health;
-
         if (health <= 0)
         {
             mainCamera.enabled = false;
@@ -83,8 +84,6 @@ public class PlayerHealth : MonoBehaviour {
             input.enabled = false;
 
             dead = true;
-
-            return false;
         }
         else
         {
@@ -99,8 +98,16 @@ public class PlayerHealth : MonoBehaviour {
                 default:
                     break;
             }
-
-            return true;
         }
+    }
+
+    void DamagePlayer()
+    {
+        --health;
+        health = Mathf.Clamp(health, 0, 5);
+
+        Wrapper.NetworkingPlugin_SendPlayerHealth(GetComponent<PlayerMovementFunctions>().ID, health);
+
+        CheckHealth();
     }
 }
