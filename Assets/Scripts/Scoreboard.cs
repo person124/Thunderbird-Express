@@ -98,7 +98,7 @@ public class Scoreboard : MonoBehaviour
     {
 
         
-        float highestScore = playerListArray[0].playerScore.score;
+        int highestScore = playerListArray[0].playerScore.score;
 
         if (everybodysDead() == true || boss.GetComponent<BossScript>().hp <= 0)
         {

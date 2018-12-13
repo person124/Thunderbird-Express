@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using UnityEngine.UI;
 
 public class ObjectManager : MonoBehaviour
 {
@@ -21,6 +21,7 @@ public class ObjectManager : MonoBehaviour
     public GameObject clientScreen;
     public GameObject activeScreen;
     public GameObject winScreen;
+    public Text winText;
 
     public Scoreboard scoreboard;
 
@@ -51,6 +52,8 @@ public class ObjectManager : MonoBehaviour
         {
             clientScreen.SetActive(true);
         }
+
+
     }
 
     private void Update()
@@ -222,7 +225,8 @@ public class ObjectManager : MonoBehaviour
         else
         {
             winScreen.SetActive(true);
-            winScreen.GetComponent<TextMeshProUGUI>().text = scoreboard.playerListArray[scoreboard.winnerIndex].playerName + " WINS!";
+
+            winText.text = scoreboard.playerListArray[scoreboard.winnerIndex].playerName + " WINS!";
         }
     }
     

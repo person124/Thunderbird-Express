@@ -17,7 +17,7 @@ public class BossScript : MonoBehaviour
     public Attack[] attackList;
     // Use this for initialization
     void Start () {
-        hp = 1000;
+        hp = 10;
 
         attackTimer = attackTimerMax;
         bossHP = HandleHP;
