@@ -45,9 +45,6 @@ public class ObjectManager : MonoBehaviour
         {
             clientScreen.SetActive(true);
         }
-
-        
-
     }
 
     private void Update()
@@ -206,7 +203,16 @@ public class ObjectManager : MonoBehaviour
 
         //spawn players
         preGameCamera.enabled = false;
-        //UnityMainThreadDispatcher.Instance().Enqueue(yuppers(time, num));
+
+		// Name managing
+		string name = "";
+		GameObject nameHolder = GameObject.Find("NameHolder");
+		name = nameHolder.GetComponent<NameHolder>().name;
+
+		GameObject.Find("ScoreBoard").GetComponent<Scoreboard>().HandlePlayerNames(0, num, name, 0, 0);
+
+		Wrapper.NetworkingPlugin_SendPlayerData(num, name, 0, 0);
+		Destroy(nameHolder);
     }
 
     void SwitchColor(int color)
