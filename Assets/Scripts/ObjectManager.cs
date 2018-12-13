@@ -97,7 +97,10 @@ public class ObjectManager : MonoBehaviour
 
     public void HandleColor(ulong time, int objectID, int color)
     {
-        objects[objectID].SendMessage("SetAttackType", color);
+        if (objectID < 4)
+            objects[objectID].GetComponent<MeshMutator>().SendMessage("setColor", color);
+        else
+            objects[objectID].SendMessage("SetAttackType", color);
         //UnityMainThreadDispatcher.Instance().Enqueue(Color(time, objectID, color));
     }
 
@@ -136,7 +139,14 @@ public class ObjectManager : MonoBehaviour
         //UnityMainThreadDispatcher.Instance().Enqueue(yuppers(time, num));
     }
 
-
+    void SwitchColor(int color)
+    {
+        for (int i = 0; i < 4; ++i)
+        {
+            objects[i].GetComponent<MeshMutator>().SendMessage("setColor", color);
+            Wrapper.NetworkingPlugin_SendColor(i, color);
+        }
+    }
     //public IEnumerator yuppers(ulong time, int num)
     //{
     //    yield return null;

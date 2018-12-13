@@ -21,7 +21,7 @@ public class BossScript : MonoBehaviour
 
         attackTimer = attackTimerMax;
         bossHP = HandleHP;
-        Wrapper.NetworkingPlugin_FuncBossHP(bossHP);
+        Wrapper.SetFuncBossHP(bossHP);
 	}
 	
 	// Update is called once per frame
@@ -73,44 +73,32 @@ public class BossScript : MonoBehaviour
 
     public void HandleHP(ulong time, int numShout)
     {
-        int damage = 0;
-        switch (numShout)
-        {
-            case 3:
-                damage = 3;
-                break;
-            case 4:
-                damage = 2;
-                break;
-            case 5:
-                damage = 1;
-                break;
-        }
-
-        UnityMainThreadDispatcher.Instance().Enqueue(HPmanage(time, damage));
+        SubtractFromHP(numShout);
+        Wrapper.NetworkingPlugin_SendBossHP(hp);
+        
+        //UnityMainThreadDispatcher.Instance().Enqueue(HPmanage(time, damage));
         //SubtractFromHP();
     }
-
-    public IEnumerator HPmanage(ulong time, int hp)
-    {
-        yield return null;
-
-    }
+    //
+    //public IEnumerator HPmanage(ulong time, int hp)
+    //{
+    //    yield return null;
+    //
+    //}
     
     void SubtractFromHP(int shoutSent)
     {
         switch (shoutSent)
         {
-            case 3:
-                hp -= 3;
-                break;
-            case 4:
-                hp -= 2;
-                break;
-            case 5:
-                --hp;
-                break;
+        case 3:
+            hp -= 3;
+            break;
+        case 4:
+            hp -= 2;
+            break;
+        case 5:
+            --hp;
+            break;
         }
-        Wrapper.NetworkingPlugin_SendBossHP(hp);
     }
 }

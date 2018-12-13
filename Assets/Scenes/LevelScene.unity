@@ -911,7 +911,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackTimer: 0
-  attackTimerMax: 1
+  attackTimerMax: 0.667
   attack: {fileID: 1988743342449806, guid: ea648c7dda056e548bcc4ea8eafbfde1, type: 2}
   hp: 0
   attackList:
@@ -3338,20 +3338,6 @@ Prefab:
       propertyPath: m_Name
       value: Player1
       objectReference: {fileID: 0}
-    - target: {fileID: 224378981983397060, guid: 2a1fecc41c6eca8418c001d5f43b271d,
-        type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114892320456662790, guid: 2a1fecc41c6eca8418c001d5f43b271d,
-        type: 2}
-      propertyPath: shoutRef
-      value: 
-      objectReference: {fileID: 1344474820}
-    - target: {fileID: 1854123024412188, guid: 2a1fecc41c6eca8418c001d5f43b271d, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a1fecc41c6eca8418c001d5f43b271d, type: 2}
   m_IsPrefabAsset: 0
@@ -4320,7 +4306,7 @@ GameObject:
   - component: {fileID: 1807565716}
   m_Layer: 0
   m_Name: ObjectManager
-  m_TagString: Untagged
+  m_TagString: CONTROL
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

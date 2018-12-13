@@ -14,6 +14,8 @@ public class VGSControls : MonoBehaviour {
     bool shoutStarted;
     bool? isTrashTalk;
 
+    MeshMutator myColor;
+    GameObject objManager;
     enum ShoutType
     {
         SHIELD_RED,
@@ -27,9 +29,12 @@ public class VGSControls : MonoBehaviour {
     ShoutType type;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
+        objManager = GameObject.FindGameObjectWithTag("CONTROL");
         shoutRef = transform.root.gameObject;
         scorekeeper = GetComponent<PlayerScore>();
+        myColor = GetComponent<MeshMutator>();
 
         isTrashTalk = null;
         shoutStarted = false;
@@ -37,7 +42,6 @@ public class VGSControls : MonoBehaviour {
         introText.SetActive(true);
         leftText.SetActive(false);
         rightText.SetActive(false);
-
     }
 
     // Update is called once per frame
@@ -78,7 +82,11 @@ public class VGSControls : MonoBehaviour {
                     scorekeeper.incrementScore(1000);
                 }
                 else
+                {
                     type = ShoutType.SHIELD_RED;
+                    myColor.setColor((int)type);
+                    objManager.SendMessage("SwitchColor", (int)type);
+                }
 
                 Debug.Log(type);
 
@@ -92,11 +100,13 @@ public class VGSControls : MonoBehaviour {
                 {
                     type = ShoutType.TRASHTALK_SHORTS;
                     scorekeeper.incrementScore(500);
-
                 }
                 else
+                { 
                     type = ShoutType.SHIELD_BLUE;
-
+                    myColor.setColor((int)type);
+                    objManager.SendMessage("SwitchColor", (int)type);
+                }
                 Debug.Log(type);
 
                 //send data with corresponding type, reset shout data, do this later
@@ -111,7 +121,11 @@ public class VGSControls : MonoBehaviour {
                     scorekeeper.incrementScore(2000);
                 }
                 else
+                { 
                     type = ShoutType.SHIELD_YELLOW;
+                    myColor.setColor((int)type);
+                    objManager.SendMessage("SwitchColor", (int)type);
+                }
 
                 Debug.Log(type);
 

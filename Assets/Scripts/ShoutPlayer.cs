@@ -8,37 +8,37 @@ public class ShoutPlayer : MonoBehaviour
     public AudioClip[] shouts;
     AudioSource audioSource;
     GameObject Boss;
-
     // Use this for initialization
     void Start ()
     {
+        Debug.Log(gameObject.name);
         audioSource = GetComponent<AudioSource>();
         Boss = GameObject.Find("Boss");
         funcSound = HandleSound;
-        Wrapper.NetworkingPlugin_FuncShout(funcSound);
+        Wrapper.SetFuncShout(funcSound);
     }
 
     public void HandleSound(ulong time, int numShout)
     {
-        UnityMainThreadDispatcher.Instance().Enqueue(SendAudio(time, numShout));
+        Debug.Log(gameObject.name);
+
+        PlayShout(numShout);
+        //UnityMainThreadDispatcher.Instance().Enqueue(SendAudio(time, numShout));
     }
 
 	void PlayShout(int shoutToPlay)
     {
         if (shoutToPlay >= 3)
-        {
             Boss.SendMessage("SubtractFromHP", shoutToPlay);
-        }
-        
         audioSource.PlayOneShot(shouts[shoutToPlay]);
     }
 
-    public IEnumerator SendAudio(ulong time, int shoutToPlay)
-    {
-        yield return null;
-
-        // Set object position
-        PlayShout(shoutToPlay);
-    }
+    //public IEnumerator SendAudio(ulong time, int shoutToPlay)
+    //{
+    //    yield return null;
+    //
+    //    // Set object position
+    //    
+    //}
 
 }
