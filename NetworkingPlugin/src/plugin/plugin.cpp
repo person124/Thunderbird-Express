@@ -21,21 +21,22 @@
 #include "server.hpp"
 
 #include "plugin/plugin_functions.hpp"
+#include "plugin/functionTemp.hpp"
 
 #include <assert.h>
 #include <string>
 
 Peer* peerInstance = NULL;
 
-FuncTransform Plugin::fTransform;
-FuncColor Plugin::fColor;
-FuncInt Plugin::fShout;
-FuncInt Plugin::fBossHP;
-FuncInt Plugin::fPlayerNumber;
-FuncPlayerData Plugin::fPlayerData;
-FuncPlayerUpdate Plugin::fPlayerHealth;
-FuncPlayerUpdate Plugin::fPlayerScore;
-FuncGameState Plugin::fGameState;
+FuncTransform Plugin::fTransform = Temp::FuncTransform;
+FuncColor Plugin::fColor = Temp::FuncColor;
+FuncInt Plugin::fShout = Temp::FuncInt;
+FuncInt Plugin::fBossHP = Temp::FuncInt;
+FuncInt Plugin::fPlayerNumber = Temp::FuncInt;
+FuncPlayerData Plugin::fPlayerData = Temp::FuncPlayerData;
+FuncPlayerUpdate Plugin::fPlayerHealth = Temp::FuncPlayerUpdate;
+FuncPlayerUpdate Plugin::fPlayerScore = Temp::FuncPlayerUpdate;
+FuncGameState Plugin::fGameState = Temp::FuncGameState;
 
 // Non packet functions
 FuncVoid Plugin::fServerShutdown;
