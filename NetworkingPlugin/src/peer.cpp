@@ -31,6 +31,9 @@ Peer::~Peer()
 {
 	mRunning = false;
 	Thread_Terminate(mThread);
+
+	mPeer->Shutdown(1500);
+
 	RakPeer::DestroyInstance(mPeer);
 }
 
@@ -43,7 +46,7 @@ void Peer::sendPacketToAll(Packet* packet)
 // Sends a packet to all clients but the specified one
 void Peer::sendPacketBut(Packet* packet, Connection* dest)
 {
-	sendPacket(packet, dest, false);
+	sendPacket(packet, dest, true);
 }
 
 // Sends a packet to the destination, with the option to send to all
@@ -168,7 +171,7 @@ void Peer::internalNetworkingLoop()
 	for
 	(
 		incommming = mPeer->Receive();
-		incommming;
+		mRunning && incommming;
 		mPeer->DeallocatePacket(incommming), incommming = mPeer->Receive()
 	)
 	{
