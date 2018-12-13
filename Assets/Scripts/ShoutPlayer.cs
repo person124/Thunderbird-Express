@@ -11,7 +11,7 @@ public class ShoutPlayer : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        Debug.Log(gameObject.name);
+        //Debug.Log(gameObject.name);
         audioSource = GetComponent<AudioSource>();
         Boss = GameObject.Find("Boss");
         funcSound = HandleSound;

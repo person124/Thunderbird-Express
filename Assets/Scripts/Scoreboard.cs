@@ -17,6 +17,7 @@ public class Scoreboard : MonoBehaviour
 
     private Wrapper.FuncPlayerUpdate scoreHandler;
     private Wrapper.FuncPlayerUpdate healthHandler;
+	private Wrapper.FuncPlayerData playerNameHandler;
 
     public int winnerIndex = 0;
 
@@ -46,15 +47,17 @@ public class Scoreboard : MonoBehaviour
             playerListArray[i].playerHealth = playerList.transform.GetChild(i).gameObject.GetComponent<PlayerHealth>();
             playerListArray[i].playerHealth.health = 3;
             playerListArray[i].playerScoreText = playerScorePanel.transform.GetChild(i).GetComponent<TextMeshProUGUI>();
-            playerListArray[i].playerName = "Player " + i;
+            playerListArray[i].playerName = "";
         }
 
         scoreScreen.SetActive(false);
 
         scoreHandler = HandleScore;
         healthHandler = HandleHealth;
+		playerNameHandler = HandlePlayerNames;
         Wrapper.SetFuncPlayerUpdateScore(scoreHandler);
         Wrapper.SetFuncPlayerUpdateHealth(healthHandler);
+		Wrapper.SetFuncPlayerData(playerNameHandler);
     }
 
     public void HandleScore(ulong time, int playerID, int score)
@@ -67,6 +70,12 @@ public class Scoreboard : MonoBehaviour
         playerListArray[playerID].playerHealth.health = health;
         playerListArray[playerID].playerHealth.CheckHealth();
     }
+
+	public void HandlePlayerNames(ulong time, int objectID,
+		string name, int score, int health)
+	{
+		playerListArray[objectID].playerName = name;
+	}
 
     // Update is called once per frame
     void Update()
