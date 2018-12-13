@@ -7,7 +7,9 @@ public class PlayerScore : MonoBehaviour {
     public int score;
     public ObjectManager objManager;
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
+        objManager = GameObject.FindGameObjectWithTag("CONTROL").GetComponent<ObjectManager>();
         score = 0;
 	}
 	
@@ -17,7 +19,7 @@ public class PlayerScore : MonoBehaviour {
 	}
     public void incrementScoreLocal(int scoreToAdd)
     {
-        if (Wrapper.NetworkingPlugin_IsServer() || objManager.localPlayerID == GetComponent<PlayerMovementFunctions>().ID) ;
+        if (Wrapper.NetworkingPlugin_IsServer() || objManager.localPlayerID == GetComponent<PlayerMovementFunctions>().ID)
         {
             score += scoreToAdd;
             incrementScore(score);
