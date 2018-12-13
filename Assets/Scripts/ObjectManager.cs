@@ -12,6 +12,8 @@ public class ObjectManager : MonoBehaviour
     private Wrapper.FuncInt setPlayerNumberFunc;
     private Wrapper.FuncGameState funcGameState;
 
+    public int localPlayerID;
+
     private bool tick = false;
 
     public GameObject hostScreen;
@@ -43,12 +45,28 @@ public class ObjectManager : MonoBehaviour
         {
             clientScreen.SetActive(true);
         }
+
+        
+
     }
 
     private void Update()
     {
         if (tick && Wrapper.NetworkingPlugin_IsServer())
         {
+            ////send player positions
+            //for (int j = 0; j < 4; ++j)
+            //{
+            //    Vector3 tmpPos = objects[j].transform.position;
+            //    Quaternion tmpRot = objects[j].transform.rotation;
+            //    Vector3 tmpVel = objects[j].GetComponent<PlayerMovementFunctions>().mRB.velocity;
+
+            //    Wrapper.NetworkingPlugin_SendTransform(j,
+            //        tmpPos.x, tmpPos.y, tmpPos.z,
+            //        tmpRot.x, tmpRot.y, tmpRot.z,
+            //        tmpVel.x, tmpVel.y, tmpVel.z);
+            //}
+
             // Send attack positions
             for (int i = 4; i < objects.Length; ++i)
             {
@@ -61,8 +79,7 @@ public class ObjectManager : MonoBehaviour
                 Wrapper.NetworkingPlugin_SendTransform(i,
                     tmpPos.x, tmpPos.y, tmpPos.z,
                     tmpRot.x, tmpRot.y, tmpRot.z,
-                    tmpVel.x, tmpVel.y, tmpVel.z
-                    );
+                    tmpVel.x, tmpVel.y, tmpVel.z);
             }
         }
         else
@@ -78,8 +95,29 @@ public class ObjectManager : MonoBehaviour
         float vX, float vY, float vZ)
     {
         // Set object position
-        objects[objectID].transform.position = new Vector3(x, y, z);
-        objects[objectID].transform.rotation = Quaternion.Euler(rX, rY, rZ);
+
+
+        if (objectID < 4)
+        {
+            objects[objectID].transform.position = new Vector3(x, y, z);
+            objects[objectID].transform.rotation = Quaternion.Euler(rX, rY, rZ);
+
+            if (objectID != localPlayerID)
+            {
+               // objects[objectID].GetComponent<PlayerMovementFunctions>().velocity = new Vector3(vX,vY, vZ);
+                //Debug.Log("HoW!");
+            }
+            //players
+        }
+        else
+        {
+            objects[objectID].transform.position = new Vector3(x, y, z);
+            objects[objectID].transform.rotation = Quaternion.Euler(rX, rY, rZ);
+
+            //attack
+            objects[objectID].GetComponent<Attack>().velocity = new Vector3(vX, vY, vZ);
+        }
+
         //UnityMainThreadDispatcher.Instance().Enqueue(Works(time, objectID, x, y, z, rX, rY, rZ, vX, vY, vZ));
     }
 
