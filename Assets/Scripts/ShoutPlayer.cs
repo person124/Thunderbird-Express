@@ -29,7 +29,9 @@ public class ShoutPlayer : MonoBehaviour
 	void PlayShout(int shoutToPlay)
     {
         if (shoutToPlay >= 3)
+        {
             Boss.SendMessage("SubtractFromHP", shoutToPlay);
+        }
         audioSource.PlayOneShot(shouts[shoutToPlay]);
     }
 

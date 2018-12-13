@@ -16,8 +16,6 @@ public class PlayerHealth : MonoBehaviour {
 
     public bool dead = false;
 
-    GameObject objManager;
-
     enum ShieldType
     {
         RED,
@@ -30,8 +28,7 @@ public class PlayerHealth : MonoBehaviour {
     public int health;
 
     // Use this for initialization
-    void Start ()
-    {
+    void Start () {
         health = 3;
         dead = false;
         mainCamera = GetComponentInChildren<Camera>();
@@ -39,12 +36,15 @@ public class PlayerHealth : MonoBehaviour {
         scorekeeper = GetComponent<PlayerScore>();
         deadCamera = GameObject.Find("DEADCamera").GetComponent<Camera>();
         deadCamera.enabled = false;
-        objManager = GameObject.FindGameObjectWithTag("CONTROL");
-    }
-
-    void SetShieldType(int color)
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
+    void ShieldSet(int shieldSent)
     {
-        shield = (ShieldType)color;
+        shield = (ShieldType)shieldSent;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -56,10 +56,10 @@ public class PlayerHealth : MonoBehaviour {
 
         if (other.gameObject.CompareTag("ATTACK"))
         {
-
             if ((int)shield != (int)other.gameObject.GetComponent<Attack>().type)
             {
                 Debug.Log("wrong block");
+
 
                 DamagePlayer();
             }
@@ -67,9 +67,11 @@ public class PlayerHealth : MonoBehaviour {
             {
                 scorekeeper.incrementScore(5000);
                 Debug.Log("nice block!");
+
             }
 
             other.gameObject.SendMessage("ResetPos");
+
         }
     }
 
@@ -77,11 +79,13 @@ public class PlayerHealth : MonoBehaviour {
     {
         if (health <= 0)
         {
-            health = 0;
+            transform.position += new Vector3(0, -100, 0);
 
-            transform.position = new Vector3(-100, -100, -100);
-            mainCamera.enabled = false;
-            deadCamera.enabled = true;
+            if (mainCamera)
+            {
+                mainCamera.enabled = false;
+                deadCamera.enabled = true;
+            }
             input.enabled = false;
 
             dead = true;
@@ -102,40 +106,13 @@ public class PlayerHealth : MonoBehaviour {
         }
     }
 
-    bool DamagePlayer()
+    void DamagePlayer()
     {
         --health;
-        if (health <= 0)
-        {
-            health = 0;
+        health = Mathf.Clamp(health, 0, 5);
 
-            transform.position = new Vector3(-100, -100, -100);
-            mainCamera.enabled = false;
-            deadCamera.enabled = true;
-            input.enabled = false;
+        Wrapper.NetworkingPlugin_SendPlayerHealth(GetComponent<PlayerMovementFunctions>().ID, health);
 
-            dead = true;
-
-            Wrapper.NetworkingPlugin_SendPlayerHealth(GetComponent<PlayerMovementFunctions>().ID, health);
-
-            return false;
-        }
-        else
-        {
-            switch (health)
-            {
-                case 2:
-                    first.SetActive(false);
-                    break;
-                case 1:
-                    second.SetActive(false);
-                    break;
-                default:
-                    break;
-            }
-            Wrapper.NetworkingPlugin_SendPlayerHealth(GetComponent<PlayerMovementFunctions>().ID, health);
-            return true;
-        }
-        
+        CheckHealth();
     }
 }

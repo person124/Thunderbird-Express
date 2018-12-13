@@ -18,7 +18,7 @@
 
 struct Temp
 {
-	static void FuncTransform(unsigned long long, int, float, float, float, float, float, float)
+	static void FuncTransform(unsigned long long, int, float, float, float, float, float, float, float, float, float)
 	{}
 
 	static void FuncColor(unsigned long long, int, int)

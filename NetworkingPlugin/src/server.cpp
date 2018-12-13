@@ -77,7 +77,8 @@ void Server::handlePacket(Packet* packet, Connection* conn)
 		PacketTransform* p = (PacketTransform*)packet;
 		Plugin::fTransform(p->timeStamp, p->objectID,
 			p->posX, p->posY, p->posZ,
-			p->rotX, p->rotY, p->rotZ);
+			p->rotX, p->rotY, p->rotZ,
+			p->velX, p->velY, p->velZ);
 		break;
 	}
 	case PACKET_COLOR:

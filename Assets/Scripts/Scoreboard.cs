@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class Scoreboard : MonoBehaviour {
+public class Scoreboard : MonoBehaviour
+{
 
     public GameObject playerList;
     public GameObject boss;
@@ -39,9 +40,9 @@ public class Scoreboard : MonoBehaviour {
 
         for (int i = 0; i < playerListArray.Length; ++i)
         {
-            playerListArray[i].playerDead = false;
             playerListArray[i].playerScore = playerList.transform.GetChild(i).gameObject.GetComponent<PlayerScore>();
             playerListArray[i].playerHealth = playerList.transform.GetChild(i).gameObject.GetComponent<PlayerHealth>();
+            playerListArray[i].playerHealth.health = 3;
             playerListArray[i].playerScoreText = playerScorePanel.transform.GetChild(i).GetComponent<TextMeshProUGUI>();
             playerListArray[i].playerName = "Player " + i;
         }
@@ -64,9 +65,10 @@ public class Scoreboard : MonoBehaviour {
         playerListArray[playerID].playerHealth.health = health;
         playerListArray[playerID].playerHealth.CheckHealth();
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
 
         if (Input.GetKey(KeyCode.Tab))
         {
