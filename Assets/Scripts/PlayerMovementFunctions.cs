@@ -31,6 +31,8 @@ public class PlayerMovementFunctions : MonoBehaviour
 
         mRB.velocity = transform.forward * velocity.z + transform.right * velocity.x;
 
+        //Debug.Log("Set velocity " + ID + " " + mRB.velocity);
+
         Wrapper.NetworkingPlugin_SendTransform(ID,
             transform.position.x, transform.position.y, transform.position.z,
             transform.rotation.x, transform.rotation.y, transform.rotation.z,
