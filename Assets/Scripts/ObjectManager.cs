@@ -86,6 +86,20 @@ public class ObjectManager : MonoBehaviour
         {
             // If client:
             // (ignore for now) Dead Reckon
+            //for (int j = 0; j < 4; ++j)
+            //{
+            //    if (j != localPlayerID)
+            //    {
+            //        Vector3 tmpPos = objects[j].transform.position;
+            //        Quaternion tmpRot = objects[j].transform.rotation;
+
+                    
+
+
+            //    }
+
+            //}
+
         }
     }
 
@@ -96,7 +110,6 @@ public class ObjectManager : MonoBehaviour
     {
         // Set object position
 
-
         if (objectID < 4)
         {
             objects[objectID].transform.position = new Vector3(x, y, z);
@@ -104,9 +117,20 @@ public class ObjectManager : MonoBehaviour
 
             if (objectID != localPlayerID)
             {
-               // objects[objectID].GetComponent<PlayerMovementFunctions>().velocity = new Vector3(vX,vY, vZ);
-                //Debug.Log("HoW!");
+                //Debug.Log(vX + ", " + vY + ", " + vZ);
+
+                Vector3 tmpPos = objects[objectID].transform.position;
+               // Quaternion tmpRot = objects[j].transform.rotation;
+
+                //DeadReckoning DRInstance = objects[objectID].transform.GetComponent<DeadReckoning>();
+
+                objects[objectID].transform.GetComponent<DeadReckoning>().recievedPosition = new Vector3(x, y, z);
+                objects[objectID].transform.GetComponent<DeadReckoning>().recievedVelocity = new Vector3(vX, vY, vZ);
+
+                objects[objectID].transform.GetComponent<DeadReckoning>().dt = (Time.time - objects[objectID].transform.GetComponent<DeadReckoning>().timestamp);
+                objects[objectID].transform.GetComponent<DeadReckoning>().timestamp = Time.time;
             }
+
             //players
         }
         else
@@ -155,15 +179,19 @@ public class ObjectManager : MonoBehaviour
                 objects[i].GetComponent<PlayerMovementFunctions>().enabled = false;
                 objects[i].GetComponent<VGSControls>().enabled = false;
                 objects[i].GetComponent<PlayerScore>().enabled = false;
+                
             }
             else
             {
                 objects[i].GetComponent<PlayerMovementFunctions>().ID = num;
+                objects[i].GetComponent<DeadReckoning>().enabled = false;
 
             }
 
             objects[i].SetActive(true);
         }
+
+        localPlayerID = num;
 
         hostScreen.SetActive(false);
         clientScreen.SetActive(false);
