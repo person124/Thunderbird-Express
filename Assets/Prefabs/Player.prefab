@@ -216,6 +216,7 @@ GameObject:
   - component: {fileID: 114362898805782810}
   - component: {fileID: 114839272994272310}
   - component: {fileID: 114135266901913196}
+  - component: {fileID: 114325330811436908}
   m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
@@ -910,16 +911,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05578b7523178e44eb8f862ed945bfc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentVel: {x: 0, y: 0, z: 0}
-  currentAcc: {x: 5, y: 5, z: 5}
-  currentPos: {x: 0, y: 0, z: 0}
-  initStepPos: {x: 0, y: 0, z: 0}
-  timeStepPos: {x: 0, y: 0, z: 0}
-  dublStepPos: {x: 0, y: 0, z: 0}
-  average: {x: 0, y: 0, z: 0}
-  lastTstamp: 0
-  newTstamp: 0
-  dublNewTstamp: 0
+  lastKnownPosition: {x: 0, y: -100, z: 0}
+  lastKnownVelocity: {x: 0, y: 0, z: 0}
+  lastKnownAcceleration: {x: 5, y: 5, z: 5}
+  estimatedPosition: {x: 0, y: 0, z: 0}
+  actualPosition: {x: 0, y: 0, z: 0}
+  recievedPosition: {x: 0, y: 0, z: 0}
+  recievedVelocity: {x: 0, y: 0, z: 0}
+  blendedVelocity: {x: 0, y: 0, z: 0}
+  timestamp: 0
+  dt: 0
 --- !u!114 &114262294045057692
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1039,6 +1040,17 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &114325330811436908
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1854123024412188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bc109d96fb7dea42bdbed1d893179b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114362898805782810
 MonoBehaviour:
   m_ObjectHideFlags: 1

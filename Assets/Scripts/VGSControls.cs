@@ -79,7 +79,7 @@ public class VGSControls : MonoBehaviour {
                 if (isTrashTalk == true)
                 {
                     type = ShoutType.TRASHTALK_DORK;
-                    scorekeeper.incrementScore(1000);
+                    Wrapper.NetworkingPlugin_SendPlayerScore(GetComponent<PlayerMovementFunctions>().ID, scorekeeper.score + 1000);
                 }
                 else
                 {
@@ -99,7 +99,7 @@ public class VGSControls : MonoBehaviour {
                 if (isTrashTalk == true)
                 {
                     type = ShoutType.TRASHTALK_SHORTS;
-                    scorekeeper.incrementScore(500);
+                    Wrapper.NetworkingPlugin_SendPlayerScore(GetComponent<PlayerMovementFunctions>().ID, scorekeeper.score + 500);
                 }
                 else
                 { 
@@ -118,7 +118,7 @@ public class VGSControls : MonoBehaviour {
                 if (isTrashTalk == true)
                 {
                     type = ShoutType.TRASHTALK_DAD;
-                    scorekeeper.incrementScore(2000);
+                    Wrapper.NetworkingPlugin_SendPlayerScore(GetComponent<PlayerMovementFunctions>().ID, scorekeeper.score + 2000);
                 }
                 else
                 { 
@@ -151,6 +151,7 @@ public class VGSControls : MonoBehaviour {
     void sendShoutOverNet()
     {
         Debug.Log("THUNDERBIRD YEULLWLO");
+        Wrapper.NetworkingPlugin_SendShout((int)type);
 
         shoutRef.SendMessage("PlayShout", (int)type);
 

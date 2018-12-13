@@ -42,7 +42,10 @@ public class PlayerHealth : MonoBehaviour {
 	void Update () {
 		
 	}
-
+    void ShieldSet(int shieldSent)
+    {
+        shield = (ShieldType)shieldSent;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
