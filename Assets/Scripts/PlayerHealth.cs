@@ -18,6 +18,8 @@ public class PlayerHealth : MonoBehaviour {
 
     GameObject objManager;
 
+    private Wrapper.FuncPlayerUpdate hpRecieve;
+
     enum ShieldType
     {
         RED,
@@ -40,6 +42,9 @@ public class PlayerHealth : MonoBehaviour {
         deadCamera = GameObject.Find("DEADCamera").GetComponent<Camera>();
         deadCamera.enabled = false;
         objManager = GameObject.FindGameObjectWithTag("CONTROL");
+
+        hpRecieve = HandleDamage;
+        Wrapper.NetworkingPlugin_SendPlayerHealth(hpRecieve);
     }
 
 
@@ -71,7 +76,6 @@ public class PlayerHealth : MonoBehaviour {
     bool DamagePlayer()
     {
         --health;
-        objManager.SendMessage("SendHealthLoss", GetComponent<PlayerMovementFunctions>().ID);
         if (health <= 0)
         {
             mainCamera.enabled = false;
