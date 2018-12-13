@@ -27,31 +27,14 @@ Peer::Peer()
 	mPeer = RakPeer::GetInstance();
 }
 
-#include <fstream>
-
 Peer::~Peer()
 {
-	std::fstream output;
-
-	if (mIsServer)
-		output = std::fstream("server.txt", std::fstream::out);
-	else
-		output = std::fstream("client.txt", std::fstream::out);
-
-	output << "Terminating thread...";
 	mRunning = false;
 	Thread_Terminate(mThread);
-	output << "DONE!\n";
 
-	output << "peer shutting down....";
 	mPeer->Shutdown(1500);
-	output << "DONE!\n";
 
-	output << "Destroying instance....";
 	RakPeer::DestroyInstance(mPeer);
-	output << "DONE!\n";
-
-	output.close();
 }
 
 // Sends a packet to all connected clients
