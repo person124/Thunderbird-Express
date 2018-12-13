@@ -30,18 +30,32 @@ Server::Server()
 		mConnections[i] = NULL;
 }
 
+#include <fstream>
+
 Server::~Server()
 {
+	std::fstream merp = std::fstream("merpa.txt", std::fstream::out);
+
+	merp << "Players:\n";
 	for (unsigned int i = 0; i < MAX_PLAYER_COUNT - 1; ++i)
 	{
+		merp << i << ' ' << mConnections[i] << '\n';
+		merp.flush();
 		if (mConnections[i] != NULL)
 			delete mConnections[i];
 	}
+	merp << "End players\n";
 
+	merp << "Deleting connections...";
+	merp.flush();
 	delete[] mConnections;
+	merp << "DONE!\n";
 
+	merp << "Sending shutdown packets....";
+	merp.flush();
 	PacketServerShutdown shutdown = PacketServerShutdown();
 	sendPacketToAll(&shutdown);
+	merp << "DONE!\n";
 }
 
 // Sends the ids to all of the connected clients
@@ -129,11 +143,25 @@ void Server::handlePacket(Packet* packet, Connection* conn)
 	{
 		// When a client leaves
 
+		std::fstream help = std::fstream("helpPacket.txt", std::fstream::out);
+
+		help << "Getting Player ID :";
+		help.flush();
 		unsigned int id = removeConnection(conn);
+		help << id << '\n';
+		help.flush();
 		assert(id != 0);
 
+		help << "Sending internal function....";
+		help.flush();
+		Plugin::fClientLeave(packet->timeStamp, id);
+		help << "DONE!\n";
+		help << "Sending disconnect packet....";
+		help.flush();
 		PacketClientDisconnect disconnect = PacketClientDisconnect(id);
 		sendPacketBut(&disconnect, conn);
+		help << "DONE!\n";
+		help.close();
 
 		break;
 	}
@@ -160,15 +188,40 @@ void Server::addConnection(Connection* conn)
 
 unsigned int Server::removeConnection(Connection* conn)
 {
+	std::fstream merp = std::fstream("remove.txt", std::fstream::out);
+
+	merp << "Compare id: " << conn->getID() << '\n';
+
 	for (unsigned int i = 0; i < MAX_PLAYER_COUNT - 1; ++i)
 	{
+		merp << i << ' ' << mConnections[i];
+
+		if (mConnections[i])
+			merp << ' ' << mConnections[i]->getID() << '\n';
+		else
+			merp << '\n';
+
 		if (mConnections[i] && mConnections[i]->getID() == conn->getID())
 		{
+			merp << "Deleting connection...";
 			delete mConnections[i];
+			mConnections[i] = NULL;
+			merp << "DONE!\n";
+
+			merp << "Adjusting count....";
 			mConnectedClientCount--;
+			merp << "DONE!\n";
+
+			merp << "Returning " << (i + 1) << '\n';
+			merp.close();
+
 			return i + 1;
 		}
 	}
+
+	merp << "DONE!";
+
+	merp.close();
 
 	return 0;
 }

@@ -27,11 +27,31 @@ Peer::Peer()
 	mPeer = RakPeer::GetInstance();
 }
 
+#include <fstream>
+
 Peer::~Peer()
 {
+	std::fstream output;
+
+	if (mIsServer)
+		output = std::fstream("server.txt", std::fstream::out);
+	else
+		output = std::fstream("client.txt", std::fstream::out);
+
+	output << "Terminating thread...";
 	mRunning = false;
 	Thread_Terminate(mThread);
+	output << "DONE!\n";
+
+	output << "peer shutting down....";
+	mPeer->Shutdown(1500);
+	output << "DONE!\n";
+
+	output << "Destroying instance....";
 	RakPeer::DestroyInstance(mPeer);
+	output << "DONE!\n";
+
+	output.close();
 }
 
 // Sends a packet to all connected clients
@@ -43,7 +63,7 @@ void Peer::sendPacketToAll(Packet* packet)
 // Sends a packet to all clients but the specified one
 void Peer::sendPacketBut(Packet* packet, Connection* dest)
 {
-	sendPacket(packet, dest, false);
+	sendPacket(packet, dest, true);
 }
 
 // Sends a packet to the destination, with the option to send to all
@@ -168,7 +188,7 @@ void Peer::internalNetworkingLoop()
 	for
 	(
 		incommming = mPeer->Receive();
-		incommming;
+		mRunning && incommming;
 		mPeer->DeallocatePacket(incommming), incommming = mPeer->Receive()
 	)
 	{
