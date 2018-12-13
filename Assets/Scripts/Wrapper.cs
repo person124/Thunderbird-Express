@@ -65,7 +65,7 @@ public class Wrapper
 		string name, int score, int health);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public delegate void FuncPlayerUpdate(ulong time, int objectID, int score, int health);
+	public delegate void FuncPlayerUpdate(ulong time, int objectID, int value);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public delegate void FuncGameState(ulong time, bool state);
@@ -92,7 +92,10 @@ public class Wrapper
 	public static extern void NetworkingPlugin_FuncPlayerData(FuncPlayerData func);
 
 	[DllImport(DLL)]
-	public static extern void NetworkingPlugin_FuncPlayerUpdate(FuncPlayerUpdate func);
+	public static extern void NetworkingPlugin_FuncPlayerUpdateHealth(FuncPlayerUpdate func);
+
+	[DllImport(DLL)]
+	public static extern void NetworkingPlugin_FuncPlayerUpdateScore(FuncPlayerUpdate func);
 
 	[DllImport(DLL)]
 	public static extern void NetworkingPlugin_FuncGameState(FuncGameState func);
@@ -127,8 +130,12 @@ public class Wrapper
 		string name, int score, int health);
 
 	[DllImport(DLL)]
-	public static extern void NetworkingPlugin_SendPlayerUpdate(int objectID,
-		int score, int health);
+	public static extern void NetworkingPlugin_SendPlayerHealth(int objectID,
+		int health);
+
+	[DllImport(DLL)]
+	public static extern void NetworkingPlugin_SendPlayerScore(int objectID,
+		int score);
 
 	[DllImport(DLL)]
 	public static extern void NetworkingPlugin_SendGameState(bool state);
@@ -137,6 +144,9 @@ public class Wrapper
 	// Function Setters, Automatic Unity main thread redirection
 	// ==========================================================
 
+	// ==========================================================
+	// PacketTransform
+	// ==========================================================
 	public static void SetFuncTransform(FuncTransform func)
 	{
 		NetworkingPlugin_FuncTransform(HandleFuncTransform);
@@ -162,6 +172,9 @@ public class Wrapper
 		mainThreadFuncTransform(time, objectID, x, y, z, rX, rY, rZ, vX, vY, vZ);
 	}
 
+	// ==========================================================
+	// PacketColor
+	// ==========================================================
 	public static void SetFuncColor(FuncColor func)
 	{
 		NetworkingPlugin_FuncColor(HandleFuncColor);
@@ -181,6 +194,9 @@ public class Wrapper
 		mainThreadFuncColor(time, objectID, color);
 	}
 
+	// ==========================================================
+	// PacketShout
+	// ==========================================================
 	public static void SetFuncShout(FuncInt func)
 	{
 		NetworkingPlugin_FuncShout(HandleFuncShout);
@@ -200,6 +216,9 @@ public class Wrapper
 		mainThreadFuncShout(time, shout);
 	}
 
+	// ==========================================================
+	// PacketBossHP
+	// ==========================================================
 	public static void SetFuncBossHP(FuncInt func)
 	{
 		NetworkingPlugin_FuncBossHP(HandleBossHP);
@@ -219,6 +238,9 @@ public class Wrapper
 		mainThreadFuncBossHP(time, hp);
 	}
 
+	// ==========================================================
+	// Packet Set Player Number
+	// ==========================================================
 	public static void SetFuncPlayerNumber(FuncInt func)
 	{
 		NetworkingPlugin_FuncPlayerNumber(HandlePlayerNumber);
@@ -238,6 +260,9 @@ public class Wrapper
 		mainTheadFuncPlayerNumber(time, id);
 	}
 
+	// ==========================================================
+	// Packet Player Data
+	// ==========================================================
 	public static void SetFuncPlayerData(FuncPlayerData func)
 	{
 		NetworkingPlugin_FuncPlayerData(HandlePlayerData);
@@ -257,25 +282,53 @@ public class Wrapper
 		mainThreadFuncPlayerData(time, objectID, name, score, health);
 	}
 
-	public static void SetFuncPlayerUpdate(FuncPlayerUpdate func)
+	// ==========================================================
+	// Packet Player Health
+	// ==========================================================
+	public static void SetFuncPlayerUpdateHealth(FuncPlayerUpdate func)
 	{
-		NetworkingPlugin_FuncPlayerUpdate(HandlePlayerUpdate);
-		mainThreadFuncPlayerUpdate = func;
+		NetworkingPlugin_FuncPlayerUpdateHealth(HandlePlayerUpdateHealth);
+		mainThreadFuncPlayerUpdateHealth = func;
 	}
 
-	private static FuncPlayerUpdate mainThreadFuncPlayerUpdate;
+	private static FuncPlayerUpdate mainThreadFuncPlayerUpdateHealth;
 
-	public static void HandlePlayerUpdate(ulong time, int objectID, int score, int health)
+	public static void HandlePlayerUpdateHealth(ulong time, int objectID, int health)
 	{
-		UnityMainThreadDispatcher.Instance().Enqueue(HandlerPlayerUpdate(time, objectID, score, health));
+		UnityMainThreadDispatcher.Instance().Enqueue(HandlerPlayerUpdateHealth(time, objectID, health));
 	}
 
-	private static IEnumerator HandlerPlayerUpdate(ulong time, int objectID, int score, int health)
+	private static IEnumerator HandlerPlayerUpdateHealth(ulong time, int objectID, int health)
 	{
 		yield return null;
-		mainThreadFuncPlayerUpdate(time, objectID, score, health);
+		mainThreadFuncPlayerUpdateHealth(time, objectID, health);
 	}
 
+	// ==========================================================
+	// Packet Player Score
+	// ==========================================================
+	public static void SetFuncPlayerUpdateScore(FuncPlayerUpdate func)
+	{
+		NetworkingPlugin_FuncPlayerUpdateScore(HandlePlayerUpdateScore);
+		mainThreadFuncPlayerUpdateScore = func;
+	}
+
+	private static FuncPlayerUpdate mainThreadFuncPlayerUpdateScore;
+
+	public static void HandlePlayerUpdateScore(ulong time, int objectID, int score)
+	{
+		UnityMainThreadDispatcher.Instance().Enqueue(HandlerPlayerUpdateScore(time, objectID, score));
+	}
+
+	private static IEnumerator HandlerPlayerUpdateScore(ulong time, int objectID, int score)
+	{
+		yield return null;
+        mainThreadFuncPlayerUpdateScore(time, objectID, score);
+	}
+
+	// ==========================================================
+	// Packet Game State
+	// ==========================================================
 	public static void SetFuncGameState(FuncGameState func)
 	{
 		NetworkingPlugin_FuncGameState(HandleGameState);
@@ -295,6 +348,9 @@ public class Wrapper
 		mainThreadFuncGameState(time, b);
 	}
 
+	// ==========================================================
+	// Packet Server Shutdown
+	// ==========================================================
 	public static void SetFuncOnServerShutdown(FuncVoid func)
 	{
 		NetworkingPlugin_FuncOnServerShutdown(HandleServerShutdown);
@@ -314,6 +370,9 @@ public class Wrapper
 		mainThreadServerShutdown();
 	}
 
+	// ==========================================================
+	// Packet Client Leave
+	// ==========================================================
 	public static void SetFuncOnClientLeave(FuncInt func)
 	{
 		NetworkingPlugin_FuncOnClientLeave(HandleClientLeave);

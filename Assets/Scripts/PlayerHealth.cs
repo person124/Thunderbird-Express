@@ -42,18 +42,20 @@ public class PlayerHealth : MonoBehaviour {
 	void Update () {
 		
 	}
-
+    void ShieldSet(int shieldSent)
+    {
+        shield = (ShieldType)shieldSent;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!Wrapper.NetworkingPlugin_IsServer())
+            return;
 
         Debug.Log("collision");
 
         if (other.gameObject.CompareTag("ATTACK"))
         {
-
-           
-
             if ((int)shield != (int)other.gameObject.GetComponent<Attack>().type)
             {
                 Debug.Log("wrong block");
@@ -68,23 +70,25 @@ public class PlayerHealth : MonoBehaviour {
 
             }
 
+            other.gameObject.SendMessage("ResetPos");
+
         }
     }
 
-
-    bool DamagePlayer()
+    public void CheckHealth()
     {
-        --health;
-
         if (health <= 0)
         {
-            mainCamera.enabled = false;
-            deadCamera.enabled = true;
+            transform.position += new Vector3(0, -100, 0);
+
+            if (mainCamera)
+            {
+                mainCamera.enabled = false;
+                deadCamera.enabled = true;
+            }
             input.enabled = false;
 
             dead = true;
-
-            return false;
         }
         else
         {
@@ -99,8 +103,16 @@ public class PlayerHealth : MonoBehaviour {
                 default:
                     break;
             }
-
-            return true;
         }
+    }
+
+    void DamagePlayer()
+    {
+        --health;
+        health = Mathf.Clamp(health, 0, 5);
+
+        Wrapper.NetworkingPlugin_SendPlayerHealth(GetComponent<PlayerMovementFunctions>().ID, health);
+
+        CheckHealth();
     }
 }

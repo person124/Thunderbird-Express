@@ -911,7 +911,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackTimer: 0
-  attackTimerMax: 1
+  attackTimerMax: 0.667
   attack: {fileID: 1988743342449806, guid: ea648c7dda056e548bcc4ea8eafbfde1, type: 2}
   hp: 0
   attackList:
@@ -3338,20 +3338,6 @@ Prefab:
       propertyPath: m_Name
       value: Player1
       objectReference: {fileID: 0}
-    - target: {fileID: 224378981983397060, guid: 2a1fecc41c6eca8418c001d5f43b271d,
-        type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114892320456662790, guid: 2a1fecc41c6eca8418c001d5f43b271d,
-        type: 2}
-      propertyPath: shoutRef
-      value: 
-      objectReference: {fileID: 1344474820}
-    - target: {fileID: 1854123024412188, guid: 2a1fecc41c6eca8418c001d5f43b271d, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a1fecc41c6eca8418c001d5f43b271d, type: 2}
   m_IsPrefabAsset: 0
@@ -3365,6 +3351,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1854123024412188, guid: 2a1fecc41c6eca8418c001d5f43b271d,
     type: 2}
   m_PrefabInternal: {fileID: 1535759548}
+--- !u!114 &1535759551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1535759550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bc109d96fb7dea42bdbed1d893179b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1544232380 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4332675045706760, guid: ea648c7dda056e548bcc4ea8eafbfde1,
@@ -4228,32 +4225,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerList: {fileID: 0}
   boss: {fileID: 469578061}
-  player1Score: {fileID: 0}
-  player2Score: {fileID: 0}
-  player3Score: {fileID: 0}
-  player4Score: {fileID: 0}
-  player1Health: {fileID: 0}
-  player2Health: {fileID: 0}
-  player3Health: {fileID: 0}
-  player4Health: {fileID: 0}
-  player1Dead: 0
-  player2Dead: 0
-  player3Dead: 0
-  player4Dead: 0
-  player1Name: dorkus1
-  player2Name: dorkus2
-  player3Name: dorkus3
-  player4Name: dorkus4
   scoreScreen: {fileID: 658306090}
   gameOverScreen: {fileID: 0}
-  player1ScoreObj: {fileID: 1596757225}
-  player2ScoreObj: {fileID: 1563431048}
-  player3ScoreObj: {fileID: 2138984357}
-  player4ScoreObj: {fileID: 1437969317}
-  player1ScoreText: {fileID: 0}
-  player2ScoreText: {fileID: 0}
-  player3ScoreText: {fileID: 0}
-  player4ScoreText: {fileID: 0}
+  playerScorePanel: {fileID: 658306090}
 --- !u!1001 &1800912313
 Prefab:
   m_ObjectHideFlags: 0
@@ -4320,7 +4294,7 @@ GameObject:
   - component: {fileID: 1807565716}
   m_Layer: 0
   m_Name: ObjectManager
-  m_TagString: Untagged
+  m_TagString: CONTROL
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4361,6 +4335,7 @@ MonoBehaviour:
   - {fileID: 844956773}
   - {fileID: 1606684750}
   - {fileID: 1957106783}
+  localPlayerID: 0
   hostScreen: {fileID: 1909659931}
   clientScreen: {fileID: 1909659930}
   activeScreen: {fileID: 1344474820}

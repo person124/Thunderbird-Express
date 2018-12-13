@@ -73,9 +73,9 @@ public class ObjectManager : MonoBehaviour
                 Vector3 tmpPos = objects[i].transform.position;
                 Quaternion tmpRot = objects[i].transform.rotation;
                 Vector3 tmpVel = objects[i].GetComponent<Attack>().velocity;
-
+            
                 Wrapper.NetworkingPlugin_SendColor(i, (int)objects[i].GetComponent<Attack>().type);
-
+            
                 Wrapper.NetworkingPlugin_SendTransform(i,
                     tmpPos.x, tmpPos.y, tmpPos.z,
                     tmpRot.x, tmpRot.y, tmpRot.z,
@@ -159,7 +159,13 @@ public class ObjectManager : MonoBehaviour
 
     public void HandleColor(ulong time, int objectID, int color)
     {
-        objects[objectID].SendMessage("SetAttackType", color);
+        if (objectID < 4)
+        {
+            objects[objectID].GetComponent<PlayerHealth>().SendMessage("ShieldSet", color);
+            objects[objectID].GetComponent<MeshMutator>().SendMessage("setColor", color);
+        }
+        else
+            objects[objectID].SendMessage("SetAttackType", color);
         //UnityMainThreadDispatcher.Instance().Enqueue(Color(time, objectID, color));
     }
 
@@ -172,18 +178,19 @@ public class ObjectManager : MonoBehaviour
     {
         for (int i = 0; i < 4; ++i)
         {
+            objects[i].GetComponent<PlayerMovementFunctions>().ID = i;
+
             if (i != num)
             {
-                Destroy(objects[i].transform.GetChild(0).gameObject);
+                objects[i].transform.GetChild(0).gameObject.SetActive(false);
                 objects[i].GetComponent<PlayerInput>().enabled = false;
                 objects[i].GetComponent<PlayerMovementFunctions>().enabled = false;
                 objects[i].GetComponent<VGSControls>().enabled = false;
-                objects[i].GetComponent<PlayerScore>().enabled = false;
+                //objects[i].GetComponent<PlayerScore>().enabled = false;
                 
             }
             else
             {
-                objects[i].GetComponent<PlayerMovementFunctions>().ID = num;
                 objects[i].GetComponent<DeadReckoning>().enabled = false;
 
             }
@@ -202,7 +209,15 @@ public class ObjectManager : MonoBehaviour
         //UnityMainThreadDispatcher.Instance().Enqueue(yuppers(time, num));
     }
 
-
+    void SwitchColor(int color)
+    {
+        for (int i = 0; i < 4; ++i)
+        {
+            objects[i].GetComponent<MeshMutator>().SendMessage("setColor", color);
+            objects[i].GetComponent<PlayerHealth>().SendMessage("ShieldSet", color);
+            Wrapper.NetworkingPlugin_SendColor(i, color);
+        }
+    }
     //public IEnumerator yuppers(ulong time, int num)
     //{
     //    yield return null;

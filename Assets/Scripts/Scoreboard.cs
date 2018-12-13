@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class Scoreboard : MonoBehaviour {
+public class Scoreboard : MonoBehaviour
+{
 
     public GameObject playerList;
     public GameObject boss;
@@ -11,65 +12,63 @@ public class Scoreboard : MonoBehaviour {
     float setupTimer;
     float setupTimerMax;
 
-    public PlayerScore player1Score;
-    public PlayerScore player2Score;
-    public PlayerScore player3Score;
-    public PlayerScore player4Score;
-
-    public PlayerHealth player1Health;
-    public PlayerHealth player2Health;
-    public PlayerHealth player3Health;
-    public PlayerHealth player4Health;
-
-    public bool player1Dead;
-    public bool player2Dead;
-    public bool player3Dead;
-    public bool player4Dead;
-
-    public string player1Name = "Dorkus1";
-    public string player2Name = "Dorkus2";
-    public string player3Name = "Dorkus3";
-    public string player4Name = "Dorkus4";
-
     public GameObject scoreScreen;
     public GameObject gameOverScreen;
 
-    public GameObject player1ScoreObj;
-    public GameObject player2ScoreObj;
-    public GameObject player3ScoreObj;
-    public GameObject player4ScoreObj;
+    private Wrapper.FuncPlayerUpdate scoreHandler;
+    private Wrapper.FuncPlayerUpdate healthHandler;
 
-    public TextMeshProUGUI player1ScoreText;
-    public TextMeshProUGUI player2ScoreText;
-    public TextMeshProUGUI player3ScoreText;
-    public TextMeshProUGUI player4ScoreText;
+    struct PlayerReferences
+    {
+        public PlayerScore playerScore;
+        public PlayerHealth playerHealth;
+        public bool playerDead;
+        public string playerName;
+        public GameObject playerScoreObj;
+        public TextMeshProUGUI playerScoreText;
+    }
 
+    PlayerReferences[] playerListArray;
+
+    public GameObject playerScorePanel;
 
     // Use this for initialization
     void Start()
     {
         playerList = GameObject.Find("PlayerList");
+        playerListArray = new PlayerReferences[4];
 
-        player1Score = playerList.transform.GetChild(0).gameObject.GetComponent<PlayerScore>();
-        player2Score = playerList.transform.GetChild(1).gameObject.GetComponent<PlayerScore>();
-        player3Score = playerList.transform.GetChild(2).gameObject.GetComponent<PlayerScore>();
-        player4Score = playerList.transform.GetChild(3).gameObject.GetComponent<PlayerScore>();
-
-        player1Health = playerList.transform.GetChild(0).gameObject.GetComponent<PlayerHealth>();
-        player2Health = playerList.transform.GetChild(1).gameObject.GetComponent<PlayerHealth>();
-        player3Health = playerList.transform.GetChild(2).gameObject.GetComponent<PlayerHealth>();
-        player4Health = playerList.transform.GetChild(3).gameObject.GetComponent<PlayerHealth>();
-
-        player1ScoreText = player1ScoreObj.GetComponent<TextMeshProUGUI>();
-        player2ScoreText = player2ScoreObj.GetComponent<TextMeshProUGUI>();
-        player3ScoreText = player3ScoreObj.GetComponent<TextMeshProUGUI>();
-        player4ScoreText = player4ScoreObj.GetComponent<TextMeshProUGUI>();
+        for (int i = 0; i < playerListArray.Length; ++i)
+        {
+            playerListArray[i].playerScore = playerList.transform.GetChild(i).gameObject.GetComponent<PlayerScore>();
+            playerListArray[i].playerHealth = playerList.transform.GetChild(i).gameObject.GetComponent<PlayerHealth>();
+            playerListArray[i].playerHealth.health = 3;
+            playerListArray[i].playerScoreText = playerScorePanel.transform.GetChild(i).GetComponent<TextMeshProUGUI>();
+            playerListArray[i].playerName = "Player " + i;
+        }
 
         scoreScreen.SetActive(false);
+
+        scoreHandler = HandleScore;
+        healthHandler = HandleHealth;
+        Wrapper.SetFuncPlayerUpdateScore(scoreHandler);
+        Wrapper.SetFuncPlayerUpdateHealth(healthHandler);
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    public void HandleScore(ulong time, int playerID, int score)
+    {
+        playerListArray[playerID].playerScore.score = score;
+    }
+
+    public void HandleHealth(ulong time, int playerID, int health)
+    {
+        playerListArray[playerID].playerHealth.health = health;
+        playerListArray[playerID].playerHealth.CheckHealth();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
 
         if (Input.GetKey(KeyCode.Tab))
         {
@@ -86,6 +85,7 @@ public class Scoreboard : MonoBehaviour {
 
     void WinStateActive()
     {
+        /*
         float highestScore = player1Score.score;
         if (everybodysDead() == true || boss.GetComponent<BossScript>().hp <= 0)
         {
@@ -100,20 +100,19 @@ public class Scoreboard : MonoBehaviour {
             // put a send message here for a win game screen that 
             //will kick people back to main sceneand end the game
         }
-
+        */
     }
 
     void UpdateScores()
     {
-        //get networked point values or something
-        player1ScoreText.text = player1Name + "                         " + player1Health.health.ToString() + "                   " + player1Score.score.ToString();
-        player2ScoreText.text = player2Name + "                         " + player2Health.health.ToString() + "                   " + player2Score.score.ToString();
-        player3ScoreText.text = player3Name + "                         " + player3Health.health.ToString() + "                   " + player3Score.score.ToString();
-        player4ScoreText.text = player4Name + "                         " + player4Health.health.ToString() + "                   " + player4Score.score.ToString();
+        for (int i = 0; i < playerListArray.Length; ++i)
+        {
+            playerListArray[i].playerScoreText.text = playerListArray[i].playerName + "                         " + playerListArray[i].playerHealth.health + "                   " + playerListArray[i].playerScore.score;
+        }
     }
-
     bool everybodysDead()
     {
+        /*
         bool silence = false;
 
         if (!player1Dead)
@@ -154,6 +153,8 @@ public class Scoreboard : MonoBehaviour {
         }
 
         return silence;
+        */
+        return false;
     }
 
 }

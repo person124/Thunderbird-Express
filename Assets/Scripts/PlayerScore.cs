@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerScore : MonoBehaviour {
 
-    public float score;
+    public int score;
 
 	// Use this for initialization
 	void Start () {
@@ -16,8 +16,12 @@ public class PlayerScore : MonoBehaviour {
 		
 	}
 
-    public void incrementScore(float scoreToAdd)
+    public void incrementScore(int scoreToAdd)
     {
+        if (!Wrapper.NetworkingPlugin_IsServer())
+            return;
+
         score += scoreToAdd;
+        Wrapper.NetworkingPlugin_SendPlayerScore(GetComponent<PlayerMovementFunctions>().ID, score);
     }
 }

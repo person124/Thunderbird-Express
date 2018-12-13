@@ -6,6 +6,7 @@ TagManager:
   tags:
   - WALL
   - ATTACK
+  - CONTROL
   layers:
   - Default
   - TransparentFX

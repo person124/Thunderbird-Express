@@ -17,6 +17,7 @@
     <ClInclude Include="include\peer.hpp" />
     <ClInclude Include="include\plugin\config.h" />
     <ClInclude Include="include\plugin\dllmain.h" />
+    <ClInclude Include="include\plugin\functionTemp.hpp" />
     <ClInclude Include="include\plugin\functionTypes.h" />
     <ClInclude Include="include\plugin\plugin.h" />
     <ClInclude Include="include\plugin\plugin_functions.hpp" />
