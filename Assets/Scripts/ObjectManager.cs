@@ -153,7 +153,7 @@ public class ObjectManager : MonoBehaviour
         {
             if (i != num)
             {
-                Destroy(objects[i].transform.GetChild(0).gameObject);
+                objects[i].transform.GetChild(0).gameObject.SetActive(false);
                 objects[i].GetComponent<PlayerInput>().enabled = false;
                 objects[i].GetComponent<PlayerMovementFunctions>().enabled = false;
                 objects[i].GetComponent<VGSControls>().enabled = false;

@@ -15,6 +15,7 @@ public class Scoreboard : MonoBehaviour {
     public GameObject gameOverScreen;
 
     private Wrapper.FuncPlayerUpdate scoreHandler;
+    private Wrapper.FuncPlayerUpdate healthHandler;
 
     struct PlayerReferences
     {
@@ -38,6 +39,7 @@ public class Scoreboard : MonoBehaviour {
 
         for (int i = 0; i < playerListArray.Length; ++i)
         {
+            playerListArray[i].playerDead = false;
             playerListArray[i].playerScore = playerList.transform.GetChild(i).gameObject.GetComponent<PlayerScore>();
             playerListArray[i].playerHealth = playerList.transform.GetChild(i).gameObject.GetComponent<PlayerHealth>();
             playerListArray[i].playerScoreText = playerScorePanel.transform.GetChild(i).GetComponent<TextMeshProUGUI>();
@@ -47,12 +49,20 @@ public class Scoreboard : MonoBehaviour {
         scoreScreen.SetActive(false);
 
         scoreHandler = HandleScore;
+        healthHandler = HandleHealth;
         Wrapper.SetFuncPlayerUpdateScore(scoreHandler);
+        Wrapper.SetFuncPlayerUpdateHealth(healthHandler);
     }
 
     public void HandleScore(ulong time, int playerID, int score)
     {
         playerListArray[playerID].playerScore.score = score;
+    }
+
+    public void HandleHealth(ulong time, int playerID, int health)
+    {
+        playerListArray[playerID].playerHealth.health = health;
+        playerListArray[playerID].playerHealth.CheckHealth();
     }
 	
 	// Update is called once per frame

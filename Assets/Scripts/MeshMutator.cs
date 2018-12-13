@@ -7,7 +7,7 @@ public class MeshMutator : MonoBehaviour
     //private Wrapper.FuncColor funcColor;
     
     MeshRenderer mesh;
-    
+    int store;
     //public Material red;
     //public Material yellow;
     //public Material blue;
@@ -17,15 +17,24 @@ public class MeshMutator : MonoBehaviour
         //funcColor = handleMeshColor;
         //Wrapper.SetFuncColor(funcColor);
         mesh = GetComponent<MeshRenderer>();
+        setColor(0);
+        store = 0;
     }
-    
+
+    private void Update()
+    {
+        Debug.Log(store);
+        GetComponent<PlayerHealth>().SendMessage("SetShieldType", store);
+    }
+
     //void handleMeshColor(ulong time, int objectID, int color)
     //{
     //    setColor(color);
     //}
-    
+
     public void setColor(int color)
     {
+        store = color;
         switch (color)
         {
             case 0:

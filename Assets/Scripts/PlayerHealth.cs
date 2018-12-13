@@ -18,8 +18,6 @@ public class PlayerHealth : MonoBehaviour {
 
     GameObject objManager;
 
-    private Wrapper.FuncPlayerUpdate hpRecieve;
-
     enum ShieldType
     {
         RED,
@@ -42,14 +40,18 @@ public class PlayerHealth : MonoBehaviour {
         deadCamera = GameObject.Find("DEADCamera").GetComponent<Camera>();
         deadCamera.enabled = false;
         objManager = GameObject.FindGameObjectWithTag("CONTROL");
-
-        hpRecieve = HandleDamage;
-        Wrapper.SetFuncPlayerUpdateHealth(hpRecieve);
     }
 
+    void SetShieldType(int color)
+    {
+        shield = (ShieldType)color;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!Wrapper.NetworkingPlugin_IsServer())
+            return;
+
         Debug.Log("collision");
 
         if (other.gameObject.CompareTag("ATTACK"))
@@ -59,24 +61,24 @@ public class PlayerHealth : MonoBehaviour {
             {
                 Debug.Log("wrong block");
 
-
                 DamagePlayer();
             }
             else
             {
                 scorekeeper.incrementScore(5000);
                 Debug.Log("nice block!");
-
             }
 
+            other.gameObject.SendMessage("ResetPos");
         }
     }
 
-    void HandleDamage(ulong time, int objectID, int hp2)
+    public void CheckHealth()
     {
-        health = hp2;
         if (health <= 0)
         {
+            health = 0;
+
             transform.position = new Vector3(-100, -100, -100);
             mainCamera.enabled = false;
             deadCamera.enabled = true;
@@ -99,17 +101,22 @@ public class PlayerHealth : MonoBehaviour {
             }
         }
     }
+
     bool DamagePlayer()
     {
         --health;
         if (health <= 0)
         {
             health = 0;
+
+            transform.position = new Vector3(-100, -100, -100);
             mainCamera.enabled = false;
             deadCamera.enabled = true;
             input.enabled = false;
 
             dead = true;
+
+            Wrapper.NetworkingPlugin_SendPlayerHealth(GetComponent<PlayerMovementFunctions>().ID, health);
 
             return false;
         }
