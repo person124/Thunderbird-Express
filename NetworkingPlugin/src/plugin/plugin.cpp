@@ -145,12 +145,12 @@ void NetworkingPlugin_FuncPlayerData(FuncPlayerData func)
 	Plugin::fPlayerData = func;
 }
 
-void NetworkingPlugin_FuncPlayerHealth(FuncPlayerUpdate func)
+void NetworkingPlugin_FuncPlayerUpdateHealth(FuncPlayerUpdate func)
 {
 	Plugin::fPlayerHealth = func;
 }
 
-void NetworkingPlugin_FuncPlayerScore(FuncPlayerUpdate func)
+void NetworkingPlugin_FuncPlayerUpdateScore(FuncPlayerUpdate func)
 {
 	Plugin::fPlayerScore = func;
 }
@@ -232,7 +232,7 @@ void NetworkingPlugin_SendPlayerData(int objectID,
 	peerInstance->sendPacketToAll(&packet);
 }
 
-void NetworkingPlugin_SendPlayerUpdateHealth(int objectID, int health)
+void NetworkingPlugin_SendPlayerHealth(int objectID, int health)
 {
 	if (peerInstance == NULL)
 		return;
@@ -242,7 +242,7 @@ void NetworkingPlugin_SendPlayerUpdateHealth(int objectID, int health)
 	peerInstance->sendPacketToAll(&packet);
 }
 
-void NetworkingPlugin_SendPlayerUpdateScore(int objectID, int score)
+void NetworkingPlugin_SendPlayerScore(int objectID, int score)
 {
 	if (peerInstance == NULL)
 		return;

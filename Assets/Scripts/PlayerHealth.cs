@@ -77,6 +77,7 @@ public class PlayerHealth : MonoBehaviour {
         health = hp2;
         if (health <= 0)
         {
+            transform.position = new Vector3(-100, -100, -100);
             mainCamera.enabled = false;
             deadCamera.enabled = true;
             input.enabled = false;
@@ -103,6 +104,7 @@ public class PlayerHealth : MonoBehaviour {
         --health;
         if (health <= 0)
         {
+            health = 0;
             mainCamera.enabled = false;
             deadCamera.enabled = true;
             input.enabled = false;

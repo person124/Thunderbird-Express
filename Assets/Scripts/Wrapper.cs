@@ -309,7 +309,7 @@ public class Wrapper
 	// ==========================================================
 	public static void SetFuncPlayerUpdateScore(FuncPlayerUpdate func)
 	{
-		NetworkingPlugin_FuncPlayerUpdateHealth(HandlePlayerUpdateScore);
+		NetworkingPlugin_FuncPlayerUpdateScore(HandlePlayerUpdateScore);
 		mainThreadFuncPlayerUpdateScore = func;
 	}
 
@@ -323,7 +323,7 @@ public class Wrapper
 	private static IEnumerator HandlerPlayerUpdateScore(ulong time, int objectID, int score)
 	{
 		yield return null;
-		mainThreadFuncPlayerUpdateHealth(time, objectID, score);
+        mainThreadFuncPlayerUpdateScore(time, objectID, score);
 	}
 
 	// ==========================================================
