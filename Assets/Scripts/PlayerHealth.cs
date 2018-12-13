@@ -16,6 +16,8 @@ public class PlayerHealth : MonoBehaviour {
 
     public bool dead = false;
 
+    GameObject objManager;
+
     enum ShieldType
     {
         RED,
@@ -28,7 +30,8 @@ public class PlayerHealth : MonoBehaviour {
     public int health;
 
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
         health = 3;
         dead = false;
         mainCamera = GetComponentInChildren<Camera>();
@@ -36,23 +39,16 @@ public class PlayerHealth : MonoBehaviour {
         scorekeeper = GetComponent<PlayerScore>();
         deadCamera = GameObject.Find("DEADCamera").GetComponent<Camera>();
         deadCamera.enabled = false;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+        objManager = GameObject.FindGameObjectWithTag("CONTROL");
+    }
 
 
     private void OnTriggerEnter(Collider other)
     {
-
         Debug.Log("collision");
 
         if (other.gameObject.CompareTag("ATTACK"))
         {
-
-           
 
             if ((int)shield != (int)other.gameObject.GetComponent<Attack>().type)
             {
@@ -75,7 +71,7 @@ public class PlayerHealth : MonoBehaviour {
     bool DamagePlayer()
     {
         --health;
-
+        objManager.SendMessage("SendHealthLoss", GetComponent<PlayerMovementFunctions>().ID);
         if (health <= 0)
         {
             mainCamera.enabled = false;
@@ -102,5 +98,6 @@ public class PlayerHealth : MonoBehaviour {
 
             return true;
         }
+        
     }
 }
