@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerScore : MonoBehaviour {
 
     public int score;
-
+    public ObjectManager objManager;
 	// Use this for initialization
 	void Start () {
         score = 0;
@@ -15,13 +15,17 @@ public class PlayerScore : MonoBehaviour {
 	void Update () {
 		
 	}
-
+    public void incrementScoreLocal(int scoreToAdd)
+    {
+        if (Wrapper.NetworkingPlugin_IsServer() || objManager.localPlayerID == GetComponent<PlayerMovementFunctions>().ID) ;
+        {
+            score += scoreToAdd;
+            incrementScore(score);
+            Wrapper.NetworkingPlugin_SendPlayerScore(GetComponent<PlayerMovementFunctions>().ID, score);
+        }
+    }
     public void incrementScore(int scoreToAdd)
     {
-        if (!Wrapper.NetworkingPlugin_IsServer())
-            return;
-
-        score += scoreToAdd;
-        Wrapper.NetworkingPlugin_SendPlayerScore(GetComponent<PlayerMovementFunctions>().ID, score);
+        score = scoreToAdd;
     }
 }

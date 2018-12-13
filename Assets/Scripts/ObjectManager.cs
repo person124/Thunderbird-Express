@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ObjectManager : MonoBehaviour
 {
@@ -14,11 +15,16 @@ public class ObjectManager : MonoBehaviour
 
     public int localPlayerID;
 
-    private bool tick = false;
+    public bool tick = false;
 
     public GameObject hostScreen;
     public GameObject clientScreen;
     public GameObject activeScreen;
+    public GameObject winScreen;
+    public Text winText;
+
+    public Scoreboard scoreboard;
+
 
     public Camera preGameCamera;
 
@@ -36,6 +42,7 @@ public class ObjectManager : MonoBehaviour
 
         hostScreen.SetActive(false);
         clientScreen.SetActive(false);
+        winScreen.SetActive(false);
 
         if (Wrapper.NetworkingPlugin_IsServer())
         {
@@ -46,7 +53,6 @@ public class ObjectManager : MonoBehaviour
             clientScreen.SetActive(true);
         }
 
-        
 
     }
 
@@ -84,22 +90,7 @@ public class ObjectManager : MonoBehaviour
         }
         else
         {
-            // If client:
-            // (ignore for now) Dead Reckon
-            //for (int j = 0; j < 4; ++j)
-            //{
-            //    if (j != localPlayerID)
-            //    {
-            //        Vector3 tmpPos = objects[j].transform.position;
-            //        Quaternion tmpRot = objects[j].transform.rotation;
-
-                    
-
-
-            //    }
-
-            //}
-
+      
         }
     }
 
@@ -145,17 +136,6 @@ public class ObjectManager : MonoBehaviour
         //UnityMainThreadDispatcher.Instance().Enqueue(Works(time, objectID, x, y, z, rX, rY, rZ, vX, vY, vZ));
     }
 
-    //public IEnumerator Works(ulong time, int objectID,
-    //    float x, float y, float z,
-    //    float rX, float rY, float rZ,
-    //    float vX, float vY, float vZ)
-    //{
-    //    yield return null;
-    //
-    //    // Set object position
-    //    objects[objectID].transform.position = new Vector3(x, y, z);
-    //    objects[objectID].transform.rotation = Quaternion.Euler(rX, rY, rZ);
-    //}
 
     public void HandleColor(ulong time, int objectID, int color)
     {
@@ -206,7 +186,16 @@ public class ObjectManager : MonoBehaviour
 
         //spawn players
         preGameCamera.enabled = false;
-        //UnityMainThreadDispatcher.Instance().Enqueue(yuppers(time, num));
+
+		// Name managing
+		string name = "";
+		GameObject nameHolder = GameObject.Find("NameHolder");
+		name = nameHolder.GetComponent<NameHolder>().name;
+
+		GameObject.Find("ScoreBoard").GetComponent<Scoreboard>().HandlePlayerNames(0, num, name, 0, 0);
+
+		Wrapper.NetworkingPlugin_SendPlayerData(num, name, 0, 0);
+		Destroy(nameHolder);
     }
 
     void SwitchColor(int color)
@@ -218,11 +207,7 @@ public class ObjectManager : MonoBehaviour
             Wrapper.NetworkingPlugin_SendColor(i, color);
         }
     }
-    //public IEnumerator yuppers(ulong time, int num)
-    //{
-    //    yield return null;
-    //
-    //}
+  
 
     public void OnGameStateChange(ulong time, bool value)
     {
@@ -237,14 +222,14 @@ public class ObjectManager : MonoBehaviour
             //spawn players
             preGameCamera.enabled = false;
         }
-        //UnityMainThreadDispatcher.Instance().Enqueue(Blarg(time, value));
-    }
+        else
+        {
+            winScreen.SetActive(true);
 
-    //public IEnumerator Blarg(ulong time, bool value)
-    //{
-    //    yield return null;
-    //
-    //}
+            winText.text = scoreboard.playerListArray[scoreboard.winnerIndex].playerName + " WINS!";
+        }
+    }
+    
 
     public void StartGame()
     {

@@ -35,8 +35,8 @@ public class Attack : MonoBehaviour
 
         mesh = GetComponent<MeshRenderer>();
 
-        maxSpeed = 6.5f;
-        minSpeed = 4.0f;
+        maxSpeed = 60.5f;
+        minSpeed = 1.0f;
 
     }
 	

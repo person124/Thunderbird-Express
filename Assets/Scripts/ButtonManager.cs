@@ -8,6 +8,7 @@ public class ButtonManager : MonoBehaviour {
 
     public Text ipText;
     public Text portText;
+	public Text nameText;
 
     public string ip;
     public int port;
@@ -35,6 +36,8 @@ public class ButtonManager : MonoBehaviour {
 
         if (worked)
         {
+			SaveName();
+
             Wrapper.NetworkingPlugin_StartLoop();
 
             SceneManager.LoadScene("LevelScene");
@@ -51,11 +54,25 @@ public class ButtonManager : MonoBehaviour {
         bool worked = Wrapper.NetworkingPlugin_StartClient(ip, port);
         if (worked)
         {
+			SaveName();
+
             Wrapper.NetworkingPlugin_StartLoop();
 
             SceneManager.LoadScene("LevelScene");
         }
 
     }
+
+	private void SaveName()
+	{
+		GameObject obj = new GameObject("NameHolder");
+		DontDestroyOnLoad(obj);
+
+		NameHolder name = obj.AddComponent<NameHolder>();
+		name.name = nameText.text;
+
+		if (name.name == "")
+			name.name = "Blank Being";
+	}
 
 }
