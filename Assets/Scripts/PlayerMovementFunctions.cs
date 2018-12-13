@@ -8,14 +8,14 @@ public class PlayerMovementFunctions : MonoBehaviour
     public int ID;
 
     private GameObject cam;
-    Rigidbody mRB;
+    public Rigidbody mRB;
 
     public const float MOVE_SPEED = 20.0f;
     public const float CAM_SPEED = 12.0f;
 
     float forwardMove, sideMove;
 
-    Vector3 velocity;
+    public Vector3 velocity;
 
 
     private void Start()
@@ -30,6 +30,11 @@ public class PlayerMovementFunctions : MonoBehaviour
         velocity = new Vector3(horizontal, 0, forward).normalized * MOVE_SPEED;
 
         mRB.velocity = transform.forward * velocity.z + transform.right * velocity.x;
+
+        Wrapper.NetworkingPlugin_SendTransform(ID,
+            transform.position.x, transform.position.y, transform.position.z,
+            transform.rotation.x, transform.rotation.y, transform.rotation.z,
+            mRB.velocity.x, mRB.velocity.y, mRB.velocity.z);
     }
 
     public void SetRotation(float pitch, float yaw)
