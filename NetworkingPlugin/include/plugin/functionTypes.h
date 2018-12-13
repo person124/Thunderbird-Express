@@ -29,8 +29,9 @@ typedef void(*FuncInt)(unsigned long long, int);
 // time, objectID, name, score, health
 typedef void(*FuncPlayerData)(unsigned long long, int, const char*, int, int);
 
-// time, objectID, score, health
-typedef void(*FuncPlayerUpdate)(unsigned long long, int, int, int);
+// time, objectID, variable
+// Used for player score and player health
+typedef void(*FuncPlayerUpdate)(unsigned long long, int, int);
 
 // time, state
 typedef void(*FuncGameState)(unsigned long long, bool);

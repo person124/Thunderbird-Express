@@ -21,20 +21,22 @@
 #include "server.hpp"
 
 #include "plugin/plugin_functions.hpp"
+#include "plugin/functionTemp.hpp"
 
 #include <assert.h>
 #include <string>
 
 Peer* peerInstance = NULL;
 
-FuncTransform Plugin::fTransform;
-FuncColor Plugin::fColor;
-FuncInt Plugin::fShout;
-FuncInt Plugin::fBossHP;
-FuncInt Plugin::fPlayerNumber;
-FuncPlayerData Plugin::fPlayerData;
-FuncPlayerUpdate Plugin::fPlayerUpdate;
-FuncGameState Plugin::fGameState;
+FuncTransform Plugin::fTransform = Temp::FuncTransform;
+FuncColor Plugin::fColor = Temp::FuncColor;
+FuncInt Plugin::fShout = Temp::FuncInt;
+FuncInt Plugin::fBossHP = Temp::FuncInt;
+FuncInt Plugin::fPlayerNumber = Temp::FuncInt;
+FuncPlayerData Plugin::fPlayerData = Temp::FuncPlayerData;
+FuncPlayerUpdate Plugin::fPlayerHealth = Temp::FuncPlayerUpdate;
+FuncPlayerUpdate Plugin::fPlayerScore = Temp::FuncPlayerUpdate;
+FuncGameState Plugin::fGameState = Temp::FuncGameState;
 
 // Non packet functions
 FuncVoid Plugin::fServerShutdown;
@@ -143,9 +145,14 @@ void NetworkingPlugin_FuncPlayerData(FuncPlayerData func)
 	Plugin::fPlayerData = func;
 }
 
-void NetworkingPlugin_FuncPlayerUpdate(FuncPlayerUpdate func)
+void NetworkingPlugin_FuncPlayerUpdateHealth(FuncPlayerUpdate func)
 {
-	Plugin::fPlayerUpdate = func;
+	Plugin::fPlayerHealth = func;
+}
+
+void NetworkingPlugin_FuncPlayerUpdateScore(FuncPlayerUpdate func)
+{
+	Plugin::fPlayerScore = func;
 }
 
 void NetworkingPlugin_FuncGameState(FuncGameState func)
@@ -225,12 +232,22 @@ void NetworkingPlugin_SendPlayerData(int objectID,
 	peerInstance->sendPacketToAll(&packet);
 }
 
-void NetworkingPlugin_SendPlayerUpdate(int objectID, int score, int health)
+void NetworkingPlugin_SendPlayerUpdateHealth(int objectID, int health)
 {
 	if (peerInstance == NULL)
 		return;
 
-	PacketPlayerUpdate packet(objectID, score, health);
+	PacketPlayerHealth packet(objectID, health);
+
+	peerInstance->sendPacketToAll(&packet);
+}
+
+void NetworkingPlugin_SendPlayerUpdateScore(int objectID, int score)
+{
+	if (peerInstance == NULL)
+		return;
+
+	PacketPlayerScore packet(objectID, score);
 
 	peerInstance->sendPacketToAll(&packet);
 }
