@@ -17,7 +17,7 @@ public class BossScript : MonoBehaviour
     public Attack[] attackList;
     // Use this for initialization
     void Start () {
-        hp = 10;
+        hp = 1000;
 
         attackTimer = attackTimerMax;
         bossHP = HandleHP;
@@ -40,9 +40,12 @@ public class BossScript : MonoBehaviour
         if (attackTimer <= 0)
         {
             //Instantiate(attack, transform.position, Quaternion.identity);
-            whoops = ReturnUseable();
-            if (whoops)
-                whoops.SendMessage("SetVelocity", transform.position);
+            for (int i = 0; i < 5; ++i)
+            {
+                whoops = ReturnUseable();
+                if (whoops)
+                    whoops.SendMessage("SetVelocity", transform.position);
+            }
             attackTimer = attackTimerMax;
         }
 

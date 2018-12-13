@@ -15,7 +15,7 @@ public class ObjectManager : MonoBehaviour
 
     public int localPlayerID;
 
-    private bool tick = false;
+    public bool tick = false;
 
     public GameObject hostScreen;
     public GameObject clientScreen;

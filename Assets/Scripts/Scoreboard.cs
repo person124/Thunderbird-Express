@@ -21,6 +21,7 @@ public class Scoreboard : MonoBehaviour
 
     public int winnerIndex = 0;
 
+    ObjectManager objControl;
     public struct PlayerReferences
     {
         public PlayerScore playerScore;
@@ -58,6 +59,8 @@ public class Scoreboard : MonoBehaviour
         Wrapper.SetFuncPlayerUpdateScore(scoreHandler);
         Wrapper.SetFuncPlayerUpdateHealth(healthHandler);
 		Wrapper.SetFuncPlayerData(playerNameHandler);
+
+        objControl = GameObject.FindGameObjectWithTag("CONTROL").GetComponent<ObjectManager>();
     }
 
     public void HandleScore(ulong time, int playerID, int score)
@@ -96,25 +99,25 @@ public class Scoreboard : MonoBehaviour
 
     void WinStateActive()
     {
-
-        
         int highestScore = playerListArray[0].playerScore.score;
 
-        if (everybodysDead() == true || boss.GetComponent<BossScript>().hp <= 0)
+        if (objControl.tick)
         {
-            Debug.Log("ERRYBODY DEAD - network this");
-
-            for (int i = 1; i < playerListArray.Length; ++i)
+            if (everybodysDead() || boss.GetComponent<BossScript>().hp <= 0)
             {
-                if (playerListArray[i].playerScore.score > highestScore)
+                Debug.Log("ERRYBODY DEAD - network this");
+
+                for (int i = 1; i < playerListArray.Length; ++i)
                 {
-                    highestScore = playerListArray[i].playerScore.score;
-                    winnerIndex = i;
+                    if (playerListArray[i].playerScore.score > highestScore)
+                    {
+                        highestScore = playerListArray[i].playerScore.score;
+                        winnerIndex = i;
+                    }
                 }
+
+                Wrapper.NetworkingPlugin_SendGameState(false);
             }
-
-            Wrapper.NetworkingPlugin_SendGameState(false);
-
             // put a send message here for a win game screen that 
             //will kick people back to main sceneand end the game
         }
@@ -130,49 +133,16 @@ public class Scoreboard : MonoBehaviour
     }
     bool everybodysDead()
     {
-        /*
-        bool silence = false;
-
-        if (!player1Dead)
+        bool allDed = true;
+        for (int i = 0; i < playerListArray.Length; ++i)
         {
-            if (player1Health.dead)
+            if (playerListArray[i].playerHealth.health != 0 && playerListArray[i].playerName != "")
             {
-                player1Dead = true;
+                allDed = false;
+                Debug.Log("ytho");
             }
         }
-
-        if (!player2Dead)
-        {
-            if (player2Health.dead)
-            {
-                player2Dead = true;
-            }
-        }
-
-        if (!player3Dead)
-        {
-            if (player3Health.dead)
-            {
-                player3Dead = true;
-            }
-        }
-
-        if (!player4Dead)
-        {
-            if (player4Health.dead)
-            {
-                player4Dead = true;
-            }
-        }
-
-        if (player1Dead && player2Dead && player3Dead && player4Dead)
-        {
-            silence = true;
-        }
-
-        return silence;
-        */
-        return false;
+        return allDed;
     }
 
 }

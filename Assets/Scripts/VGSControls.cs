@@ -16,6 +16,7 @@ public class VGSControls : MonoBehaviour {
 
     MeshMutator myColor;
     GameObject objManager;
+    PlayerHealth hpRef;
 
     enum ShoutType
     {
@@ -32,6 +33,7 @@ public class VGSControls : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
+        hpRef = GetComponent<PlayerHealth>();
         objManager = GameObject.FindGameObjectWithTag("CONTROL");
         shoutRef = transform.root.gameObject;
         scorekeeper = GetComponent<PlayerScore>();
@@ -52,7 +54,7 @@ public class VGSControls : MonoBehaviour {
         if (!shoutStarted)
         {
         //start shout when either click is pressed, give it according type
-            if (Input.GetMouseButtonDown(0)) //left
+            if (Input.GetMouseButtonDown(0) && !hpRef.dead) //left
             {
                 shoutStarted = true;
                 isTrashTalk = false;
@@ -62,7 +64,7 @@ public class VGSControls : MonoBehaviour {
                 rightText.SetActive(false);
 
             }
-            else if (Input.GetMouseButtonDown(1)) //right
+            else if (Input.GetMouseButtonDown(1) && !hpRef.dead) //right
             {
                 shoutStarted = true;
                 isTrashTalk = true;
