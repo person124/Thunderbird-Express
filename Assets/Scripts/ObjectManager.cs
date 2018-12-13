@@ -73,9 +73,9 @@ public class ObjectManager : MonoBehaviour
                 Vector3 tmpPos = objects[i].transform.position;
                 Quaternion tmpRot = objects[i].transform.rotation;
                 Vector3 tmpVel = objects[i].GetComponent<Attack>().velocity;
-
+            
                 Wrapper.NetworkingPlugin_SendColor(i, (int)objects[i].GetComponent<Attack>().type);
-
+            
                 Wrapper.NetworkingPlugin_SendTransform(i,
                     tmpPos.x, tmpPos.y, tmpPos.z,
                     tmpRot.x, tmpRot.y, tmpRot.z,
@@ -175,6 +175,8 @@ public class ObjectManager : MonoBehaviour
     {
         for (int i = 0; i < 4; ++i)
         {
+            objects[i].GetComponent<PlayerMovementFunctions>().ID = i;
+
             if (i != num)
             {
                 objects[i].transform.GetChild(0).gameObject.SetActive(false);
@@ -186,7 +188,6 @@ public class ObjectManager : MonoBehaviour
             }
             else
             {
-                objects[i].GetComponent<PlayerMovementFunctions>().ID = num;
                 objects[i].GetComponent<DeadReckoning>().enabled = false;
 
             }

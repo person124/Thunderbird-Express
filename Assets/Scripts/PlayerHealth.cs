@@ -53,9 +53,6 @@ public class PlayerHealth : MonoBehaviour {
 
         if (other.gameObject.CompareTag("ATTACK"))
         {
-
-           
-
             if ((int)shield != (int)other.gameObject.GetComponent<Attack>().type)
             {
                 Debug.Log("wrong block");
@@ -79,8 +76,13 @@ public class PlayerHealth : MonoBehaviour {
     {
         if (health <= 0)
         {
-            mainCamera.enabled = false;
-            deadCamera.enabled = true;
+            transform.position += new Vector3(0, -100, 0);
+
+            if (mainCamera)
+            {
+                mainCamera.enabled = false;
+                deadCamera.enabled = true;
+            }
             input.enabled = false;
 
             dead = true;

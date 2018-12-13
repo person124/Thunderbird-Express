@@ -42,6 +42,7 @@ public class Scoreboard : MonoBehaviour
         {
             playerListArray[i].playerScore = playerList.transform.GetChild(i).gameObject.GetComponent<PlayerScore>();
             playerListArray[i].playerHealth = playerList.transform.GetChild(i).gameObject.GetComponent<PlayerHealth>();
+            playerListArray[i].playerHealth.health = 3;
             playerListArray[i].playerScoreText = playerScorePanel.transform.GetChild(i).GetComponent<TextMeshProUGUI>();
             playerListArray[i].playerName = "Player " + i;
         }
