@@ -32,7 +32,8 @@ enum PacketTypes
 	PACKET_BOSS_HP,
 	PACKET_PLAYER_NUMBER,
 	PACKET_PLAYER_DATA,
-	PACKET_PLAYER_UPDATE,
+	PACKET_PLAYER_HEALTH,
+	PACKET_PLAYER_SCORE,
 	PACKET_GAME_STATE,
 
 	// Non Unity Exposed Packets
@@ -149,19 +150,28 @@ struct PacketPlayerData : public Packet
 	unsigned int health;
 };
 
-struct PacketPlayerUpdate : public Packet
+struct PacketPlayerHealth : public Packet
 {
-	PacketPlayerUpdate(unsigned int id,
-		unsigned int playerScore, unsigned int playerHealth) :Packet(PACKET_PLAYER_UPDATE)
+	PacketPlayerHealth(unsigned int id, unsigned int value) :Packet(PACKET_PLAYER_HEALTH)
 	{
 		objectID = id;
-		playerScore = score;
-		playerHealth = health;
+		health = value;
+	}
+
+	unsigned int objectID;
+	unsigned int health;
+};
+
+struct PacketPlayerScore : public Packet
+{
+	PacketPlayerScore(unsigned int id, unsigned int value) :Packet(PACKET_PLAYER_SCORE)
+	{
+		objectID = id;
+		score = value;
 	}
 
 	unsigned int objectID;
 	unsigned int score;
-	unsigned int health;
 };
 
 struct PacketGameState : public Packet
