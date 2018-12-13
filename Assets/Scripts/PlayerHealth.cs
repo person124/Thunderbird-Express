@@ -65,7 +65,8 @@ public class PlayerHealth : MonoBehaviour {
             }
             else
             {
-                scorekeeper.incrementScore(5000);
+                scorekeeper.SendMessage("incrementScoreLocal", 5000);
+                //scorekeeper.incrementScore(5000);
                 Debug.Log("nice block!");
 
             }

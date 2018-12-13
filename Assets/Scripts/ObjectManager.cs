@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ObjectManager : MonoBehaviour
 {
@@ -19,6 +20,10 @@ public class ObjectManager : MonoBehaviour
     public GameObject hostScreen;
     public GameObject clientScreen;
     public GameObject activeScreen;
+    public GameObject winScreen;
+
+    public Scoreboard scoreboard;
+
 
     public Camera preGameCamera;
 
@@ -36,6 +41,7 @@ public class ObjectManager : MonoBehaviour
 
         hostScreen.SetActive(false);
         clientScreen.SetActive(false);
+        winScreen.SetActive(false);
 
         if (Wrapper.NetworkingPlugin_IsServer())
         {
@@ -84,22 +90,7 @@ public class ObjectManager : MonoBehaviour
         }
         else
         {
-            // If client:
-            // (ignore for now) Dead Reckon
-            //for (int j = 0; j < 4; ++j)
-            //{
-            //    if (j != localPlayerID)
-            //    {
-            //        Vector3 tmpPos = objects[j].transform.position;
-            //        Quaternion tmpRot = objects[j].transform.rotation;
-
-                    
-
-
-            //    }
-
-            //}
-
+      
         }
     }
 
@@ -145,17 +136,6 @@ public class ObjectManager : MonoBehaviour
         //UnityMainThreadDispatcher.Instance().Enqueue(Works(time, objectID, x, y, z, rX, rY, rZ, vX, vY, vZ));
     }
 
-    //public IEnumerator Works(ulong time, int objectID,
-    //    float x, float y, float z,
-    //    float rX, float rY, float rZ,
-    //    float vX, float vY, float vZ)
-    //{
-    //    yield return null;
-    //
-    //    // Set object position
-    //    objects[objectID].transform.position = new Vector3(x, y, z);
-    //    objects[objectID].transform.rotation = Quaternion.Euler(rX, rY, rZ);
-    //}
 
     public void HandleColor(ulong time, int objectID, int color)
     {
@@ -218,11 +198,7 @@ public class ObjectManager : MonoBehaviour
             Wrapper.NetworkingPlugin_SendColor(i, color);
         }
     }
-    //public IEnumerator yuppers(ulong time, int num)
-    //{
-    //    yield return null;
-    //
-    //}
+  
 
     public void OnGameStateChange(ulong time, bool value)
     {
@@ -237,14 +213,13 @@ public class ObjectManager : MonoBehaviour
             //spawn players
             preGameCamera.enabled = false;
         }
-        //UnityMainThreadDispatcher.Instance().Enqueue(Blarg(time, value));
+        else
+        {
+            winScreen.SetActive(true);
+            winScreen.GetComponent<TextMeshProUGUI>().text = scoreboard.playerListArray[scoreboard.winnerIndex].playerName + " WINS!";
+        }
     }
-
-    //public IEnumerator Blarg(ulong time, bool value)
-    //{
-    //    yield return null;
-    //
-    //}
+    
 
     public void StartGame()
     {

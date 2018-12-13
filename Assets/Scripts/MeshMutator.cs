@@ -17,6 +17,7 @@ public class MeshMutator : MonoBehaviour
         //funcColor = handleMeshColor;
         //Wrapper.SetFuncColor(funcColor);
         mesh = GetComponent<MeshRenderer>();
+        setColor(0);
     }
     
     //void handleMeshColor(ulong time, int objectID, int color)

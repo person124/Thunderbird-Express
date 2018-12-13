@@ -5,7 +5,7 @@ using UnityEngine;
 public class DeadReckoning : MonoBehaviour {
 
     //last known states, update these in packets
-    public Vector3 lastKnownPosition = new Vector3(0, -100, 0);
+    public Vector3 lastKnownPosition = new Vector3(0, -500, 0);
     public Vector3 lastKnownVelocity;
     public Vector3 lastKnownAcceleration;
 
@@ -22,7 +22,7 @@ public class DeadReckoning : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        lastKnownPosition = Vector3.zero;
+        //lastKnownPosition = Vector3.zero;
         lastKnownVelocity = Vector3.zero;
         lastKnownAcceleration = Vector3.one;
         estimatedPosition = Vector3.zero;

@@ -18,7 +18,9 @@ public class Scoreboard : MonoBehaviour
     private Wrapper.FuncPlayerUpdate scoreHandler;
     private Wrapper.FuncPlayerUpdate healthHandler;
 
-    struct PlayerReferences
+    public int winnerIndex = 0;
+
+    public struct PlayerReferences
     {
         public PlayerScore playerScore;
         public PlayerHealth playerHealth;
@@ -28,7 +30,7 @@ public class Scoreboard : MonoBehaviour
         public TextMeshProUGUI playerScoreText;
     }
 
-    PlayerReferences[] playerListArray;
+    public PlayerReferences[] playerListArray;
 
     public GameObject playerScorePanel;
 
@@ -57,7 +59,7 @@ public class Scoreboard : MonoBehaviour
 
     public void HandleScore(ulong time, int playerID, int score)
     {
-        playerListArray[playerID].playerScore.score = score;
+        playerListArray[playerID].playerScore.incrementScore(score);
     }
 
     public void HandleHealth(ulong time, int playerID, int health)
@@ -85,22 +87,29 @@ public class Scoreboard : MonoBehaviour
 
     void WinStateActive()
     {
-        /*
-        float highestScore = player1Score.score;
+
+        
+        float highestScore = playerListArray[0].playerScore.score;
+
         if (everybodysDead() == true || boss.GetComponent<BossScript>().hp <= 0)
         {
             Debug.Log("ERRYBODY DEAD - network this");
-            if (player2Score.score >= highestScore)
-                highestScore = player2Score.score;
-            if (player3Score.score >= highestScore)
-                highestScore = player3Score.score;
-            if (player4Score.score >= highestScore)
-                highestScore = player4Score.score;
+
+            for (int i = 1; i < playerListArray.Length; ++i)
+            {
+                if (playerListArray[i].playerScore.score > highestScore)
+                {
+                    highestScore = playerListArray[i].playerScore.score;
+                    winnerIndex = i;
+                }
+            }
+
+            Wrapper.NetworkingPlugin_SendGameState(false);
 
             // put a send message here for a win game screen that 
             //will kick people back to main sceneand end the game
         }
-        */
+        
     }
 
     void UpdateScores()

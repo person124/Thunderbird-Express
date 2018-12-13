@@ -16,6 +16,7 @@ public class VGSControls : MonoBehaviour {
 
     MeshMutator myColor;
     GameObject objManager;
+
     enum ShoutType
     {
         SHIELD_RED,
@@ -79,7 +80,7 @@ public class VGSControls : MonoBehaviour {
                 if (isTrashTalk == true)
                 {
                     type = ShoutType.TRASHTALK_DORK;
-                    Wrapper.NetworkingPlugin_SendPlayerScore(GetComponent<PlayerMovementFunctions>().ID, scorekeeper.score + 1000);
+                    scorekeeper.SendMessage("incrementScoreLocal", 1000);
                 }
                 else
                 {
@@ -99,7 +100,7 @@ public class VGSControls : MonoBehaviour {
                 if (isTrashTalk == true)
                 {
                     type = ShoutType.TRASHTALK_SHORTS;
-                    Wrapper.NetworkingPlugin_SendPlayerScore(GetComponent<PlayerMovementFunctions>().ID, scorekeeper.score + 500);
+                    scorekeeper.SendMessage("incrementScoreLocal", 500);
                 }
                 else
                 { 
@@ -118,7 +119,7 @@ public class VGSControls : MonoBehaviour {
                 if (isTrashTalk == true)
                 {
                     type = ShoutType.TRASHTALK_DAD;
-                    Wrapper.NetworkingPlugin_SendPlayerScore(GetComponent<PlayerMovementFunctions>().ID, scorekeeper.score + 2000);
+                    scorekeeper.SendMessage("incrementScoreLocal", 2000);
                 }
                 else
                 { 
