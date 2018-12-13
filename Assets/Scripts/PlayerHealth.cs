@@ -44,7 +44,7 @@ public class PlayerHealth : MonoBehaviour {
         objManager = GameObject.FindGameObjectWithTag("CONTROL");
 
         hpRecieve = HandleDamage;
-        Wrapper.NetworkingPlugin_SendPlayerHealth(hpRecieve);
+        Wrapper.SetFuncPlayerUpdateHealth(hpRecieve);
     }
 
 
@@ -72,7 +72,32 @@ public class PlayerHealth : MonoBehaviour {
         }
     }
 
+    void HandleDamage(ulong time, int objectID, int hp2)
+    {
+        health = hp2;
+        if (health <= 0)
+        {
+            mainCamera.enabled = false;
+            deadCamera.enabled = true;
+            input.enabled = false;
 
+            dead = true;
+        }
+        else
+        {
+            switch (health)
+            {
+                case 2:
+                    first.SetActive(false);
+                    break;
+                case 1:
+                    second.SetActive(false);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
     bool DamagePlayer()
     {
         --health;
@@ -99,7 +124,7 @@ public class PlayerHealth : MonoBehaviour {
                 default:
                     break;
             }
-
+            Wrapper.NetworkingPlugin_SendPlayerHealth(GetComponent<PlayerMovementFunctions>().ID, health);
             return true;
         }
         
