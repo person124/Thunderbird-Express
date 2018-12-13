@@ -74,10 +74,16 @@ void Client::handlePacket(Packet* packet, Connection* conn)
 		Plugin::fPlayerData(p->timeStamp, p->objectID, p->name, p->score, p->health);
 		break;
 	}
-	case PACKET_PLAYER_UPDATE:
+	case PACKET_PLAYER_HEALTH:
 	{
-		PacketPlayerUpdate* p = (PacketPlayerUpdate*)packet;
-		Plugin::fPlayerUpdate(p->timeStamp, p->objectID, p->score, p->health);
+		PacketPlayerHealth* p = (PacketPlayerHealth*)packet;
+		Plugin::fPlayerHealth(p->timeStamp, p->objectID, p->health);
+		break;
+	}
+	case PACKET_PLAYER_SCORE:
+	{
+		PacketPlayerScore* p = (PacketPlayerScore*)packet;
+		Plugin::fPlayerScore(p->timeStamp, p->objectID, p->score);
 		break;
 	}
 	case PACKET_GAME_STATE:

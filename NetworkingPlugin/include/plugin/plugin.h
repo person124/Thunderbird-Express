@@ -68,7 +68,10 @@ extern "C"
 		void NetworkingPlugin_FuncPlayerData(FuncPlayerData func);
 
 	PLUGIN_SYMBOL
-		void NetworkingPlugin_FuncPlayerUpdate(FuncPlayerUpdate func);
+		void NetworkingPlugin_FuncPlayerUpdateHealth(FuncPlayerUpdate func);
+
+	PLUGIN_SYMBOL
+		void NetworkingPlugin_FuncPlayerUpdateScore(FuncPlayerUpdate func);
 
 	PLUGIN_SYMBOL
 		void NetworkingPlugin_FuncGameState(FuncGameState func);
@@ -105,8 +108,12 @@ extern "C"
 			const char* name, int score, int health);
 
 	PLUGIN_SYMBOL
-		void NetworkingPlugin_SendPlayerUpdate(int objectID,
-			int score, int health);
+		void NetworkingPlugin_SendPlayerUpdateHealth(int objectID,
+			int health);
+
+	PLUGIN_SYMBOL
+		void NetworkingPlugin_SendPlayerUpdateScore(int objectID,
+			int score);
 
 	PLUGIN_SYMBOL
 		void NetworkingPlugin_SendGameState(bool state);

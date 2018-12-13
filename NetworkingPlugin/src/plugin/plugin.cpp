@@ -33,7 +33,8 @@ FuncInt Plugin::fShout;
 FuncInt Plugin::fBossHP;
 FuncInt Plugin::fPlayerNumber;
 FuncPlayerData Plugin::fPlayerData;
-FuncPlayerUpdate Plugin::fPlayerUpdate;
+FuncPlayerUpdate Plugin::fPlayerHealth;
+FuncPlayerUpdate Plugin::fPlayerScore;
 FuncGameState Plugin::fGameState;
 
 // Non packet functions
@@ -143,9 +144,14 @@ void NetworkingPlugin_FuncPlayerData(FuncPlayerData func)
 	Plugin::fPlayerData = func;
 }
 
-void NetworkingPlugin_FuncPlayerUpdate(FuncPlayerUpdate func)
+void NetworkingPlugin_FuncPlayerUpdateHealth(FuncPlayerUpdate func)
 {
-	Plugin::fPlayerUpdate = func;
+	Plugin::fPlayerHealth = func;
+}
+
+void NetworkingPlugin_FuncPlayerUpdateScore(FuncPlayerUpdate func)
+{
+	Plugin::fPlayerScore = func;
 }
 
 void NetworkingPlugin_FuncGameState(FuncGameState func)
@@ -225,12 +231,22 @@ void NetworkingPlugin_SendPlayerData(int objectID,
 	peerInstance->sendPacketToAll(&packet);
 }
 
-void NetworkingPlugin_SendPlayerUpdate(int objectID, int score, int health)
+void NetworkingPlugin_SendPlayerUpdateHealth(int objectID, int health)
 {
 	if (peerInstance == NULL)
 		return;
 
-	PacketPlayerUpdate packet(objectID, score, health);
+	PacketPlayerHealth packet(objectID, health);
+
+	peerInstance->sendPacketToAll(&packet);
+}
+
+void NetworkingPlugin_SendPlayerUpdateScore(int objectID, int score)
+{
+	if (peerInstance == NULL)
+		return;
+
+	PacketPlayerScore packet(objectID, score);
 
 	peerInstance->sendPacketToAll(&packet);
 }
