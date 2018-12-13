@@ -29,7 +29,7 @@ public class ButtonManager : MonoBehaviour {
     {
         port = int.Parse(portText.text);
 
-        Debug.Log(port);
+        //Debug.Log(port);
         bool worked = Wrapper.NetworkingPlugin_StartServer(port, 4);
 
 

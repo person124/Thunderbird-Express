@@ -79,7 +79,7 @@ public class VGSControls : MonoBehaviour {
                 if (isTrashTalk == true)
                 {
                     type = ShoutType.TRASHTALK_DORK;
-                    scorekeeper.incrementScore(1000);
+                    incrementScore(1000);
                 }
                 else
                 {
@@ -99,7 +99,7 @@ public class VGSControls : MonoBehaviour {
                 if (isTrashTalk == true)
                 {
                     type = ShoutType.TRASHTALK_SHORTS;
-                    scorekeeper.incrementScore(500);
+                    incrementScore(500);
                 }
                 else
                 { 
@@ -118,7 +118,7 @@ public class VGSControls : MonoBehaviour {
                 if (isTrashTalk == true)
                 {
                     type = ShoutType.TRASHTALK_DAD;
-                    scorekeeper.incrementScore(2000);
+                    incrementScore(2000);
                 }
                 else
                 { 
@@ -133,8 +133,11 @@ public class VGSControls : MonoBehaviour {
                 resetShout();
             }
         }
-        
+    }
 
+    void incrementScore(int score)
+    {
+        scorekeeper.incrementScore(score);
     }
 
     void resetShout()

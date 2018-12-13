@@ -66,8 +66,6 @@ public class Attack : MonoBehaviour
 
         rb.velocity = velocity;
         SetAttackType(Random.Range(0, 3));
-
-
     }
 
     void ResetPos()

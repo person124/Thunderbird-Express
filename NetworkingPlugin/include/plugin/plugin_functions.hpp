@@ -26,7 +26,8 @@ struct Plugin
 	static FuncInt fBossHP;
 	static FuncInt fPlayerNumber;
 	static FuncPlayerData fPlayerData;
-	static FuncPlayerUpdate fPlayerUpdate;
+	static FuncPlayerUpdate fPlayerHealth;
+	static FuncPlayerUpdate fPlayerScore;
 	static FuncGameState fGameState;
 
 	// Non Packet Functions
