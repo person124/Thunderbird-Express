@@ -130,8 +130,12 @@ public class Wrapper
 		string name, int score, int health);
 
 	[DllImport(DLL)]
-	public static extern void NetworkingPlugin_SendPlayerUpdate(int objectID,
-		int score, int health);
+	public static extern void NetworkingPlugin_SendPlayerHealth(int objectID,
+		int health);
+
+	[DllImport(DLL)]
+	public static extern void NetworkingPlugin_SendPlayerScore(int objectID,
+		int score);
 
 	[DllImport(DLL)]
 	public static extern void NetworkingPlugin_SendGameState(bool state);

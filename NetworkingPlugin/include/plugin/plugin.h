@@ -108,11 +108,11 @@ extern "C"
 			const char* name, int score, int health);
 
 	PLUGIN_SYMBOL
-		void NetworkingPlugin_SendPlayerUpdateHealth(int objectID,
+		void NetworkingPlugin_SendPlayerHealth(int objectID,
 			int health);
 
 	PLUGIN_SYMBOL
-		void NetworkingPlugin_SendPlayerUpdateScore(int objectID,
+		void NetworkingPlugin_SendPlayerScore(int objectID,
 			int score);
 
 	PLUGIN_SYMBOL

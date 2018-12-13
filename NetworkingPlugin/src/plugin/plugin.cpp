@@ -145,12 +145,12 @@ void NetworkingPlugin_FuncPlayerData(FuncPlayerData func)
 	Plugin::fPlayerData = func;
 }
 
-void NetworkingPlugin_FuncPlayerUpdateHealth(FuncPlayerUpdate func)
+void NetworkingPlugin_FuncPlayerHealth(FuncPlayerUpdate func)
 {
 	Plugin::fPlayerHealth = func;
 }
 
-void NetworkingPlugin_FuncPlayerUpdateScore(FuncPlayerUpdate func)
+void NetworkingPlugin_FuncPlayerScore(FuncPlayerUpdate func)
 {
 	Plugin::fPlayerScore = func;
 }
