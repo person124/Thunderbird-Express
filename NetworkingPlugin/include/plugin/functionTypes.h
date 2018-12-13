@@ -18,7 +18,7 @@
 
 // time, objectID, x, y, z, rX, rY, rZ
 typedef void(*FuncTransform)
-(unsigned long long, int, float, float, float, float, float, float);
+(unsigned long long, int, float, float, float, float, float, float, float, float, float);
 
 // time, objectID, color
 typedef void(*FuncColor)(unsigned long long, int, int);
