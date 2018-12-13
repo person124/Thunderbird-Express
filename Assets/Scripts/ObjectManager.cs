@@ -157,7 +157,7 @@ public class ObjectManager : MonoBehaviour
                 objects[i].GetComponent<PlayerInput>().enabled = false;
                 objects[i].GetComponent<PlayerMovementFunctions>().enabled = false;
                 objects[i].GetComponent<VGSControls>().enabled = false;
-                objects[i].GetComponent<PlayerScore>().enabled = false;
+                //objects[i].GetComponent<PlayerScore>().enabled = false;
             }
             else
             {
