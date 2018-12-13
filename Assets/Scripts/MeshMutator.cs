@@ -24,7 +24,7 @@ public class MeshMutator : MonoBehaviour
     private void Update()
     {
         Debug.Log(store);
-        GetComponent<PlayerHealth>().SendMessage("SetShieldType", store);
+        GetComponent<PlayerHealth>().SendMessage("ShieldSet", store);
     }
 
     //void handleMeshColor(ulong time, int objectID, int color)
