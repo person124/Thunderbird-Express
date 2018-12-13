@@ -128,10 +128,10 @@ void Server::handlePacket(Packet* packet, Connection* conn)
 	case PACKET_CLIENT_DISCONNECT:
 	{
 		// When a client leaves
-
 		unsigned int id = removeConnection(conn);
 		assert(id != 0);
 
+		Plugin::fClientLeave(packet->timeStamp, id);
 		PacketClientDisconnect disconnect = PacketClientDisconnect(id);
 		sendPacketBut(&disconnect, conn);
 
@@ -165,7 +165,10 @@ unsigned int Server::removeConnection(Connection* conn)
 		if (mConnections[i] && mConnections[i]->getID() == conn->getID())
 		{
 			delete mConnections[i];
+			mConnections[i] = NULL;
+
 			mConnectedClientCount--;
+
 			return i + 1;
 		}
 	}
